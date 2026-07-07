@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pescadería El 7 Mares | Los Mejores Mariscos de Reynosa</title>
+<meta name="description" content="Mariscos frescos, sabrosos y hechos con amor en Reynosa, Tamaulipas. Cocteles, botanas y platillos del mar. Pide por WhatsApp.">
+<meta name="keywords" content="mariscos Reynosa, pescadería, coctel de camarón, botana 7 mares, mojarra frita, champichana">
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<!-- Leaflet (mapa gratuito) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --azul-marino:#0c2b52;
+    --azul-marino-2:#123a6b;
+    --rojo:#e02a25;
+    --rojo-oscuro:#c11f1b;
+    --verde-wsp:#25d366;
+    --verde-wsp-oscuro:#1eb356;
+    --celeste-bg:#eaf3fb;
+    --rosa-local:#ff7fb0;
+    --crema:#fffaf4;
+  }
+
+  body{
+    font-family:'Nunito', sans-serif;
+    color:#1f2937;
+  }
+  h1,h2,h3,h4,.brand-font{
+    font-family:'Baloo 2', cursive;
+  }
+
+  /* ===== NAVBAR ===== */
+  .navbar-7mares{
+    background:#ffffff;
+    box-shadow:0 2px 12px rgba(12,43,82,.08);
+  }
+  .navbar-7mares .nav-link{
+    color:var(--azul-marino);
+    font-weight:700;
+    letter-spacing:.3px;
+    margin:0 .4rem;
+  }
+  .navbar-7mares .nav-link.active,
+  .navbar-7mares .nav-link:hover{
+    color:var(--rojo);
+  }
+  .logo-badge{
+    width:54px;height:54px;border-radius:50%;
+    background:var(--crema);
+    display:flex;align-items:center;justify-content:center;
+    border:3px solid var(--rojo);
+    font-size:1.6rem;
+  }
+  .brand-title{
+    font-family:'Baloo 2', cursive;
+    color:var(--rojo);
+    line-height:1;
+    font-size:1.05rem;
+    font-weight:800;
+  }
+  .brand-title small{
+    display:block;
+    color:var(--azul-marino);
+    font-size:.62rem;
+    font-weight:700;
+    letter-spacing:2px;
+  }
+  .btn-wsp{
+    background:var(--verde-wsp);
+    color:#fff;
+    font-weight:800;
+    border-radius:50px;
+    padding:.55rem 1.3rem;
+    border:none;
+    white-space:nowrap;
+  }
+  .btn-wsp:hover{ background:var(--verde-wsp-oscuro); color:#fff; }
+  .btn-wsp-outline{
+    background:#fff;
+    color:var(--azul-marino);
+    border:2px solid var(--azul-marino);
+    font-weight:800;
+    border-radius:50px;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    background:linear-gradient(160deg, var(--azul-marino) 0%, var(--azul-marino-2) 100%);
+    position:relative;
+    overflow:hidden;
+    padding-top:3.5rem;
+    padding-bottom:5rem;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;bottom:-1px;
+    height:60px;
+    background:#fff;
+    clip-path:polygon(0 40%, 5% 55%, 10% 40%, 15% 60%, 20% 40%, 25% 58%, 30% 40%, 35% 60%, 40% 40%, 45% 58%, 50% 40%, 55% 60%, 60% 40%, 65% 58%, 70% 40%, 75% 60%, 80% 40%, 85% 58%, 90% 40%, 95% 60%, 100% 40%, 100% 100%, 0 100%);
+  }
+  .hero .badge-tag{
+    background:var(--rojo);
+    color:#fff;
+    font-weight:800;
+    letter-spacing:1px;
+    padding:.5rem 1rem;
+    border-radius:6px;
+    font-size:.78rem;
+    display:inline-block;
+  }
+  .hero h1{
+    color:#fff;
+    font-weight:800;
+    font-size:2.6rem;
+    line-height:1.05;
+  }
+  .hero h1 .destacado{
+    color:#fff;
+    font-size:3.3rem;
+    display:block;
+    -webkit-text-stroke:0;
+  }
+  .hero p.lead-text{
+    color:#dbe6f3;
+    font-size:1.02rem;
+  }
+  .hero-img-wrap{
+    position:relative;
+    border-radius:50%;
+    overflow:hidden;
+    border:6px solid #fff;
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+    aspect-ratio:1/1;
+  }
+  .hero-img-wrap img{
+    width:100%;height:100%;object-fit:cover;
+  }
+  .wave-deco{
+    position:absolute;
+    opacity:.25;
+    color:#fff;
+    font-size:2rem;
+  }
+
+  /* ===== FEATURES ===== */
+  .features-bar{
+    background:#fff;
+    padding:3rem 0 2.5rem;
+  }
+  .feature-item{
+    text-align:center;
+    padding:0 1rem;
+  }
+  .feature-icon{
+    width:64px;height:64px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto .8rem;
+    font-size:1.7rem;
+  }
+  .feature-icon.fish{ background:#e8f1fc; color:var(--azul-marino-2); }
+  .feature-icon.shrimp{ background:#fdeceb; color:var(--rojo); }
+  .feature-icon.shell{ background:#e8f6fb; color:#1a9bc7; }
+  .feature-icon.heart{ background:#fdeceb; color:var(--rojo); }
+  .feature-item h3{
+    font-size:1rem;
+    font-weight:800;
+    color:var(--azul-marino);
+  }
+  .feature-item p{
+    font-size:.88rem;
+    color:#6b7280;
+    margin-bottom:0;
+  }
+
+  /* ===== FAVORITOS ===== */
+  .favoritos-section{
+    background:var(--celeste-bg);
+    padding:4rem 0;
+  }
+  .section-title{
+    text-align:center;
+    color:var(--azul-marino);
+    font-weight:800;
+    position:relative;
+    display:inline-block;
+    margin-bottom:2.5rem;
+  }
+  .section-title::after{
+    content:"";
+    display:block;
+    width:70px;height:5px;
+    background:var(--rojo);
+    border-radius:3px;
+    margin:.4rem auto 0;
+  }
+  .title-wrap{ text-align:center; width:100%; }
+
+  .card-plato{
+    border:none;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 6px 18px rgba(12,43,82,.1);
+    background:#fff;
+    height:100%;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card-plato:hover{
+    transform:translateY(-6px);
+    box-shadow:0 14px 28px rgba(12,43,82,.18);
+  }
+  .card-plato img{
+    height:170px;
+    object-fit:cover;
+    width:100%;
+  }
+  .card-plato .card-body{ text-align:center; padding:1rem .8rem 1.2rem; }
+  .card-plato h5{
+    color:var(--azul-marino);
+    font-weight:800;
+    font-size:.92rem;
+    text-transform:uppercase;
+    margin-bottom:.3rem;
+  }
+  .card-plato .precio{
+    color:var(--rojo);
+    font-weight:800;
+    font-size:1.15rem;
+  }
+  .btn-menu-completo{
+    background:var(--rojo);
+    color:#fff;
+    font-weight:800;
+    border:none;
+    border-radius:50px;
+    padding:.7rem 2rem;
+  }
+  .btn-menu-completo:hover{ background:var(--rojo-oscuro); color:#fff; }
+
+  /* ===== QUIENES SOMOS ===== */
+  .quienes-somos{
+    padding:4.5rem 0;
+    background:#fff;
+  }
+  .quienes-somos img.foto-local{
+    border-radius:18px;
+    width:100%;
+    box-shadow:0 10px 30px rgba(12,43,82,.15);
+  }
+  .quienes-somos h2{
+    color:var(--azul-marino);
+    font-weight:800;
+    position:relative;
+    display:inline-block;
+    margin-bottom:1rem;
+  }
+  .quienes-somos h2::after{
+    content:"";
+    display:block;
+    width:60px;height:4px;
+    background:var(--rojo);
+    border-radius:3px;
+    margin-top:.3rem;
+  }
+  .mini-feature{ display:flex; align-items:flex-start; gap:.8rem; margin-top:1.4rem; }
+  .mini-feature i{
+    background:#e8f1fc;
+    color:var(--azul-marino-2);
+    width:44px;height:44px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    font-size:1.15rem;
+  }
+  .mini-feature h4{
+    font-size:.95rem;
+    font-weight:800;
+    color:var(--azul-marino);
+    margin-bottom:.1rem;
+  }
+  .mini-feature p{
+    font-size:.85rem;
+    color:#6b7280;
+    margin-bottom:0;
+  }
+
+  /* ===== GALERIA ===== */
+  .galeria-section{
+    background:var(--celeste-bg);
+    padding:4.5rem 0;
+  }
+  .galeria-section img{
+    border-radius:14px;
+    height:200px;
+    object-fit:cover;
+    width:100%;
+    box-shadow:0 6px 16px rgba(12,43,82,.12);
+    cursor:pointer;
+    transition:transform .2s ease;
+  }
+  .galeria-section img:hover{ transform:scale(1.03); }
+
+  /* ===== CTA BANNER ===== */
+  .cta-banner{
+    background:var(--azul-marino);
+    padding:2.4rem 0;
+  }
+  .cta-banner h3{
+    color:#fff;
+    font-weight:800;
+    margin-bottom:.1rem;
+    font-size:1.3rem;
+  }
+  .cta-banner p{
+    color:#c9d8ea;
+    margin-bottom:0;
+    font-size:.9rem;
+  }
+  .cta-icon{
+    width:52px;height:52px;
+    border-radius:50%;
+    background:rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;
+    font-size:1.4rem;
+  }
+
+  /* ===== UBICACION / MAPA ===== */
+  .ubicacion-section{
+    padding:4.5rem 0;
+    background:#fff;
+  }
+  #mapa{
+    height:360px;
+    width:100%;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(12,43,82,.15);
+  }
+  .btn-como-llegar{
+    background:var(--azul-marino);
+    color:#fff;
+    font-weight:800;
+    border-radius:50px;
+    border:none;
+    padding:.7rem 1.6rem;
+  }
+  .btn-como-llegar:hover{ background:var(--azul-marino-2); color:#fff; }
+
+  /* ===== FOOTER ===== */
+  footer.site-footer{
+    background:var(--crema);
+    padding:2.5rem 0;
+    border-top:1px solid #eee;
+  }
+  .footer-item{ text-align:center; }
+  .footer-item i{
+    color:var(--rojo);
+    font-size:1.4rem;
+    margin-bottom:.4rem;
+    display:block;
+  }
+  .footer-item h5{
+    font-size:.85rem;
+    font-weight:800;
+    color:var(--azul-marino);
+    margin-bottom:.15rem;
+  }
+  .footer-item p{
+    font-size:.82rem;
+    color:#6b7280;
+    margin-bottom:0;
+  }
+  .footer-social a{
+    color:var(--azul-marino);
+    font-size:1.3rem;
+    margin:0 .35rem;
+  }
+  .footer-social a:hover{ color:var(--rojo); }
+
+  /* ===== MODAL MENU ===== */
+  .menu-item-modal{
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 4px 14px rgba(12,43,82,.12);
+    margin-bottom:1.2rem;
+  }
+  .menu-item-modal img{ width:100%; display:block; height:220px; object-fit:cover; }
+  .menu-item-modal .info{
+    background:#fff;
+    padding:.8rem 1rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .menu-item-modal .info h6{
+    margin:0;
+    font-weight:800;
+    color:var(--azul-marino);
+    text-transform:uppercase;
+    font-size:.85rem;
+  }
+  .menu-item-modal .info span{
+    color:var(--rojo);
+    font-weight:800;
+  }
+
+  /* ===== WHATSAPP FLOTANTE ===== */
+  .wsp-float{
+    position:fixed;
+    bottom:22px;
+    right:22px;
+    background:var(--verde-wsp);
+    color:#fff;
+    width:58px;height:58px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.7rem;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+    z-index:1000;
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(37,211,102,.5); }
+    70%{ box-shadow:0 0 0 14px rgba(37,211,102,0); }
+    100%{ box-shadow:0 0 0 0 rgba(37,211,102,0); }
+  }
+
+  @media (max-width:767px){
+    .hero h1{ font-size:2rem; }
+    .hero h1 .destacado{ font-size:2.5rem; }
+    .hero-img-wrap{ margin-top:2rem; max-width:320px; margin-left:auto; margin-right:auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar navbar-expand-lg navbar-7mares sticky-top py-2">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#inicio">
+      <span class="logo-badge"><i class="bi bi-tsunami" style="color:var(--rojo);"></i></span>
+      <span class="brand-title">EL 7 MARES<small>PESCADERÍA</small></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto text-center">
+        <li class="nav-item"><a class="nav-link active" href="#inicio">INICIO</a></li>
+        <li class="nav-item"><a class="nav-link" href="#nosotros">NOSOTROS</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalMenu">MENÚ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#galeria">GALERÍA</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">UBICACIÓN</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">CONTACTO</a></li>
+      </ul>
+      <div class="d-flex gap-2 mt-3 mt-lg-0">
+        <a href="https://wa.me/528991234567" target="_blank" class="btn btn-wsp"><i class="bi bi-whatsapp me-1"></i>PEDIR POR WHATSAPP</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="inicio" class="hero">
+  <div class="container position-relative">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6">
+        <span class="badge-tag">FRESCOS • SABROSOS • HECHOS CON AMOR</span>
+        <h1 class="mt-3">LOS MEJORES<span class="destacado">MARISCOS</span>DE REYNOSA</h1>
+        <p class="lead-text mt-3">Disfruta de mariscos frescos, preparados al momento con el sabor que nos distingue.</p>
+        <a href="https://wa.me/528991234567" target="_blank" class="btn btn-wsp-outline mt-2 px-4 py-2">
+          <i class="bi bi-whatsapp me-1" style="color:var(--verde-wsp);"></i>HAZ TU PEDIDO<br><small class="fw-normal">POR WHATSAPP</small>
+        </a>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-img-wrap">
+          <img src="https://placehold.co/700x700/1a3f6e/ffffff?text=Mariscos+Frescos" alt="Platillo de mariscos frescos El 7 Mares">
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== FEATURES ===================== -->
+<section class="features-bar">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-6 col-lg-3 feature-item">
+        <div class="feature-icon fish"><i class="bi bi-water"></i></div>
+        <h3>MARISCOS FRESCOS</h3>
+        <p>Seleccionamos los mejores productos todos los días.</p>
+      </div>
+      <div class="col-6 col-lg-3 feature-item">
+        <div class="feature-icon shrimp"><i class="bi bi-egg-fried"></i></div>
+        <h3>SABOR ÚNICO</h3>
+        <p>Recetas especiales que te harán volver por más.</p>
+      </div>
+      <div class="col-6 col-lg-3 feature-item">
+        <div class="feature-icon shell"><i class="bi bi-shell"></i></div>
+        <h3>VARIEDAD</h3>
+        <p>Desde cocteles hasta platillos preparados.</p>
+      </div>
+      <div class="col-6 col-lg-3 feature-item">
+        <div class="feature-icon heart"><i class="bi bi-heart-fill"></i></div>
+        <h3>HECHOS CON AMOR</h3>
+        <p>Cada platillo preparado especialmente para ti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NUESTROS FAVORITOS ===================== -->
+<section class="favoritos-section">
+  <div class="container">
+    <div class="title-wrap"><h2 class="section-title">NUESTROS FAVORITOS</h2></div>
+    <div class="row g-4">
+      <div class="col-6 col-lg-3">
+        <div class="card-plato">
+          <img src="https://placehold.co/400x300/e02a25/ffffff?text=Coctel+de+Camar%C3%B3n" alt="Coctel de Camarón">
+          <div class="card-body">
+            <h5>Coctel de Camarón</h5>
+            <div class="precio">$120</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="card-plato">
+          <img src="https://placehold.co/400x300/0c2b52/ffffff?text=Botana+7+Mares" alt="Botana 7 Mares">
+          <div class="card-body">
+            <h5>Botana 7 Mares</h5>
+            <div class="precio">$180</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="card-plato">
+          <img src="https://placehold.co/400x300/c9962b/ffffff?text=Mojarra+Frita" alt="Mojarra Frita">
+          <div class="card-body">
+            <h5>Mojarra Frita</h5>
+            <div class="precio">$160</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="card-plato">
+          <img src="https://placehold.co/400x300/3ba55d/ffffff?text=Champichana" alt="Champichana">
+          <div class="card-body">
+            <h5>Champichana</h5>
+            <div class="precio">$140</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <button class="btn btn-menu-completo" data-bs-toggle="modal" data-bs-target="#modalMenu">
+        <i class="bi bi-journal-text me-1"></i>VER MENÚ COMPLETO
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUIENES SOMOS ===================== -->
+<section id="nosotros" class="quienes-somos">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5">
+        <img class="foto-local" src="https://placehold.co/600x500/ff7fb0/ffffff?text=Local+Mariscos+7+Mares" alt="Local Pescadería El 7 Mares">
+      </div>
+      <div class="col-lg-7">
+        <h2>¿QUIÉNES SOMOS?</h2>
+        <p class="text-secondary">En Pescadería El 7 Mares nos dedicamos a ofrecer mariscos frescos y platillos deliciosos con el mejor servicio. Nuestro compromiso es llevarte el auténtico sabor del mar.</p>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="mini-feature">
+              <i class="bi bi-patch-check-fill"></i>
+              <div>
+                <h4>CALIDAD</h4>
+                <p>Productos frescos y de calidad.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="mini-feature">
+              <i class="bi bi-people-fill"></i>
+              <div>
+                <h4>EXPERIENCIA</h4>
+                <p>Años ofreciendo lo mejor del mar.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="mini-feature">
+              <i class="bi bi-emoji-smile-fill"></i>
+              <div>
+                <h4>CLIENTES FELICES</h4>
+                <p>Tu satisfacción es nuestra prioridad.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GALERIA ===================== -->
+<section id="galeria" class="galeria-section">
+  <div class="container">
+    <div class="title-wrap"><h2 class="section-title">GALERÍA</h2></div>
+    <div class="row g-3">
+      <div class="col-6 col-lg-3">
+        <img src="https://placehold.co/400x300/0c2b52/ffffff?text=Foto+1" alt="Galería mariscos 1" data-bs-toggle="modal" data-bs-target="#modalMenu">
+      </div>
+      <div class="col-6 col-lg-3">
+        <img src="https://placehold.co/400x300/e02a25/ffffff?text=Foto+2" alt="Galería mariscos 2" data-bs-toggle="modal" data-bs-target="#modalMenu">
+      </div>
+      <div class="col-6 col-lg-3">
+        <img src="https://placehold.co/400x300/3ba55d/ffffff?text=Foto+3" alt="Galería mariscos 3" data-bs-toggle="modal" data-bs-target="#modalMenu">
+      </div>
+      <div class="col-6 col-lg-3">
+        <img src="https://placehold.co/400x300/c9962b/ffffff?text=Foto+4" alt="Galería mariscos 4" data-bs-toggle="modal" data-bs-target="#modalMenu">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA BANNER ===================== -->
+<section class="cta-banner">
+  <div class="container">
+    <div class="row align-items-center g-3">
+      <div class="col-lg-8 d-flex align-items-center gap-3">
+        <div class="cta-icon"><i class="bi bi-telephone-fill"></i></div>
+        <div>
+          <h3>¿LISTO PARA DISFRUTAR?</h3>
+          <p>Haz tu pedido ahora por WhatsApp y disfruta en casa.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="https://wa.me/528991234567" target="_blank" class="btn btn-wsp px-4 py-2">
+          <i class="bi bi-whatsapp me-1"></i>PEDIR POR WHATSAPP
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== UBICACION ===================== -->
+<section id="ubicacion" class="ubicacion-section">
+  <div class="container">
+    <div class="title-wrap"><h2 class="section-title">UBICACIÓN</h2></div>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-7">
+        <div id="mapa"></div>
