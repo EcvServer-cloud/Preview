@@ -54,6 +54,12 @@
 
   /* ===== Navbar ===== */
   .navbar-brand-wrap{display:flex;align-items:center;gap:10px;}
+  .logo-img{
+    width:52px;height:52px;border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--yellow);
+    box-shadow:0 0 0 3px var(--black-soft);
+  }
   .logo-badge{
     width:52px;height:52px;border-radius:50%;
     background:radial-gradient(circle at 35% 30%, #ff4d4d, var(--red-dark));
@@ -373,7 +379,8 @@
 <nav class="navbar navbar-expand-lg navbar-custom fixed-top py-2">
   <div class="container">
     <a class="navbar-brand navbar-brand-wrap" href="#inicio">
-      <span class="logo-badge">LITTLE<br>TWINS</span>
+      <img src="ltpizza/logo.jpg" alt="Logo Little Twins Pizza" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <span class="logo-badge" style="display:none;">LITTLE<br>TWINS</span>
       <span class="d-none d-sm-inline text-white fw-bold" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:1px;">Little Twins <span class="text-yellow">Pizza</span></span>
     </a>
     <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
@@ -424,16 +431,16 @@
           </div>
           <div class="row g-3">
             <div class="col-7">
-              <img src="https://picsum.photos/seed/pepperonipizza1/500/500" alt="Pizza de pepperoni Little Twins Pizza" class="img-fluid shadow">
+              <img src="ltpizza/imgpizza1.jpg" onerror="this.onerror=null;this.src='https://images.pexels.com/photos/803290/pexels-photo-803290.jpeg?auto=compress&cs=tinysrgb&w=600';" alt="Pizza de pepperoni Little Twins Pizza" class="img-fluid shadow">
             </div>
             <div class="col-5 d-flex align-items-end">
-              <img src="https://picsum.photos/seed/pepsibottle/300/500" alt="Refresco Pepsi" class="img-fluid shadow">
+              <img src="https://images.pexels.com/photos/5532713/pexels-photo-5532713.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Refrescos fríos" class="img-fluid shadow">
             </div>
             <div class="col-7">
-              <img src="https://picsum.photos/seed/pizzacheese2/500/350" alt="Pizza familiar Little Twins Pizza" class="img-fluid shadow">
+              <img src="https://images.pexels.com/photos/774487/pexels-photo-774487.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pizza familiar Little Twins Pizza" class="img-fluid shadow">
             </div>
             <div class="col-5">
-              <img src="https://picsum.photos/seed/bbqwings1/350/350" alt="Alitas BBQ Little Twins Pizza" class="img-fluid shadow">
+              <img src="ltpizza/imgalitas1.jpg" onerror="this.onerror=null;this.src='https://images.pexels.com/photos/27831789/pexels-photo-27831789.jpeg?auto=compress&cs=tinysrgb&w=400';" alt="Alitas BBQ Little Twins Pizza" class="img-fluid shadow">
             </div>
           </div>
         </div>
@@ -493,7 +500,7 @@
               </div>
             </div>
             <div class="col-6">
-              <img src="https://picsum.photos/seed/bbqwingsbasket/500/500" alt="Alitas BBQ en canasta" class="img-fluid rounded-4">
+              <img src="ltpizza/imgalitas1.jpg" onerror="this.onerror=null;this.src='https://images.pexels.com/photos/27831789/pexels-photo-27831789.jpeg?auto=compress&cs=tinysrgb&w=500';" alt="Alitas BBQ en canasta" class="img-fluid rounded-4">
             </div>
           </div>
         </div>
@@ -506,7 +513,7 @@
               <p class="text-white-50 mb-1" style="font-size:.82rem;">1 ingrediente</p>
               <div class="promo-price" style="font-size:2.4rem;">$159</div>
             </div>
-            <img src="https://picsum.photos/seed/pizzalarge/300/300" alt="Pizza grande de un ingrediente">
+            <img src="https://images.pexels.com/photos/708587/pexels-photo-708587.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Pizza grande de un ingrediente">
           </div>
           <div class="promo-side-card">
             <div>
@@ -514,7 +521,7 @@
               <p class="text-white-50 mb-1" style="font-size:.82rem;">Hasta 3 ingredientes</p>
               <div class="promo-price" style="font-size:2.4rem;">$229</div>
             </div>
-            <img src="https://picsum.photos/seed/pizzafamily/300/300" alt="Pizza familiar de hasta 3 ingredientes">
+            <img src="https://images.pexels.com/photos/263041/pexels-photo-263041.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Pizza familiar de hasta 3 ingredientes">
           </div>
         </div>
       </div>
@@ -532,35 +539,35 @@
     <div class="row g-4 justify-content-center">
       <div class="col-6 col-md-4 col-lg-2">
         <div class="menu-cat">
-          <img src="https://picsum.photos/seed/menupizza/300/300" class="menu-cat-img" alt="Categoría Pizzas">
+          <img src="https://images.pexels.com/photos/803290/pexels-photo-803290.jpeg?auto=compress&cs=tinysrgb&w=300" class="menu-cat-img" alt="Categoría Pizzas">
           <h5>Pizzas</h5>
           <p>Clásicas, especiales y más</p>
         </div>
       </div>
       <div class="col-6 col-md-4 col-lg-2">
         <div class="menu-cat">
-          <img src="https://picsum.photos/seed/menuboneless/300/300" class="menu-cat-img" alt="Categoría Boneless">
+          <img src="https://images.pexels.com/photos/27831789/pexels-photo-27831789.jpeg?auto=compress&cs=tinysrgb&w=300" class="menu-cat-img" alt="Categoría Boneless">
           <h5>Boneless</h5>
           <p>Bañados en tu salsa favorita</p>
         </div>
       </div>
       <div class="col-6 col-md-4 col-lg-2">
         <div class="menu-cat">
-          <img src="https://picsum.photos/seed/menupapotas/300/300" class="menu-cat-img" alt="Categoría Papotas">
+          <img src="https://images.pexels.com/photos/11485199/pexels-photo-11485199.jpeg?auto=compress&cs=tinysrgb&w=300" class="menu-cat-img" alt="Categoría Papotas">
           <h5>Papotas</h5>
           <p>El complemento perfecto</p>
         </div>
       </div>
       <div class="col-6 col-md-4 col-lg-2">
         <div class="menu-cat">
-          <img src="https://picsum.photos/seed/menucombos/300/300" class="menu-cat-img" alt="Categoría Combos">
+          <img src="https://images.pexels.com/photos/19786201/pexels-photo-19786201.jpeg?auto=compress&cs=tinysrgb&w=300" class="menu-cat-img" alt="Categoría Combos">
           <h5>Combos</h5>
           <p>Paquetes para compartir</p>
         </div>
       </div>
       <div class="col-6 col-md-4 col-lg-2">
         <div class="menu-cat">
-          <img src="https://picsum.photos/seed/menubebidas/300/300" class="menu-cat-img" alt="Categoría Bebidas">
+          <img src="https://images.pexels.com/photos/5532713/pexels-photo-5532713.jpeg?auto=compress&cs=tinysrgb&w=300" class="menu-cat-img" alt="Categoría Bebidas">
           <h5>Bebidas</h5>
           <p>Refrescos y más</p>
         </div>
@@ -627,7 +634,7 @@
               <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
               <p class="quote">"Las pizzas están increíbles, masa esponjosa y el sabor ni se diga. ¡100% recomendadas!"</p>
               <div class="testi-author">
-                <img src="https://picsum.photos/seed/clientcarlos/100/100" alt="Cliente Carlos M.">
+                <img src="https://images.pexels.com/photos/19456424/pexels-photo-19456424.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Cliente Carlos M.">
                 <strong>— Carlos M.</strong>
               </div>
             </div>
@@ -637,7 +644,7 @@
               <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
               <p class="quote">"Las alitas son mis favoritas, siempre pido las búfalo. ¡Deliciosas!"</p>
               <div class="testi-author">
-                <img src="https://picsum.photos/seed/clientana/100/100" alt="Cliente Ana G.">
+                <img src="https://images.pexels.com/photos/3791554/pexels-photo-3791554.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Cliente Ana G.">
                 <strong>— Ana G.</strong>
               </div>
             </div>
@@ -647,7 +654,7 @@
               <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
               <p class="quote">"Excelente servicio y llegan rápido. Ideal para cualquier ocasión."</p>
               <div class="testi-author">
-                <img src="https://picsum.photos/seed/clientluis/100/100" alt="Cliente Luis R.">
+                <img src="https://images.pexels.com/photos/12871449/pexels-photo-12871449.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Cliente Luis R.">
                 <strong>— Luis R.</strong>
               </div>
             </div>
@@ -657,7 +664,7 @@
               <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
               <p class="quote">"Los combos son perfectos para la familia, siempre quedamos satisfechos."</p>
               <div class="testi-author">
-                <img src="https://picsum.photos/seed/clientmaria/100/100" alt="Cliente María P.">
+                <img src="https://images.pexels.com/photos/6311599/pexels-photo-6311599.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Cliente María P.">
                 <strong>— María P.</strong>
               </div>
             </div>
@@ -676,7 +683,8 @@
     <div class="row g-4">
       <div class="col-lg-3">
         <div class="d-flex align-items-center gap-2 mb-3">
-          <span class="logo-badge">LITTLE<br>TWINS</span>
+          <img src="ltpizza/logo.jpg" alt="Logo Little Twins Pizza" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="logo-badge" style="display:none;">LITTLE<br>TWINS</span>
           <span class="fw-bold" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;">Little Twins <span class="text-yellow">Pizza</span></span>
         </div>
         <p class="text-white-50" style="font-size:.88rem;">El sabor que se te antoja. Pizzas, boneless, papotas y mucho más.</p>
@@ -727,10 +735,10 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <img src="https://picsum.photos/seed/menupage1/800/1000" alt="Página 1 del menú - Pizzas">
-        <img src="https://picsum.photos/seed/menupage2/800/1000" alt="Página 2 del menú - Boneless y Papotas">
-        <img src="https://picsum.photos/seed/menupage3/800/1000" alt="Página 3 del menú - Combos">
-        <img src="https://picsum.photos/seed/menupage4/800/1000" alt="Página 4 del menú - Bebidas">
+        <img src="https://images.pexels.com/photos/774487/pexels-photo-774487.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Página 1 del menú - Pizzas">
+        <img src="https://images.pexels.com/photos/27831789/pexels-photo-27831789.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Página 2 del menú - Boneless y Alitas">
+        <img src="https://images.pexels.com/photos/11485199/pexels-photo-11485199.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Página 3 del menú - Papotas">
+        <img src="https://images.pexels.com/photos/19786201/pexels-photo-19786201.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Página 4 del menú - Combos">
       </div>
     </div>
   </div>
