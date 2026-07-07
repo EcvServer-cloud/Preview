@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Twins Pizza | El sabor que se te antoja</title>
+<meta name="description" content="Pizzas, boneless, papotas y mucho más. Pide por WhatsApp y recibe en tu domicilio en Reynosa, Tamaulipas.">
+<meta name="keywords" content="pizza, boneless, alitas, Reynosa, Tamaulipas, pizzeria, papotas, combos">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- Leaflet CSS (mapa gratuito) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+
+<style>
+  :root{
+    --black:#0d0d0d;
+    --black-soft:#161616;
+    --red:#d62828;
+    --red-dark:#9c1a20;
+    --yellow:#f6b40e;
+    --green:#25d366;
+    --cream:#f3e8d6;
+    --cream-dark:#e9dbc0;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:var(--black);
+    color:#fff;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.display-font{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:1px;
+  }
+  a{text-decoration:none;}
+  .section-pad{padding:64px 0;}
+  @media (min-width:992px){.section-pad{padding:96px 0;}}
+
+  /* ===== Utility text-stroke ===== */
+  .text-yellow{color:var(--yellow);}
+  .text-red-brand{color:var(--red);}
+  .bg-cream{background:var(--cream);}
+  .bg-red-brand{background:var(--red);}
+
+  /* ===== Navbar ===== */
+  .navbar-brand-wrap{display:flex;align-items:center;gap:10px;}
+  .logo-badge{
+    width:52px;height:52px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ff4d4d, var(--red-dark));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:.62rem;line-height:1;text-align:center;color:#fff;
+    border:2px solid var(--yellow);
+    box-shadow:0 0 0 3px var(--black-soft);
+    transform:rotate(-6deg);
+  }
+  .navbar-custom{
+    background:var(--black-soft)!important;
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .navbar-custom .nav-link{
+    color:#eee!important;
+    font-weight:600;
+    font-size:.95rem;
+    margin:0 8px;
+    position:relative;
+  }
+  .navbar-custom .nav-link:hover{color:var(--yellow)!important;}
+  .btn-whatsapp{
+    background:var(--green);
+    color:#fff;
+    font-weight:700;
+    border-radius:50px;
+    padding:.55rem 1.3rem;
+    border:none;
+    white-space:nowrap;
+  }
+  .btn-whatsapp:hover{background:#1fb256;color:#fff;}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    background:var(--black);
+    padding:120px 0 60px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 15% 20%, rgba(214,40,40,.25), transparent 45%),
+      radial-gradient(ellipse at 85% 75%, rgba(246,180,14,.10), transparent 40%);
+    pointer-events:none;
+  }
+  .hero-title{
+    font-size:3.2rem;
+    line-height:1;
+    text-transform:uppercase;
+  }
+  @media (min-width:768px){.hero-title{font-size:4.6rem;}}
+  .hero-title .line-red{
+    background:var(--red);
+    display:inline-block;
+    padding:2px 14px;
+    transform:rotate(-1.5deg);
+  }
+  .hero-sub{
+    color:#d8d8d8;
+    max-width:420px;
+    font-size:1rem;
+  }
+  .btn-outline-light-custom{
+    background:var(--black);
+    border:2px solid #fff;
+    color:#fff;
+    font-weight:700;
+    border-radius:8px;
+    padding:.6rem 1.4rem;
+  }
+  .btn-outline-light-custom:hover{background:#fff;color:var(--black);}
+  .hero-img-wrap{position:relative;}
+  .hero-img-wrap img{border-radius:16px;}
+  .badge-calidad{
+    position:absolute;
+    top:8%;
+    right:38%;
+    width:110px;height:110px;
+    border-radius:50%;
+    background:var(--black);
+    border:2px dashed var(--yellow);
+    color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:.72rem;
+    line-height:1.15;
+    z-index:5;
+    transform:rotate(-8deg);
+  }
+  .badge-calidad span.sabor{
+    background:var(--red);
+    color:#fff;
+    font-size:1rem;
+    padding:1px 10px;
+    margin:2px 0;
+    transform:rotate(2deg);
+  }
+
+  /* ===== Features bar ===== */
+  .features-bar{background:var(--red);padding:26px 0;}
+  .feature-item{display:flex;align-items:center;gap:12px;color:#fff;}
+  .feature-icon{
+    width:46px;height:46px;min-width:46px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.3rem;
+  }
+  .feature-item p{margin:0;font-size:.82rem;font-weight:700;text-transform:uppercase;line-height:1.2;}
+
+  /* ===== Promociones ===== */
+  .promo-card-main{
+    background:linear-gradient(135deg,#3a1010,#1a0505);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    overflow:hidden;
+    position:relative;
+  }
+  .promo-price{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:3.6rem;
+    color:var(--yellow);
+    -webkit-text-stroke:1px #fff2;
+  }
+  .promo-tag{
+    display:inline-block;
+    background:var(--black);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:30px;
+    padding:5px 14px;
+    font-size:.72rem;
+    font-weight:700;
+    margin-right:6px;
+  }
+  .promo-side-card{
+    background:linear-gradient(135deg,#3a1010,#1a0505);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .promo-side-card img{width:120px;height:120px;object-fit:cover;border-radius:50%;border:3px solid var(--yellow);}
+  .btn-yellow{
+    background:var(--yellow);
+    color:var(--black);
+    font-weight:800;
+    border-radius:8px;
+    padding:.7rem 1.8rem;
+    border:none;
+    text-transform:uppercase;
+  }
+  .btn-yellow:hover{background:#ffc93c;color:var(--black);}
+
+  /* ===== Menu section ===== */
+  .menu-section{
+    background:var(--cream);
+    color:var(--black);
+    position:relative;
+  }
+  .menu-cat{
+    text-align:center;
+    color:var(--black);
+  }
+  .menu-cat-img{
+    width:130px;height:130px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #fff;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+    margin-bottom:14px;
+    transition:transform .25s ease;
+  }
+  .menu-cat:hover .menu-cat-img{transform:translateY(-6px) scale(1.03);}
+  .menu-cat h5{
+    font-family:'Bebas Neue',sans-serif;
+    color:var(--red);
+    letter-spacing:1px;
+    margin-bottom:2px;
+  }
+  .menu-cat p{font-size:.82rem;color:#555;margin:0;}
+  .btn-red{
+    background:var(--red);
+    color:#fff;
+    font-weight:800;
+    border-radius:8px;
+    padding:.7rem 1.8rem;
+    border:none;
+    text-transform:uppercase;
+  }
+  .btn-red:hover{background:var(--red-dark);color:#fff;}
+
+  /* ===== Cómo ordenar ===== */
+  .como-ordenar{background:var(--black);position:relative;}
+  .step-circle{
+    width:78px;height:78px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;
+    color:#fff;
+    margin:0 auto 16px;
+  }
+  .step-item{text-align:center;max-width:220px;margin:0 auto;}
+  .step-item h5{font-family:'Bebas Neue',sans-serif;letter-spacing:1px;}
+  .step-item p{font-size:.85rem;color:#bbb;}
+  .step-arrow{
+    color:var(--yellow);
+    font-size:1.6rem;
+    display:none;
+  }
+  @media (min-width:992px){.step-arrow{display:flex;align-items:center;justify-content:center;}}
+
+  /* ===== Testimonials ===== */
+  .testi-section{background:var(--cream);color:var(--black);overflow:hidden;}
+  .testi-track-wrap{overflow:hidden;}
+  .testi-track{display:flex;transition:transform .5s ease;}
+  .testi-slide{
+    flex:0 0 100%;
+    max-width:100%;
+    padding:0 10px;
+  }
+  @media (min-width:768px){.testi-slide{flex:0 0 33.3333%;max-width:33.3333%;}}
+  .testi-card{
+    background:#fff;
+    border-radius:14px;
+    padding:26px;
+    height:100%;
+    box-shadow:0 6px 20px rgba(0,0,0,.06);
+  }
+  .testi-card .stars{color:var(--yellow);font-size:.9rem;margin-bottom:10px;}
+  .testi-card p.quote{font-style:italic;font-size:.92rem;color:#333;min-height:80px;}
+  .testi-author{display:flex;align-items:center;gap:10px;margin-top:14px;}
+  .testi-author img{width:44px;height:44px;border-radius:50%;object-fit:cover;}
+  .testi-nav-btn{
+    width:42px;height:42px;border-radius:50%;
+    background:#fff;border:1px solid #ddd;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.1rem;color:var(--black);
+    flex-shrink:0;
+  }
+  .testi-nav-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+  .testi-dots{display:flex;justify-content:center;gap:8px;margin-top:20px;}
+  .testi-dot{
+    width:9px;height:9px;border-radius:50%;
+    background:#c9bfa9;
+    cursor:pointer;
+    border:none;
+  }
+  .testi-dot.active{background:var(--red);width:22px;border-radius:6px;transition:.25s;}
+
+  /* ===== Footer ===== */
+  footer{background:var(--black-soft);}
+  footer h6{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:1px;
+    color:var(--yellow);
+    margin-bottom:14px;
+  }
+  footer a.foot-link{color:#ccc;display:block;margin-bottom:8px;font-size:.9rem;}
+  footer a.foot-link:hover{color:var(--yellow);}
+  .social-icon{
+    width:36px;height:36px;border-radius:50%;
+    background:rgba(255,255,255,.08);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;margin-right:8px;
+  }
+  .social-icon:hover{background:var(--red);}
+  #map{height:180px;border-radius:10px;filter:grayscale(.15);}
+  .btn-como-llegar{
+    background:var(--red);
+    color:#fff;
+    font-weight:700;
+    font-size:.82rem;
+    border-radius:6px;
+    padding:.4rem .9rem;
+    border:none;
+    margin-top:10px;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .btn-como-llegar:hover{background:var(--red-dark);color:#fff;}
+
+  /* ===== Menu Modal gallery ===== */
+  #menuModal .modal-content{background:var(--black-soft);}
+  #menuModal img{width:100%;border-radius:10px;margin-bottom:16px;}
+
+  /* ===== Security warning toast ===== */
+  #securityToast{
+    position:fixed;
+    top:20px;left:50%;
+    transform:translate(-50%,-120%);
+    background:var(--red);
+    color:#fff;
+    padding:14px 26px;
+    border-radius:10px;
+    font-weight:700;
+    z-index:9999;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    transition:transform .35s ease;
+    display:flex;align-items:center;gap:10px;
+  }
+  #securityToast.show{transform:translate(-50%,0);}
+
+  ::selection{background:var(--red);color:#fff;}
+</style>
+</head>
+<body>
+
+<!-- ===================== TOAST DE SEGURIDAD ===================== -->
+<div id="securityToast"><i class="bi bi-shield-lock-fill"></i> Acceso al código no permitido</div>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar navbar-expand-lg navbar-custom fixed-top py-2">
+  <div class="container">
+    <a class="navbar-brand navbar-brand-wrap" href="#inicio">
+      <span class="logo-badge">LITTLE<br>TWINS</span>
+      <span class="d-none d-sm-inline text-white fw-bold" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:1px;">Little Twins <span class="text-yellow">Pizza</span></span>
+    </a>
+    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav mx-auto text-center">
+        <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#menu" data-bs-toggle="modal" data-bs-target="#menuModal">Menú</a></li>
+        <li class="nav-item"><a class="nav-link" href="#promociones">Promociones</a></li>
+        <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicaciones">Ubicaciones</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+      </ul>
+      <a href="https://wa.me/528998428777" target="_blank" class="btn btn-whatsapp mt-3 mt-lg-0">
+        <i class="bi bi-whatsapp me-1"></i> Ordenar por WhatsApp
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="inicio">
+  <div class="container position-relative">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <h1 class="hero-title">
+          <span class="text-white">¡El sabor</span><br>
+          <span class="line-red text-white">que se te</span><br>
+          <span class="text-yellow">antoja!</span>
+        </h1>
+        <p class="hero-sub mt-4">Pizzas, boneless, papotas y mucho más. Perfectos para compartir.</p>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <a href="https://wa.me/528998428777" target="_blank" class="btn btn-whatsapp px-4 py-2">
+            <i class="bi bi-whatsapp me-1"></i> Ordenar por WhatsApp
+          </a>
+          <button class="btn btn-outline-light-custom" data-bs-toggle="modal" data-bs-target="#menuModal">
+            <i class="bi bi-journal-richtext me-1"></i> Ver menú
+          </button>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-img-wrap">
+          <div class="badge-calidad">
+            CALIDAD
+            <span class="sabor">SABOR</span>
+            INIGUALABLE
+          </div>
+          <div class="row g-3">
+            <div class="col-7">
+              <img src="https://picsum.photos/seed/pepperonipizza1/500/500" alt="Pizza de pepperoni Little Twins Pizza" class="img-fluid shadow">
+            </div>
+            <div class="col-5 d-flex align-items-end">
+              <img src="https://picsum.photos/seed/pepsibottle/300/500" alt="Refresco Pepsi" class="img-fluid shadow">
+            </div>
+            <div class="col-7">
+              <img src="https://picsum.photos/seed/pizzacheese2/500/350" alt="Pizza familiar Little Twins Pizza" class="img-fluid shadow">
+            </div>
+            <div class="col-5">
+              <img src="https://picsum.photos/seed/bbqwings1/350/350" alt="Alitas BBQ Little Twins Pizza" class="img-fluid shadow">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== FEATURES BAR ===================== -->
+<div class="features-bar">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-6 col-lg-3">
+        <div class="feature-item">
+          <div class="feature-icon bg-white text-red-brand"><i class="bi bi-award-fill"></i></div>
+          <p>Variedad de pizzas para todos los gustos</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="feature-item">
+          <div class="feature-icon bg-white text-warning"><i class="bi bi-people-fill"></i></div>
+          <p>Especialidades y paquetes para compartir</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="feature-item">
+          <div class="feature-icon bg-white text-success"><i class="bi bi-patch-check-fill"></i></div>
+          <p>Ingredientes de calidad, sabor inigualable</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="feature-item">
+          <div class="feature-icon bg-white text-warning"><i class="bi bi-truck"></i></div>
+          <p>Servicio a domicilio con costo extra</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PROMOCIONES ===================== -->
+<section class="section-pad" id="promociones">
+  <div class="container">
+    <h2 class="display-font mb-5"><span class="text-white">Promociones</span> <span class="text-yellow">que te encantan</span></h2>
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="promo-card-main p-4 h-100">
+          <div class="row g-3 align-items-center h-100">
+            <div class="col-6">
+              <h3 class="display-font text-white mb-0">Alitas</h3>
+              <p class="text-white-50 mb-2" style="font-size:.85rem;">El antojo perfecto</p>
+              <div class="promo-price">$105</div>
+              <div class="mt-3">
+                <span class="promo-tag text-white">BBQ</span>
+                <span class="promo-tag text-white">Búfalo</span>
+                <span class="promo-tag text-white">Habanero</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <img src="https://picsum.photos/seed/bbqwingsbasket/500/500" alt="Alitas BBQ en canasta" class="img-fluid rounded-4">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="d-flex flex-column gap-4 h-100">
+          <div class="promo-side-card">
+            <div>
+              <h4 class="display-font text-white mb-0">Pizza Grande</h4>
+              <p class="text-white-50 mb-1" style="font-size:.82rem;">1 ingrediente</p>
+              <div class="promo-price" style="font-size:2.4rem;">$159</div>
+            </div>
+            <img src="https://picsum.photos/seed/pizzalarge/300/300" alt="Pizza grande de un ingrediente">
+          </div>
+          <div class="promo-side-card">
+            <div>
+              <h4 class="display-font text-white mb-0">Pizza Familiar</h4>
+              <p class="text-white-50 mb-1" style="font-size:.82rem;">Hasta 3 ingredientes</p>
+              <div class="promo-price" style="font-size:2.4rem;">$229</div>
+            </div>
+            <img src="https://picsum.photos/seed/pizzafamily/300/300" alt="Pizza familiar de hasta 3 ingredientes">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a href="#promociones" class="btn btn-yellow"><i class="bi bi-journal-richtext me-1"></i> Ver todas las promociones</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MENU SECTION ===================== -->
+<section class="section-pad menu-section" id="menu">
+  <div class="container text-center">
+    <h2 class="display-font mb-5">Nuestro menú <span class="text-red-brand">algo para todos</span></h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="menu-cat">
+          <img src="https://picsum.photos/seed/menupizza/300/300" class="menu-cat-img" alt="Categoría Pizzas">
+          <h5>Pizzas</h5>
+          <p>Clásicas, especiales y más</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="menu-cat">
+          <img src="https://picsum.photos/seed/menuboneless/300/300" class="menu-cat-img" alt="Categoría Boneless">
+          <h5>Boneless</h5>
+          <p>Bañados en tu salsa favorita</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="menu-cat">
+          <img src="https://picsum.photos/seed/menupapotas/300/300" class="menu-cat-img" alt="Categoría Papotas">
+          <h5>Papotas</h5>
+          <p>El complemento perfecto</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="menu-cat">
+          <img src="https://picsum.photos/seed/menucombos/300/300" class="menu-cat-img" alt="Categoría Combos">
+          <h5>Combos</h5>
+          <p>Paquetes para compartir</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="menu-cat">
+          <img src="https://picsum.photos/seed/menubebidas/300/300" class="menu-cat-img" alt="Categoría Bebidas">
+          <h5>Bebidas</h5>
+          <p>Refrescos y más</p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-5">
+      <button class="btn btn-red" data-bs-toggle="modal" data-bs-target="#menuModal">
+        <i class="bi bi-journal-richtext me-1"></i> Ver menú completo
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMO ORDENAR ===================== -->
+<section class="section-pad como-ordenar">
+  <div class="container">
+    <h2 class="display-font text-center mb-5">Ordenar es <span class="text-yellow">muy fácil</span></h2>
+    <div class="row align-items-start g-4">
+      <div class="col-6 col-lg-2 offset-lg-1">
+        <div class="step-item">
+          <div class="step-circle bg-success"><i class="bi bi-whatsapp"></i></div>
+          <h5>1. Elige tu pedido</h5>
+          <p>Explora nuestro menú y selecciona tus favoritos</p>
+        </div>
+      </div>
+      <div class="col-lg-1 step-arrow"><i class="bi bi-arrow-right"></i></div>
+      <div class="col-6 col-lg-2">
+        <div class="step-item">
+          <div class="step-circle" style="background:var(--yellow);color:var(--black);"><i class="bi bi-telephone-fill"></i></div>
+          <h5>2. Contáctanos</h5>
+          <p>Ordénalo por WhatsApp o llámanos a nuestras sucursales</p>
+        </div>
+      </div>
+      <div class="col-lg-1 step-arrow"><i class="bi bi-arrow-right"></i></div>
+      <div class="col-6 col-lg-2">
+        <div class="step-item">
+          <div class="step-circle bg-red-brand"><i class="bi bi-truck"></i></div>
+          <h5>3. Te lo llevamos</h5>
+          <p>Envío a domicilio con costo adicional</p>
+        </div>
+      </div>
+      <div class="col-lg-1 step-arrow"><i class="bi bi-arrow-right"></i></div>
+      <div class="col-6 col-lg-2">
+        <div class="step-item">
+          <div class="step-circle bg-success"><i class="bi bi-emoji-heart-eyes-fill"></i></div>
+          <h5>4. ¡Disfruta!</h5>
+          <p>Recibe tu pedido y disfruta del mejor sabor</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIOS ===================== -->
+<section class="section-pad testi-section">
+  <div class="container">
+    <h2 class="display-font text-center mb-5">Lo que dicen <span class="text-red-brand">nuestros clientes</span></h2>
+    <div class="d-flex align-items-center gap-3">
+      <button class="testi-nav-btn d-none d-md-flex" id="testiPrev"><i class="bi bi-chevron-left"></i></button>
+      <div class="testi-track-wrap flex-grow-1">
+        <div class="testi-track" id="testiTrack">
+          <div class="testi-slide">
+            <div class="testi-card">
+              <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+              <p class="quote">"Las pizzas están increíbles, masa esponjosa y el sabor ni se diga. ¡100% recomendadas!"</p>
+              <div class="testi-author">
+                <img src="https://picsum.photos/seed/clientcarlos/100/100" alt="Cliente Carlos M.">
+                <strong>— Carlos M.</strong>
+              </div>
+            </div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-card">
+              <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+              <p class="quote">"Las alitas son mis favoritas, siempre pido las búfalo. ¡Deliciosas!"</p>
+              <div class="testi-author">
+                <img src="https://picsum.photos/seed/clientana/100/100" alt="Cliente Ana G.">
+                <strong>— Ana G.</strong>
+              </div>
+            </div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-card">
+              <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+              <p class="quote">"Excelente servicio y llegan rápido. Ideal para cualquier ocasión."</p>
+              <div class="testi-author">
+                <img src="https://picsum.photos/seed/clientluis/100/100" alt="Cliente Luis R.">
+                <strong>— Luis R.</strong>
+              </div>
+            </div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-card">
+              <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+              <p class="quote">"Los combos son perfectos para la familia, siempre quedamos satisfechos."</p>
+              <div class="testi-author">
+                <img src="https://picsum.photos/seed/clientmaria/100/100" alt="Cliente María P.">
+                <strong>— María P.</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="testi-nav-btn d-none d-md-flex" id="testiNext"><i class="bi bi-chevron-right"></i></button>
+    </div>
+    <div class="testi-dots" id="testiDots"></div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="pt-5 pb-3" id="contacto">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-3">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="logo-badge">LITTLE<br>TWINS</span>
+          <span class="fw-bold" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;">Little Twins <span class="text-yellow">Pizza</span></span>
+        </div>
+        <p class="text-white-50" style="font-size:.88rem;">El sabor que se te antoja. Pizzas, boneless, papotas y mucho más.</p>
+        <div class="d-flex mt-3">
+          <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3" id="ubicaciones">
+        <h6>Ordena ahora</h6>
+        <a class="foot-link" href="https://wa.me/528998428777"><i class="bi bi-whatsapp me-2 text-success"></i>(899) 842 8777</a>
+        <a class="foot-link" href="tel:+528992200460"><i class="bi bi-telephone-fill me-2 text-danger"></i>(899) 220-0460</a>
+        <a class="foot-link" href="tel:+528992201083"><i class="bi bi-telephone-fill me-2 text-danger"></i>(899) 220-1083</a>
+        <p class="foot-link mb-0"><i class="bi bi-scooter me-2 text-warning"></i>Servicio a domicilio con costo extra.</p>
+      </div>
+      <div class="col-6 col-lg-3" id="nosotros">
+        <h6>Navegación</h6>
+        <a class="foot-link" href="#inicio">Inicio</a>
+        <a class="foot-link" href="#menu" data-bs-toggle="modal" data-bs-target="#menuModal">Menú</a>
+        <a class="foot-link" href="#promociones">Promociones</a>
+        <a class="foot-link" href="#ubicaciones">Ubicaciones</a>
+        <a class="foot-link" href="#contacto">Contacto</a>
+      </div>
+      <div class="col-lg-3">
+        <h6>Nuestras sucursales</h6>
+        <div id="map"></div>
+        <p class="text-white-50 mt-2 mb-0" style="font-size:.85rem;"><strong class="text-white">Suc. Bugambilias</strong><br>Reynosa, Tamaulipas</p>
+        <a class="btn-como-llegar" id="comoLlegarBtn" href="https://www.google.com/maps/dir/?api=1&destination=26.0806,-98.2989" target="_blank" rel="noopener">
+          <i class="bi bi-signpost-2-fill"></i> Cómo llegar
+        </a>
+      </div>
+    </div>
+    <hr class="border-secondary mt-5">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-white-50" style="font-size:.8rem;">
+      <p class="mb-1">© 2026 Little Twins Pizza. Todos los derechos reservados.</p>
+      <p class="mb-1">Desarrollado por TAW Sitios Web</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== MODAL MENU (GALERIA) ===================== -->
+<div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title display-font text-yellow" id="menuModalLabel">Nuestro Menú Completo</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <img src="https://picsum.photos/seed/menupage1/800/1000" alt="Página 1 del menú - Pizzas">
+        <img src="https://picsum.photos/seed/menupage2/800/1000" alt="Página 2 del menú - Boneless y Papotas">
+        <img src="https://picsum.photos/seed/menupage3/800/1000" alt="Página 3 del menú - Combos">
+        <img src="https://picsum.photos/seed/menupage4/800/1000" alt="Página 4 del menú - Bebidas">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SCRIPTS ===================== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* ============ MAPA (Leaflet / OpenStreetMap - gratuito) ============ */
+  var coords = [26.0806, -98.2989];
+  var mapEl = document.getElementById('map');
+  if (typeof L !== 'undefined' && mapEl) {
+    try {
+      var map = L.map(mapEl, {zoomControl:false, dragging:false, scrollWheelZoom:false}).setView(coords, 14);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+      }).addTo(map);
+      L.marker(coords).addTo(map).bindPopup('Suc. Bugambilias<br>Reynosa, Tamaulipas');
+    } catch (err) {
+      console.warn('No se pudo inicializar el mapa:', err);
+      mapEl.innerHTML = '<div class="d-flex align-items-center justify-content-center h-100 text-white-50" style="font-size:.8rem;">Mapa no disponible</div>';
+    }
+  } else if (mapEl) {
+    mapEl.innerHTML = '<div class="d-flex align-items-center justify-content-center h-100 text-white-50" style="font-size:.8rem;">Mapa no disponible</div>';
+  }
+
+  /* ============ TESTIMONIOS - SLIDER ============ */
+  var track = document.getElementById('testiTrack');
+  var slides = track.children;
+  var dotsWrap = document.getElementById('testiDots');
+  var current = 0;
+
+  function visibleCount(){ return window.innerWidth >= 768 ? 3 : 1; }
+  function maxIndex(){ return Math.max(0, slides.length - visibleCount()); }
+
+  function renderDots(){
+    dotsWrap.innerHTML = '';
+    for (var i = 0; i <= maxIndex(); i++){
+      var d = document.createElement('button');
+      d.className = 'testi-dot' + (i === current ? ' active' : '');
+      d.addEventListener('click', function(idx){ return function(){ goTo(idx); }; }(i));
+      dotsWrap.appendChild(d);
+    }
+  }
+
+  function goTo(index){
+    current = Math.max(0, Math.min(index, maxIndex()));
+    var slideWidth = slides[0].getBoundingClientRect().width;
+    track.style.transform = 'translateX(-' + (slideWidth * current) + 'px)';
+    renderDots();
+  }
+
+  document.getElementById('testiNext').addEventListener('click', function(){ goTo(current + 1); });
+  document.getElementById('testiPrev').addEventListener('click', function(){ goTo(current - 1); });
+
+  window.addEventListener('resize', function(){ goTo(0); });
+  renderDots();
+  goTo(0);
+
+  /* ============ BLOQUEO DE INSPECCIÓN DE CÓDIGO ============ */
+  var toast = document.getElementById('securityToast');
+  var toastTimer;
+  function showSecurityWarning(){
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2500);
+  }
+
+  document.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+    showSecurityWarning();
+  });
+
+  document.addEventListener('keydown', function(e){
+    var key = e.key ? e.key.toUpperCase() : '';
+    var blocked =
+      key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (key === 'I' || key === 'J' || key === 'C')) ||
+      (e.metaKey && e.altKey && (key === 'I' || key === 'J' || key === 'C')) ||
+      (e.ctrlKey && key === 'U') ||
+      (e.metaKey && key === 'U');
+    if (blocked){
+      e.preventDefault();
+      showSecurityWarning();
+    }
+  });
+
+});
+</script>
+</body>
+</html>
