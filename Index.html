@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tu Agente Web | Tu negocio en internet en 48 horas</title>
+
+<meta name="description" content="Diseñamos páginas web profesionales para emprendedores y PyMEs. Adaptadas para celular, WhatsApp integrado, dominio y hosting incluidos.">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+
+:root{
+    --primary:#155EEF;
+    --dark:#071224;
+    --light:#F7F9FC;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x:hidden;
+}
+
+.navbar{
+    background:var(--dark);
+}
+
+.navbar-brand{
+    color:white !important;
+    font-weight:bold;
+}
+
+.nav-link{
+    color:white !important;
+}
+
+.btn-primary-custom{
+    background:var(--primary);
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:10px;
+    text-decoration:none;
+}
+
+.btn-primary-custom:hover{
+    background:#0d4ed8;
+}
+
+.hero{
+    background:#fff;
+    padding:100px 0;
+}
+
+.hero h1{
+    font-size:3rem;
+    font-weight:800;
+}
+
+.hero h1 span{
+    color:var(--primary);
+}
+
+.hero-image{
+    width:100%;
+    border-radius:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,.15);
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-weight:700;
+}
+
+.feature-card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    height:100%;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.feature-card i{
+    font-size:40px;
+    color:var(--primary);
+}
+
+.plan-section{
+    background:#f8fafc;
+    padding:80px 0;
+}
+
+.plan-card{
+    background:white;
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.price{
+    font-size:3rem;
+    color:var(--primary);
+    font-weight:800;
+}
+
+.portfolio{
+    background:var(--dark);
+    color:white;
+    padding:80px 0;
+}
+
+.portfolio-card{
+    overflow:hidden;
+    border-radius:15px;
+}
+
+.portfolio-card img{
+    width:100%;
+}
+
+.process-step{
+    text-align:center;
+    padding:20px;
+}
+
+.process-step i{
+    font-size:50px;
+    color:var(--primary);
+}
+
+.about{
+    background:linear-gradient(135deg,#071224,#0A2B7A);
+    color:white;
+    padding:80px 0;
+}
+
+.testimonial-card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.faq-item{
+    margin-bottom:15px;
+}
+
+footer{
+    background:#071224;
+    color:white;
+    padding:50px 0;
+}
+
+.whatsapp-float{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:999;
+}
+
+.whatsapp-float a{
+    width:60px;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#25D366;
+    color:white;
+    border-radius:50%;
+    font-size:30px;
+    text-decoration:none;
+}
+
+@media(max-width:768px){
+
+.hero{
+padding:60px 0;
+}
+
+.hero h1{
+font-size:2rem;
+}
+
+.price{
+font-size:2rem;
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+<div class="container">
+
+<a class="navbar-brand" href="#">
+TAW SITIOS WEB
+</a>
+
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="menu">
+
+<ul class="navbar-nav ms-auto">
+
+<li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+<li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+<li class="nav-item"><a class="nav-link" href="#planes">Planes</a></li>
+<li class="nav-item"><a class="nav-link" href="#portafolio">Portafolio</a></li>
+<li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+
+</ul>
+
+<a href="https://wa.me/5218995271233?text=Hola%20quiero%20informaci%C3%B3n%20sobre%20una%20p%C3%A1gina%20web"
+class="btn btn-primary ms-lg-3">
+WhatsApp
+</a>
+
+</div>
+
+</div>
+</nav>
+
+<section class="hero">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-lg-6">
+
+<h1>
+Tu negocio en internet
+<span>en 48 horas.</span>
+</h1>
+
+<p class="lead mt-4">
+Diseñamos páginas web profesionales para emprendedores y PyMEs que quieren crecer y conseguir más clientes.
+</p>
+
+<div class="row mt-4">
+
+<div class="col-6 mb-2">
+<i class="bi bi-check-circle-fill text-primary"></i>
+Diseño profesional
+</div>
+
+<div class="col-6 mb-2">
+<i class="bi bi-check-circle-fill text-primary"></i>
+Dominio y hosting
+</div>
+
+<div class="col-6 mb-2">
+<i class="bi bi-check-circle-fill text-primary"></i>
+Adaptadas a celular
+</div>
+
+<div class="col-6 mb-2">
+<i class="bi bi-check-circle-fill text-primary"></i>
+SSL incluido
+</div>
+
+<div class="col-6 mb-2">
+<i class="bi bi-check-circle-fill text-primary"></i>
+WhatsApp integrado
+</div>
+
+<div class="col-6 mb-2">
+<i class="bi bi-check-circle-fill text-primary"></i>
+Soporte personalizado
+</div>
+
+</div>
+
+<div class="mt-4">
+
+<a href="https://wa.me/5218995271233" class="btn-primary-custom me-2">
+Quiero mi página web
+</a>
+
+<a href="#portafolio" class="btn btn-outline-primary">
+Ver ejemplos
+</a>
+
+</div>
+
+</div>
+
+<div class="col-lg-6 text-center mt-5 mt-lg-0">
+
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+class="hero-image"
+alt="Diseño Web">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="servicios" class="py-5">
+
+<div class="container">
+
+<div class="section-title">
+<h2>Todo lo que necesitas para tener presencia profesional en internet</h2>
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-4 col-lg-2">
+<div class="feature-card">
+<i class="bi bi-laptop"></i>
+<h5 class="mt-3">Diseño Web</h5>
+</div>
+</div>
+
+<div class="col-md-4 col-lg-2">
+<div class="feature-card">
+<i class="bi bi-phone"></i>
+<h5 class="mt-3">Responsive</h5>
+</div>
+</div>
+
+<div class="col-md-4 col-lg-2">
+<div class="feature-card">
+<i class="bi bi-whatsapp"></i>
+<h5 class="mt-3">WhatsApp</h5>
+</div>
+</div>
+
+<div class="col-md-4 col-lg-2">
+<div class="feature-card">
+<i class="bi bi-globe"></i>
+<h5 class="mt-3">Hosting</h5>
+</div>
+</div>
+
+<div class="col-md-4 col-lg-2">
+<div class="feature-card">
+<i class="bi bi-arrow-repeat"></i>
+<h5 class="mt-3">Actualizaciones</h5>
+</div>
+</div>
+
+<div class="col-md-4 col-lg-2">
+<div class="feature-card">
+<i class="bi bi-headset"></i>
+<h5 class="mt-3">Soporte</h5>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="planes" class="plan-section">
+
+<div class="container">
+
+<div class="row g-4">
+
+<div class="col-lg-7">
+
+<h2>Página web profesional lista en 48 horas</h2>
+
+<ul class="mt-4">
+<li>Diseño web tipo landing page</li>
+<li>Información de tu empresa</li>
+<li>WhatsApp integrado</li>
+<li>Dominio por 1 año</li>
+<li>Hosting por 1 año</li>
+<li>SSL incluido</li>
+<li>Adaptada a celulares</li>
+<li>Soporte básico</li>
+</ul>
+
+</div>
+
+<div class="col-lg-5">
+
+<div class="plan-card text-center">
+
+<div class="price">$2,999</div>
+
+<p>MXN / Año</p>
+
+<a href="https://wa.me/5218995271233" class="btn btn-primary btn-lg w-100">
+Quiero este plan
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="portafolio" class="portfolio">
+
+<div class="container">
+
+<div class="section-title">
+<h2>Algunos ejemplos de páginas web</h2>
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="portfolio-card">
+<img src="https://picsum.photos/500/350?1">
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="portfolio-card">
+<img src="https://picsum.photos/500/350?2">
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="portfolio-card">
+<img src="https://picsum.photos/500/350?3">
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="py-5">
+
+<div class="container">
+
+<div class="section-title">
+<h2>Así de fácil es tener tu página web</h2>
+</div>
+
+<div class="row">
+
+<div class="col-md-3">
+<div class="process-step">
+<i class="bi bi-chat-dots"></i>
+<h5>Hablamos</h5>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="process-step">
+<i class="bi bi-file-earmark-text"></i>
+<h5>Propuesta</h5>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="process-step">
+<i class="bi bi-rocket"></i>
+<h5>48 Horas</h5>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="process-step">
+<i class="bi bi-trophy"></i>
+<h5>Tu negocio online</h5>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="about">
+
+<div class="container">
+
+<h2>Nos enfocamos en que tu negocio crezca</h2>
+
+<p class="mt-4">
+Más de 50 negocios ayudados. Diseñamos sitios modernos, rápidos y optimizados para generar clientes.
+</p>
+
+<a href="https://wa.me/5218995271233"
+class="btn btn-success btn-lg mt-3">
+Escríbenos por WhatsApp
+</a>
+
+</div>
+
+</section>
+
+<section class="py-5">
+
+<div class="container">
+
+<div class="section-title">
+<h2>Preguntas Frecuentes</h2>
+</div>
+
+<div class="accordion" id="faq">
+
+<div class="accordion-item">
+<h2 class="accordion-header">
+<button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faq1">
+¿Incluye dominio?
+</button>
+</h2>
+<div id="faq1" class="accordion-collapse collapse show">
+<div class="accordion-body">
+Sí, podemos ayudarte a registrar tu dominio.
+</div>
+</div>
+</div>
+
+<div class="accordion-item">
+<h2 class="accordion-header">
+<button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">
+¿Cuánto tarda?
+</button>
+</h2>
+<div id="faq2" class="accordion-collapse collapse">
+<div class="accordion-body">
+Tu página puede estar lista en 48 horas.
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer id="contacto">
+
+<div class="container">
+
+<div class="row">
+
+<div class="col-lg-4">
+<h4>Tu Agente Web</h4>
+<p>Tu negocio en internet en 48 horas.</p>
+</div>
+
+<div class="col-lg-4">
+<h5>Contacto</h5>
+<p>WhatsApp: +52 899 527 1233</p>
+<p>Correo: tuagenciadepaginasweb@gmail.com</p>
+</div>
+
+<div class="col-lg-4">
+<h5>Redes Sociales</h5>
+
+<a href="https://www.facebook.com/share/1D5NTgMvdK/" class="text-white fs-4">
+<i class="bi bi-facebook"></i>
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+<div class="whatsapp-float">
+
+<a href="https://wa.me/5218995271233?text=Hola%20quiero%20informaci%C3%B3n%20sobre%20una%20p%C3%A1gina%20web">
+
+<i class="bi bi-whatsapp"></i>
+
+</a>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+  </html>
