@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Boneless House Río Bravo | Boneless, Wings, Sushi, Burgers y más</title>
+<meta name="description" content="Boneless House Río Bravo: los mejores boneless, alitas, sushi, hamburguesas y bebidas con servicio a domicilio. Pide por WhatsApp y recibe en minutos." />
+<meta name="keywords" content="Boneless House, Río Bravo, alitas, wings, sushi, hamburguesas, boneless, servicio a domicilio, comida Río Bravo Tamaulipas" />
+<link rel="canonical" href="https://bonelesshouse.mx/" />
+<meta property="og:type" content="restaurant" />
+<meta property="og:title" content="Boneless House Río Bravo" />
+<meta property="og:description" content="Boneless, Wings, Sushi y Burgers con servicio a domicilio en Río Bravo, Tam." />
+<meta property="og:image" content="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=1200" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔥%3C/text%3E%3C/svg%3E" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"Boneless House Río Bravo","image":"https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=1200","address":{"@type":"PostalAddress","streetAddress":"Independencia #600, Zona Centro","addressLocality":"Río Bravo","addressRegion":"Tamaulipas","addressCountry":"MX"},"telephone":"+528997543985","servesCuisine":["Boneless","Wings","Sushi","Burgers"],"openingHours":"Mo-Su 12:00-21:00","priceRange":"$$"}
+</script>
+<style>
+:root{
+  --blue-900:#0b1e4a;
+  --blue-800:#0f2a66;
+  --blue-700:#153a8a;
+  --yellow:#ffb800;
+  --yellow-2:#ffcd3a;
+  --red:#e0231a;
+  --ink:#0a0f1f;
+  --paper:#f5f1e6;
+  --white:#ffffff;
+  --muted:#c9d1e5;
+  --shadow-lg:0 20px 60px -20px rgba(0,0,0,.55);
+  --shadow-md:0 10px 30px -10px rgba(0,0,0,.45);
+  --grad-blue:linear-gradient(160deg,#0b1e4a 0%,#153a8a 55%,#0b1e4a 100%);
+  --grad-gold:linear-gradient(180deg,#ffcd3a 0%,#ffb800 100%);
+  --font-display:'Bangers',system-ui,sans-serif;
+  --font-head:'Barlow Condensed',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+}
+*{-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3,h4,h5{font-family:var(--font-head);font-weight:900;letter-spacing:.5px}
+.display-font{font-family:var(--font-display);letter-spacing:2px;font-weight:400}
+.text-yellow{color:var(--yellow)!important}
+.text-ink{color:var(--ink)!important}
+.bg-blue{background:var(--grad-blue)!important;color:#fff}
+.bg-ink{background:var(--ink)!important;color:#fff}
+.bg-yellow{background:var(--yellow)!important;color:var(--ink)}
+.bg-paper{background:var(--paper)!important}
+
+/* Brush stroke divider */
+.brush{position:relative}
+.brush::before,.brush::after{content:"";position:absolute;left:0;right:0;height:26px;background-repeat:repeat-x;background-size:auto 26px;pointer-events:none}
+.brush-top-yellow::before{top:-1px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 26' preserveAspectRatio='none'><path d='M0 20 C 200 4 400 26 600 12 S 1000 4 1200 18 L1200 0 L0 0 Z' fill='%23ffb800'/></svg>");background-size:100% 26px}
+.brush-bottom-yellow::after{bottom:-1px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 26' preserveAspectRatio='none'><path d='M0 8 C 200 24 400 2 600 14 S 1000 24 1200 6 L1200 26 L0 26 Z' fill='%23ffb800'/></svg>");background-size:100% 26px}
+
+/* Navbar */
+.navbar{background:var(--grad-blue);padding:.75rem 0;transition:all .3s ease;border-bottom:2px solid rgba(255,184,0,.2)}
+.navbar.scrolled{box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.brand-logo{display:flex;align-items:center;gap:.75rem;color:#fff;text-decoration:none}
+.brand-mark{width:56px;height:56px;border-radius:50%;background:var(--grad-gold);display:grid;place-items:center;font-size:1.8rem;box-shadow:var(--shadow-md)}
+.brand-name{font-family:var(--font-head);font-weight:900;font-size:1.5rem;line-height:1;color:#fff}
+.brand-name small{display:block;font-family:var(--font-body);font-weight:500;font-size:.7rem;color:var(--yellow);letter-spacing:1px}
+.nav-link{color:#fff!important;font-family:var(--font-head);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:.95rem;position:relative;padding:.5rem 1rem!important}
+.nav-link.active,.nav-link:hover{color:var(--yellow)!important}
+.nav-link.active::after{content:"";position:absolute;left:1rem;right:1rem;bottom:2px;height:3px;background:var(--yellow);border-radius:2px}
+.btn-whatsapp{background:var(--grad-gold);color:var(--ink)!important;font-family:var(--font-head);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:.75rem 1.5rem;border-radius:999px;border:none;box-shadow:var(--shadow-md);transition:transform .2s ease,box-shadow .2s ease;display:inline-flex;align-items:center;gap:.5rem}
+.btn-whatsapp:hover{transform:translateY(-2px);box-shadow:0 15px 35px -10px rgba(255,184,0,.6);color:var(--ink)}
+
+/* Hero */
+.hero{background:var(--grad-blue);position:relative;overflow:hidden;color:#fff;padding:4rem 0 6rem}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(255,184,0,.15),transparent 50%),radial-gradient(circle at 80% 70%,rgba(21,58,138,.6),transparent 60%);pointer-events:none}
+.hero-title{font-family:var(--font-display);font-size:clamp(3rem,8vw,6rem);line-height:.95;text-shadow:4px 4px 0 var(--ink),8px 8px 20px rgba(0,0,0,.5)}
+.hero-title .accent{color:var(--yellow);display:block;font-size:1.4em}
+.hero-badge{display:inline-flex;align-items:center;gap:.75rem;background:rgba(0,0,0,.35);border:1px solid rgba(255,184,0,.4);padding:.6rem 1.2rem;border-radius:999px;font-family:var(--font-head);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:.95rem;margin-top:1.5rem}
+.hero-badge i{color:var(--yellow);font-size:1.5rem}
+.hero-badge b{color:var(--yellow)}
+.payment-pill{display:inline-flex;align-items:center;gap:.75rem;background:var(--ink);border:2px solid var(--yellow);padding:.5rem 1rem;border-radius:12px;margin-top:1.75rem;font-family:var(--font-head);font-weight:800;letter-spacing:1px;font-size:.85rem}
+.payment-pill .pays{display:inline-flex;gap:.4rem;align-items:center;background:#fff;color:#000;padding:.2rem .5rem;border-radius:6px;font-family:var(--font-body);font-weight:700;font-size:.75rem}
+.hero-visual{position:relative;min-height:360px}
+.hero-visual img{position:absolute;border-radius:20px;box-shadow:var(--shadow-lg);border:4px solid #fff;object-fit:cover;transition:transform .4s ease}
+.hero-visual img:hover{transform:scale(1.03) rotate(-1deg)}
+.hv-1{width:60%;top:0;right:0;height:55%;transform:rotate(3deg)}
+.hv-2{width:55%;bottom:8%;left:0;height:50%;transform:rotate(-4deg)}
+.hv-3{width:45%;bottom:0;right:8%;height:45%;transform:rotate(6deg)}
+.splat{position:absolute;color:var(--yellow);font-size:2.5rem;filter:drop-shadow(2px 2px 0 rgba(0,0,0,.5))}
+
+/* Feature strip */
+.feature-strip{background:#fff;border-radius:20px;box-shadow:var(--shadow-lg);padding:2rem 1rem;margin-top:-3rem;position:relative;z-index:5}
+.feature-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.5rem;padding:1rem}
+.feature-icon{width:64px;height:64px;border-radius:50%;background:var(--grad-blue);color:var(--yellow);display:grid;place-items:center;font-size:1.75rem;box-shadow:var(--shadow-md)}
+.feature-title{font-family:var(--font-head);font-weight:800;text-transform:uppercase;font-size:1rem;color:var(--ink);letter-spacing:1px;margin:0}
+.feature-desc{font-size:.85rem;color:#555;margin:0;max-width:220px}
+
+/* Menu section */
+.menu-section{background:var(--ink);color:#fff;padding:5rem 0;position:relative}
+.section-title{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.5rem);text-align:center;letter-spacing:3px;margin-bottom:3rem}
+.section-title .yellow{color:var(--yellow)}
+.section-title::before,.section-title::after{content:"≋";color:var(--yellow);margin:0 .5rem;font-size:.7em}
+.menu-card{position:relative;border-radius:16px;overflow:hidden;background:#111;box-shadow:var(--shadow-md);transition:transform .35s ease,box-shadow .35s ease;cursor:pointer}
+.menu-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 25px 50px -15px rgba(255,184,0,.4)}
+.menu-card img{width:100%;height:200px;object-fit:cover}
+.menu-card .label{position:absolute;bottom:12px;left:12px;right:12px;background:var(--grad-blue);color:var(--yellow);font-family:var(--font-display);letter-spacing:2px;text-align:center;padding:.5rem;border-radius:8px;font-size:1.4rem;border:2px solid var(--yellow)}
+.menu-card p{margin:.75rem 0 0;text-align:center;color:#c9d1e5;font-size:.9rem}
+.btn-full-menu{background:var(--grad-gold);color:var(--ink);font-family:var(--font-head);font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:1rem 2.5rem;border-radius:12px;border:none;box-shadow:var(--shadow-md);display:inline-flex;align-items:center;gap:.75rem;transition:transform .2s}
+.btn-full-menu:hover{transform:translateY(-3px);color:var(--ink)}
+
+/* Promo */
+.promo-section{background:var(--grad-blue);color:#fff;padding:5rem 0;position:relative}
+.promo-title{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);line-height:1;letter-spacing:2px}
+.promo-title .yellow{color:var(--yellow);display:block}
+.btn-outline-gold{background:var(--grad-gold);color:var(--ink);font-family:var(--font-head);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:.85rem 1.75rem;border-radius:10px;border:none;display:inline-flex;gap:.5rem;align-items:center;box-shadow:var(--shadow-md);transition:transform .2s}
+.btn-outline-gold:hover{transform:translateY(-2px);color:var(--ink)}
+.promo-card{background:var(--ink);border:3px solid var(--yellow);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);position:relative}
+.promo-card-inner{display:grid;grid-template-columns:1.1fr 1fr;align-items:center}
+.promo-copy{padding:1.75rem}
+.promo-copy .kicker{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.2rem);color:#fff;letter-spacing:2px;line-height:1}
+.promo-copy .sub{font-family:var(--font-head);color:var(--yellow);font-weight:800;letter-spacing:2px;font-size:1rem;margin:.25rem 0 .75rem}
+.promo-price{font-family:var(--font-display);color:var(--red);font-size:clamp(3rem,7vw,5rem);line-height:1;text-shadow:3px 3px 0 #fff}
+.promo-flavors{display:flex;gap:.5rem;margin-top:1rem}
+.promo-flavors span{background:#000;border:1px solid #333;color:#fff;font-size:.7rem;padding:.3rem .6rem;border-radius:999px;font-family:var(--font-head);font-weight:700;letter-spacing:1px}
+.promo-card img{width:100%;height:100%;min-height:260px;object-fit:cover}
+
+/* Steps */
+.steps-section{background:var(--paper);padding:5rem 0;position:relative}
+.steps-section .section-title{color:var(--ink)}
+.steps-section .section-title .yellow{color:var(--blue-800)}
+.step{text-align:center;position:relative;padding:1rem}
+.step-icon{width:80px;height:80px;border-radius:50%;display:grid;place-items:center;font-size:2rem;margin:0 auto .75rem;box-shadow:var(--shadow-md);color:#fff}
+.step:nth-child(1) .step-icon{background:var(--grad-gold);color:var(--ink)}
+.step:nth-child(2) .step-icon{background:var(--grad-blue);color:var(--yellow)}
+.step:nth-child(3) .step-icon{background:var(--grad-gold);color:var(--ink)}
+.step:nth-child(4) .step-icon{background:var(--grad-blue);color:var(--yellow)}
+.step-num{font-family:var(--font-head);font-weight:900;color:var(--ink);font-size:1.2rem}
+.step-title{font-family:var(--font-head);font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink);font-size:1rem;margin:.25rem 0 .5rem}
+.step-desc{font-size:.85rem;color:#555;max-width:200px;margin:0 auto}
+.step-arrow{position:absolute;top:35px;right:-15px;font-size:1.5rem;color:var(--ink)}
+@media(max-width:767px){.step-arrow{display:none}}
+
+/* Contact / Visit */
+.visit-section{padding:5rem 0;background:var(--paper)}
+.visit-title{font-family:var(--font-display);color:#fff;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:2px;line-height:1}
+.visit-block{background:var(--grad-blue);border-radius:20px;padding:2.5rem;color:#fff;box-shadow:var(--shadow-lg)}
+.info-row{display:flex;gap:1rem;align-items:flex-start;margin-top:1.25rem}
+.info-row .ico{width:42px;height:42px;border-radius:50%;background:var(--yellow);color:var(--ink);display:grid;place-items:center;flex-shrink:0;font-size:1.2rem}
+.info-row .txt strong{display:block;font-family:var(--font-head);letter-spacing:1.5px;text-transform:uppercase;font-size:.95rem;color:var(--yellow)}
+.info-row .txt{font-size:.9rem;line-height:1.4}
+.storefront{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);height:100%;min-height:400px;object-fit:cover;width:100%}
+.right-cta{background:var(--grad-blue);border-radius:20px;padding:2.5rem;text-align:center;color:#fff;box-shadow:var(--shadow-lg)}
+.pay-icons{display:inline-flex;gap:.5rem;background:#fff;padding:.5rem .75rem;border-radius:8px;margin-top:1rem;color:#000;font-weight:800;font-size:.8rem;align-items:center}
+
+/* Footer */
+footer{background:var(--ink);color:#fff;padding:3rem 0 0}
+.footer-title{font-family:var(--font-head);color:var(--yellow);text-transform:uppercase;letter-spacing:2px;font-weight:800;font-size:.95rem;margin-bottom:1rem}
+footer a{color:#c9d1e5;text-decoration:none;display:block;padding:.2rem 0;font-size:.9rem}
+footer a:hover{color:var(--yellow)}
+.socials{display:flex;gap:.5rem;margin-top:1rem}
+.socials a{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;color:#fff}
+.socials a:hover{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.footer-bottom{background:var(--yellow);color:var(--ink);padding:1rem 0;margin-top:2rem;font-size:.85rem;font-weight:600}
+
+/* Floating WA */
+.float-wa{position:fixed;bottom:20px;right:20px;width:60px;height:60px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;font-size:1.75rem;box-shadow:0 10px 25px rgba(37,211,102,.5);z-index:1000;transition:transform .2s}
+.float-wa:hover{transform:scale(1.1);color:#fff}
+.scroll-top{position:fixed;bottom:90px;right:20px;width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--yellow);border:2px solid var(--yellow);display:none;place-items:center;z-index:1000;cursor:pointer}
+.scroll-top.show{display:grid}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:768px){
+  .hero-visual{min-height:280px}
+  .promo-card-inner{grid-template-columns:1fr}
+  .visit-block,.right-cta{padding:1.75rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
+  <div class="container">
+    <a href="#inicio" class="brand-logo">
+      <div class="brand-mark">🔥</div>
+      <div class="brand-name">Boneless House<small>Río Bravo, tam</small></div>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav" aria-label="Abrir menú">
+      <i class="bi bi-list text-warning fs-2"></i>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center">
+      <ul class="navbar-nav gap-lg-2">
+        <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#menu">Menú</a></li>
+        <li class="nav-item"><a class="nav-link" href="#promociones">Promociones</a></li>
+        <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <a href="https://wa.me/528997543985" class="btn btn-whatsapp d-none d-lg-inline-flex" target="_blank" rel="noopener">
+      <i class="bi bi-whatsapp"></i> Pedir por WhatsApp
+    </a>
+  </div>
+</nav>
+
+<!-- Offcanvas mobile -->
+<div class="offcanvas offcanvas-end bg-ink text-white" tabindex="-1" id="mobileNav">
+  <div class="offcanvas-header"><h5 class="text-yellow display-font m-0">Menú</h5><button class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button></div>
+  <div class="offcanvas-body">
+    <a class="nav-link" href="#inicio" data-bs-dismiss="offcanvas">Inicio</a>
+    <a class="nav-link" href="#menu" data-bs-dismiss="offcanvas">Menú</a>
+    <a class="nav-link" href="#promociones" data-bs-dismiss="offcanvas">Promociones</a>
+    <a class="nav-link" href="#nosotros" data-bs-dismiss="offcanvas">Nosotros</a>
+    <a class="nav-link" href="#ubicacion" data-bs-dismiss="offcanvas">Ubicación</a>
+    <a class="nav-link" href="#contacto" data-bs-dismiss="offcanvas">Contacto</a>
+    <a href="https://wa.me/528997543985" class="btn btn-whatsapp mt-3 w-100 justify-content-center"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="inicio">
+  <div class="container position-relative">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 reveal">
+        <h1 class="hero-title">¡Tenemos <span class="accent">Servicio</span> <span class="text-white" style="font-size:.9em">a Domicilio!</span></h1>
+        <div class="hero-badge"><i class="bi bi-stopwatch"></i>¡Llega en <b>MINUTOS</b> tu pedido!</div>
+        <div>
+          <div class="payment-pill">PUEDES PAGAR CON TARJETA
+            <span class="pays"><i class="bi bi-credit-card-2-front"></i> VISA</span>
+            <span class="pays">MC</span>
+            <span class="pays"><i class="bi bi-apple"></i>Pay</span>
+          </div>
+        </div>
+        <div class="mt-4 d-flex flex-wrap gap-3">
+          <a href="#menu" class="btn btn-outline-gold"><i class="bi bi-book"></i> Ver Menú</a>
+          <a href="https://wa.me/528997543985" class="btn btn-whatsapp"><i class="bi bi-whatsapp"></i> Pedir ahora</a>
+        </div>
+      </div>
+      <div class="col-lg-6 reveal">
+        <div class="hero-visual">
+          <span class="splat" style="top:5%;left:40%">✦</span>
+          <span class="splat" style="top:30%;right:5%">✦</span>
+          <img class="hv-1" src="https://images.unsplash.com/photo-1608039755401-742074f0548d?w=800&auto=format&fit=crop" alt="Alitas BBQ crujientes" loading="lazy" decoding="async"/>
+          <img class="hv-2" src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=800&auto=format&fit=crop" alt="Sushi rolls variados" loading="lazy" decoding="async"/>
+          <img class="hv-3" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop" alt="Hamburguesa con tocino" loading="lazy" decoding="async"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== FEATURE STRIP ===== -->
+<section aria-label="Beneficios">
+  <div class="container">
+    <div class="feature-strip reveal">
+      <div class="row g-0">
+        <div class="col-6 col-lg-3"><div class="feature-item">
+          <div class="feature-icon"><i class="bi bi-scooter"></i></div>
+          <h3 class="feature-title">Servicio a Domicilio</h3>
+          <p class="feature-desc">Para que no salgas de casa.</p>
+        </div></div>
+        <div class="col-6 col-lg-3"><div class="feature-item">
+          <div class="feature-icon"><i class="bi bi-award"></i></div>
+          <h3 class="feature-title">Platillos de Calidad</h3>
+          <p class="feature-desc">Ingredientes frescos y el mejor sabor siempre.</p>
+        </div></div>
+        <div class="col-6 col-lg-3"><div class="feature-item">
+          <div class="feature-icon"><i class="bi bi-credit-card"></i></div>
+          <h3 class="feature-title">Tarjetas y Transferencias</h3>
+          <p class="feature-desc">Pagos seguros y fáciles.</p>
+        </div></div>
+        <div class="col-6 col-lg-3"><div class="feature-item">
+          <div class="feature-icon"><i class="bi bi-people"></i></div>
+          <h3 class="feature-title">Perfectos para Compartir</h3>
+          <p class="feature-desc">En familia, con amigos o en cualquier ocasión.</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MENU ===== -->
+<section class="menu-section" id="menu">
+  <div class="container">
+    <h2 class="section-title reveal">Conoce Nuestro <span class="yellow">Menú</span></h2>
+    <div class="row g-4">
+      <div class="col-6 col-md-4 col-lg reveal"><div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1562967914-608f82629710?w=600&auto=format&fit=crop" alt="Boneless bañados en salsa"/>
+        <div class="label">Boneless</div>
+        <p>Nuestras salsas te van a encantar.</p>
+      </div></div>
+      <div class="col-6 col-md-4 col-lg reveal"><div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?w=600&auto=format&fit=crop" alt="Alitas BBQ"/>
+        <div class="label">Wings</div>
+        <p>Clásicas o especiales, siempre deliciosas.</p>
+      </div></div>
+      <div class="col-6 col-md-4 col-lg reveal"><div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=600&auto=format&fit=crop" alt="Rollos de sushi"/>
+        <div class="label">Sushi</div>
+        <p>Variedad de rolls para todos los gustos.</p>
+      </div></div>
+      <div class="col-6 col-md-4 col-lg reveal"><div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop" alt="Hamburguesa"/>
+        <div class="label">Burgers</div>
+        <p>Jugosas, llenas de sabor y calidad.</p>
+      </div></div>
+      <div class="col-6 col-md-4 col-lg reveal"><div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1553787499-6f9133860278?w=600&auto=format&fit=crop" alt="Bebidas y michelada"/>
+        <div class="label">Bebidas</div>
+        <p>Refrescos, micheladas y más.</p>
+      </div></div>
+    </div>
+    <div class="text-center mt-5 reveal">
+      <a href="#promociones" class="btn-full-menu">Ver Menú Completo <i class="bi bi-journal-text"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROMO ===== -->
+<section class="promo-section" id="promociones">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5 reveal">
+        <h2 class="promo-title">¡Promociones<span class="yellow">que te encantan!</span></h2>
+        <p class="mt-3 text-white-50">Pregúntanos por nuestras promociones del día.</p>
+        <a href="https://wa.me/528997543985" class="btn-outline-gold mt-3"><i class="bi bi-tag-fill"></i> Ver Promociones</a>
+      </div>
+      <div class="col-lg-7 reveal">
+        <div class="promo-card">
+          <div class="promo-card-inner">
+            <div class="promo-copy">
+              <div class="kicker">Alitas</div>
+              <div class="sub">El antojo perfecto</div>
+              <div class="promo-price">$105</div>
+              <div class="promo-flavors"><span>BBQ</span><span>Búfalo</span><span>Mango Habanero</span></div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=800&auto=format&fit=crop" alt="Alitas con salsa"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEPS ===== -->
+<section class="steps-section" id="proceso">
+  <div class="container">
+    <h2 class="section-title reveal">Ordenar es <span class="yellow">muy fácil</span></h2>
+    <div class="row g-4">
+      <div class="col-6 col-md-3 step reveal">
+        <div class="step-icon"><i class="bi bi-whatsapp"></i></div>
+        <div class="step-num">1</div>
+        <h3 class="step-title">Elige tu pedido</h3>
+        <p class="step-desc">Explora nuestro menú y selecciona tus favoritos.</p>
+        <span class="step-arrow"><i class="bi bi-arrow-right"></i></span>
+      </div>
+      <div class="col-6 col-md-3 step reveal">
+        <div class="step-icon"><i class="bi bi-telephone-fill"></i></div>
+        <div class="step-num">2</div>
+        <h3 class="step-title">Contáctanos</h3>
+        <p class="step-desc">Por WhatsApp o llámanos a nuestros números.</p>
+        <span class="step-arrow"><i class="bi bi-arrow-right"></i></span>
+      </div>
+      <div class="col-6 col-md-3 step reveal">
+        <div class="step-icon"><i class="bi bi-scooter"></i></div>
+        <div class="step-num">3</div>
+        <h3 class="step-title">Te lo llevamos</h3>
+        <p class="step-desc">En minutos a la puerta de tu casa.</p>
+        <span class="step-arrow"><i class="bi bi-arrow-right"></i></span>
+      </div>
+      <div class="col-6 col-md-3 step reveal">
+        <div class="step-icon"><i class="bi bi-house-heart-fill"></i></div>
+        <div class="step-num">4</div>
+        <h3 class="step-title">¡Disfruta!</h3>
+        <p class="step-desc">Recibe tu pedido y disfruta del mejor sabor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VISIT / CONTACT ===== -->
+<section class="visit-section" id="ubicacion">
+  <div class="container">
+    <div class="row g-4 align-items-stretch">
+      <div class="col-lg-4 reveal">
+        <div class="visit-block">
+          <h2 class="visit-title">Visítanos <span class="text-yellow">o pide ahora</span></h2>
+          <div class="info-row"><div class="ico"><i class="bi bi-geo-alt-fill"></i></div><div class="txt"><strong>Independencia #600</strong>Zona Centro, Río Bravo, Tam.<br/>(Atrás de Guajardo Chico)</div></div>
+          <div class="info-row"><div class="ico"><i class="bi bi-clock-fill"></i></div><div class="txt"><strong>Horario</strong>Todos los días<br/>12:00 PM a 9:00 PM</div></div>
+          <div class="info-row"><div class="ico"><i class="bi bi-telephone-fill"></i></div><div class="txt"><strong>Llámanos</strong>899 754 3985<br/>899 548 2085</div></div>
+        </div>
+      </div>
+      <div class="col-lg-4 reveal">
+        <div id="map" style="height:100%;min-height:400px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)"></div>
+      </div>
+      <div class="col-lg-4 reveal" id="contacto">
+        <div class="right-cta h-100 d-flex flex-column justify-content-center">
+          <h2 class="visit-title mb-3">¡Tu pedido listo <span class="text-yellow">en minutos!</span></h2>
+          <a href="https://wa.me/528997543985" class="btn btn-whatsapp mx-auto"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
+          <p class="mt-3 mb-0 text-white-50">Aceptamos tarjetas y transferencias</p>
+          <div class="pay-icons mx-auto"><i class="bi bi-credit-card-2-front"></i> VISA · MC · <i class="bi bi-apple"></i>Pay</div>
+          <a id="howToGet" href="#" target="_blank" rel="noopener" class="btn btn-outline-light mt-3 mx-auto"><i class="bi bi-signpost-2"></i> Cómo llegar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="nosotros">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-3">
+        <a href="#inicio" class="brand-logo"><div class="brand-mark">🔥</div><div class="brand-name">Boneless House<small>Río Bravo, tam</small></div></a>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <h4 class="footer-title">Navegación</h4>
+        <a href="#inicio">Inicio</a><a href="#menu">Menú</a><a href="#promociones">Promociones</a><a href="#nosotros">Nosotros</a><a href="#ubicacion">Ubicaciones</a><a href="#contacto">Contacto</a>
+      </div>
+      <div class="col-6 col-md-3">
+        <h4 class="footer-title">Contáctanos</h4>
+        <a href="https://wa.me/528997543985"><i class="bi bi-whatsapp text-yellow"></i> 899 754 3985 / 899 548 2085</a>
+        <a href="tel:8997543985"><i class="bi bi-telephone-fill text-yellow"></i> 899 754 3985 / 899 548 2085</a>
+        <a href="#ubicacion"><i class="bi bi-geo-alt-fill text-yellow"></i> Independencia #600, Zona Centro, Río Bravo, Tam.</a>
+      </div>
+      <div class="col-md-3">
+        <h4 class="footer-title">Horario</h4>
+        <p class="text-white-50 mb-0">Todos los días<br/>12:00 pm a 9:00 pm</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom mt-4">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+      <span>© 2024 Boneless House Río Bravo. Todos los derechos reservados.</span>
+      <span>Desarrollado por TAW Sitios Web</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/528997543985" class="float-wa" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i></a>
+<button class="scroll-top" id="scrollTop" aria-label="Ir arriba"><i class="bi bi-arrow-up"></i></button>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  // Navbar scroll
+  const nav=document.getElementById('mainNav');
+  const st=document.getElementById('scrollTop');
+  window.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',window.scrollY>20);
+    st.classList.toggle('show',window.scrollY>400);
+  });
+  st.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+  // Reveal on scroll
+  const io=new IntersectionObserver((es)=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Active nav link
+  const links=document.querySelectorAll('.nav-link');
+  const sections=[...document.querySelectorAll('section[id],header[id]')];
+  window.addEventListener('scroll',()=>{
+    const y=window.scrollY+120;
+    let cur=sections[0]?.id;
+    sections.forEach(s=>{if(s.offsetTop<=y)cur=s.id});
+    links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+  });
+
+  // Leaflet map
+  const lat=25.9902, lng=-98.0864;
+  if(window.L){
+    const map=L.map('map',{scrollWheelZoom:false}).setView([lat,lng],16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
+    L.marker([lat,lng]).addTo(map).bindPopup('<b>Boneless House</b><br>Independencia #600').openPopup();
+  }
+  document.getElementById('howToGet').href=`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+
+  // Security notices
+  const warn=()=>{try{console.clear();console.log('%cAcceso al código no permitido','color:#ffb800;font:800 22px sans-serif')}catch(e){}};
+  document.addEventListener('contextmenu',e=>{e.preventDefault();warn()});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&['I','J','C'].includes(e.key.toUpperCase()))||(e.ctrlKey&&e.key.toUpperCase()==='U')){e.preventDefault();warn()}
+  });
+});
+</script>
+</body>
+</html>
