@@ -386,19 +386,66 @@ img{max-width:100%;}
 
 #map{height:260px; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-soft); margin-top:1.5rem;}
 
-.contact-form-card{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:var(--radius);
-  padding:1.8rem;
-  backdrop-filter:blur(8px);
+/* ============================================
+   NOSOTROS
+   ============================================ */
+.nosotros-section{background:var(--cream); padding:5rem 0;}
+.nosotros-section .section-title{font-size:clamp(1.9rem,4vw,2.7rem);}
+.nosotros-text{
+  font-size:.95rem; line-height:1.8; color:#3d3d3d; margin-bottom:1.1rem;
 }
-.contact-form-card .form-control, .contact-form-card .form-select{
-  background:rgba(255,255,255,.9); border:none; border-radius:8px;
-  padding:.7rem .9rem; font-size:.85rem;
+.nosotros-stat{
+  background:var(--white); border-radius:12px; padding:1rem 1.2rem;
+  box-shadow:var(--shadow-soft); text-align:center;
 }
-.contact-form-card label{font-size:.8rem; font-weight:600; margin-bottom:.3rem; color:var(--gold-light);}
-.form-msg{font-size:.82rem; margin-top:.7rem; border-radius:8px; padding:.6rem .9rem;}
+.nosotros-stat .num{
+  display:block; font-family:var(--font-display); font-size:1.8rem; color:var(--navy);
+}
+.nosotros-stat .lbl{display:block; font-size:.72rem; color:#666; text-transform:uppercase; letter-spacing:.4px;}
+
+/* ============================================
+   TESTIMONIOS (SLIDER)
+   ============================================ */
+.testimonios-section{background:var(--white); padding:5rem 0 6rem;}
+.testimonial-card{
+  background:var(--navy); border-radius:var(--radius);
+  padding:2.6rem 2.2rem; text-align:center; color:var(--white);
+  box-shadow:var(--shadow-soft); position:relative;
+}
+.testimonial-card .quote-icon{
+  font-size:2.2rem; color:var(--gold); display:block; margin-bottom:.6rem;
+}
+.testimonial-card .stars{color:var(--gold-light); font-size:.9rem; margin-bottom:1rem; letter-spacing:2px;}
+.testimonial-card p{
+  font-size:1.02rem; font-style:italic; line-height:1.7; color:#e5e9f5; margin-bottom:1.3rem;
+}
+.testimonial-card h6{
+  font-family:var(--font-display); font-size:.9rem; color:var(--gold); margin-bottom:.1rem;
+}
+.testimonial-card span{font-size:.78rem; color:#a9b2d1;}
+
+.testimonial-nav-icon{
+  width:42px; height:42px; border-radius:50%; background:var(--navy);
+  color:var(--gold); display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; box-shadow:var(--shadow-soft);
+}
+#testimonialsCarousel .carousel-control-prev,
+#testimonialsCarousel .carousel-control-next{
+  width:auto; opacity:1;
+}
+#testimonialsCarousel .carousel-control-prev{ left:-8px; }
+#testimonialsCarousel .carousel-control-next{ right:-8px; }
+@media (max-width:767.98px){
+  #testimonialsCarousel .carousel-control-prev,
+  #testimonialsCarousel .carousel-control-next{ position:static; display:inline-flex; margin:1.2rem .5rem 0; }
+  #testimonialsCarousel .carousel-inner{ margin-bottom:0; }
+}
+.testimonial-indicators{position:static; margin-top:1.8rem;}
+.testimonial-indicators [data-bs-target]{
+  width:9px; height:9px; border-radius:50%; background:var(--navy);
+  opacity:.3; border:none;
+}
+.testimonial-indicators .active{opacity:1; background:var(--gold);}
 
 /* ============================================
    FOOTER
@@ -461,6 +508,26 @@ img{max-width:100%;}
   box-shadow:var(--shadow-strong); display:none;
 }
 
+/* Offcanvas de navegación móvil */
+.mobile-nav-offcanvas{
+  background:var(--navy); color:var(--white);
+  width:min(320px, 82vw);
+}
+.mobile-nav-offcanvas .offcanvas-header{
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.mobile-nav-offcanvas .offcanvas-title{
+  font-family:var(--font-display); color:var(--gold); letter-spacing:.5px;
+}
+.mobile-nav-offcanvas .nav-link-bh{
+  display:block; font-size:1.05rem; padding:.9rem 0;
+  border-bottom:1px solid rgba(255,255,255,.1); margin:0;
+}
+.mobile-nav-offcanvas .nav-link-bh::after{display:none;}
+.mobile-nav-offcanvas .btn-whatsapp-nav{
+  width:100%; justify-content:center; margin-top:1.6rem;
+}
+
 /* Fullscreen menu modal */
 .modal-fullmenu .modal-content{background:var(--navy); color:var(--white); border:none;}
 .modal-fullmenu .menu-cat-link{
@@ -504,7 +571,7 @@ img{max-width:100%;}
         <span class="tag">Río Bravo, Tam.</span>
       </span>
     </a>
-    <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="modal" data-bs-target="#fullMenuModal" aria-label="Abrir menú">
+    <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavOffcanvas" aria-controls="mobileNavOffcanvas" aria-label="Abrir menú de navegación">
       <i class="bi bi-list fs-1 text-white"></i>
     </button>
     <div class="collapse navbar-collapse d-none d-lg-flex" id="navbarNav">
@@ -669,6 +736,109 @@ img{max-width:100%;}
 </section>
 
 <!-- ============================================
+     NOSOTROS
+     ============================================ -->
+<section class="nosotros-section" id="nosotros">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 fade-in">
+        <div class="store-photo">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=80" alt="Fachada del local Boneless House Río Bravo" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="col-lg-6 fade-in">
+        <h2 class="section-title text-lg-start" style="text-align:left;">Sobre <span class="accent">Nosotros</span></h2>
+        <p class="nosotros-text">
+          En Boneless House Río Bravo nacimos de una idea muy sencilla: llevar hasta tu puerta los sabores que más se antojan, con la calidez de un negocio familiar. Cada boneless, ala, roll de sushi y burger se prepara al momento, con ingredientes frescos y las salsas de la casa que nos distinguen en el centro de Río Bravo.
+        </p>
+        <p class="nosotros-text">
+          Nos mueve la pasión por la buena comida y la satisfacción de nuestros clientes. Por eso cuidamos cada detalle, desde la sazón hasta el empaque, para que tu pedido llegue en minutos y en las mejores condiciones, listo para compartir en familia o con amigos.
+        </p>
+        <div class="row g-3 mt-3">
+          <div class="col-6">
+            <div class="nosotros-stat">
+              <span class="num">100%</span>
+              <span class="lbl">Ingredientes frescos</span>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="nosotros-stat">
+              <span class="num">7</span>
+              <span class="lbl">Días a la semana</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TESTIMONIOS
+     ============================================ -->
+<section class="testimonios-section">
+  <div class="container">
+    <div class="section-eyebrow-wrap fade-in">
+      <h2 class="section-title">Lo que Dicen <span class="accent">Nuestros Clientes</span></h2>
+    </div>
+    <div id="testimonialsCarousel" class="carousel slide fade-in" data-bs-ride="carousel" data-bs-interval="4000" aria-label="Comentarios de clientes">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+              <div class="testimonial-card">
+                <i class="bi bi-quote quote-icon"></i>
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <p>"Las alitas son las mejores de Río Bravo, siempre llegan calientitas y a tiempo. El servicio a domicilio es súper rápido."</p>
+                <h6>Karla M.</h6>
+                <span>Zona Centro</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+              <div class="testimonial-card">
+                <i class="bi bi-quote quote-icon"></i>
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <p>"Pedimos sushi y burgers para la familia y no hubo ni una queja. Calidad y sabor todos los días."</p>
+                <h6>Jorge L.</h6>
+                <span>Cliente frecuente</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+              <div class="testimonial-card">
+                <i class="bi bi-quote quote-icon"></i>
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
+                <p>"Excelente atención por WhatsApp, me ayudaron a armar mi pedido y llegó en minutos. Totalmente recomendados."</p>
+                <h6>Andrea R.</h6>
+                <span>Río Bravo, Tam.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev" aria-label="Comentario anterior">
+        <span class="testimonial-nav-icon"><i class="bi bi-chevron-left"></i></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next" aria-label="Siguiente comentario">
+        <span class="testimonial-nav-icon"><i class="bi bi-chevron-right"></i></span>
+      </button>
+      <div class="carousel-indicators testimonial-indicators">
+        <button type="button" data-bs-target="#testimonialsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Comentario 1"></button>
+        <button type="button" data-bs-target="#testimonialsCarousel" data-bs-slide-to="1" aria-label="Comentario 2"></button>
+        <button type="button" data-bs-target="#testimonialsCarousel" data-bs-slide-to="2" aria-label="Comentario 3"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
      PROCESO / ORDENAR ES FÁCIL
      ============================================ -->
 <section class="process-section" id="proceso">
@@ -719,7 +889,7 @@ img{max-width:100%;}
 <section class="contact-section" id="ubicacion">
   <div class="container">
     <div class="row g-5">
-      <div class="col-lg-4 fade-in">
+      <div class="col-lg-6 fade-in">
         <h2 class="section-title mb-4">Visítanos<br><span class="accent">o Pide Ahora</span></h2>
         <div class="contact-info-item">
           <span class="ci-icon"><i class="bi bi-geo-alt-fill"></i></span>
@@ -744,44 +914,14 @@ img{max-width:100%;}
         </div>
       </div>
 
-      <div class="col-lg-4 fade-in">
-        <div class="store-photo">
-          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=80" alt="Fachada del local Boneless House Río Bravo" loading="lazy" decoding="async">
-        </div>
-      </div>
-
-      <div class="col-lg-4 fade-in" id="contacto">
+      <div class="col-lg-6 fade-in" id="contacto">
         <h2 class="section-title" style="font-size:1.8rem;">¡Tu Pedido Listo<br><span class="accent">en Minutos!</span></h2>
         <a href="https://wa.me/528997543985" target="_blank" rel="noopener" class="btn btn-gold mt-2 mb-3"><i class="bi bi-whatsapp me-2"></i>Pedir por WhatsApp</a>
         <p class="mb-2" style="color:#c9d0e6; font-size:.85rem;">Aceptamos tarjetas y transferencias</p>
-        <div class="d-flex gap-2 fs-3 mb-4">
+        <div class="d-flex gap-2 fs-3">
           <i class="bi bi-credit-card-2-front" style="color:var(--gold-light)"></i>
           <i class="bi bi-credit-card" style="color:var(--gold-light)"></i>
           <i class="bi bi-apple" style="color:var(--gold-light)"></i>
-        </div>
-
-        <div class="contact-form-card">
-          <h6 class="text-white mb-3" style="font-family:var(--font-display); letter-spacing:.5px;">Envíanos un Mensaje</h6>
-          <form id="contactForm" novalidate>
-            <div class="mb-2">
-              <label for="nombre">Nombre</label>
-              <input type="text" class="form-control" id="nombre" name="nombre" required>
-            </div>
-            <div class="mb-2">
-              <label for="telefono">Teléfono</label>
-              <input type="tel" class="form-control" id="telefono" name="telefono" required pattern="[0-9]{10}" placeholder="10 dígitos">
-            </div>
-            <div class="mb-2">
-              <label for="correo">Correo (opcional)</label>
-              <input type="email" class="form-control" id="correo" name="correo">
-            </div>
-            <div class="mb-3">
-              <label for="mensaje">Mensaje</label>
-              <textarea class="form-control" id="mensaje" name="mensaje" rows="3" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-gold w-100">Enviar Mensaje</button>
-            <div id="formFeedback" class="form-msg" style="display:none;"></div>
-          </form>
         </div>
       </div>
     </div>
@@ -803,7 +943,7 @@ img{max-width:100%;}
 <!-- ============================================
      FOOTER
      ============================================ -->
-<footer class="footer-bh" id="nosotros">
+<footer class="footer-bh">
   <div class="container">
     <div class="row g-4">
       <div class="col-lg-4">
@@ -857,6 +997,27 @@ img{max-width:100%;}
 <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Volver arriba">
   <i class="bi bi-arrow-up"></i>
 </button>
+
+<!-- ============================================
+     OFFCANVAS: NAVEGACIÓN MÓVIL
+     ============================================ -->
+<div class="offcanvas offcanvas-end mobile-nav-offcanvas" tabindex="-1" id="mobileNavOffcanvas" aria-labelledby="mobileNavLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mobileNavLabel">Navegación</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+    <a class="nav-link nav-link-bh" href="#inicio" data-bs-dismiss="offcanvas">Inicio</a>
+    <a class="nav-link nav-link-bh" href="#menu" data-bs-dismiss="offcanvas">Menú</a>
+    <a class="nav-link nav-link-bh" href="#promociones" data-bs-dismiss="offcanvas">Promociones</a>
+    <a class="nav-link nav-link-bh" href="#nosotros" data-bs-dismiss="offcanvas">Nosotros</a>
+    <a class="nav-link nav-link-bh" href="#ubicacion" data-bs-dismiss="offcanvas">Ubicación</a>
+    <a class="nav-link nav-link-bh" href="#contacto" data-bs-dismiss="offcanvas">Contacto</a>
+    <a href="https://wa.me/528997543985?text=Hola%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" class="btn-whatsapp-nav">
+      <i class="bi bi-whatsapp"></i> Pedir por WhatsApp
+    </a>
+  </div>
+</div>
 
 <!-- ============================================
      MODAL: MENÚ FULLSCREEN
@@ -954,46 +1115,6 @@ img{max-width:100%;}
     });
   }, {threshold:0.4});
   sections.forEach(s => navObserver.observe(s));
-
-  /* Validación de formulario de contacto */
-  const form = document.getElementById('contactForm');
-  const feedback = document.getElementById('formFeedback');
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    const nombre = document.getElementById('nombre').value.trim();
-    const telefono = document.getElementById('telefono').value.trim();
-    const correo = document.getElementById('correo').value.trim();
-    const mensaje = document.getElementById('mensaje').value.trim();
-    const telRegex = /^[0-9]{10}$/;
-    const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if(!nombre || !telefono || !mensaje){
-      showFeedback('Por favor completa todos los campos obligatorios.', 'danger');
-      return;
-    }
-    if(!telRegex.test(telefono)){
-      showFeedback('Ingresa un teléfono válido a 10 dígitos.', 'danger');
-      return;
-    }
-    if(correo && !mailRegex.test(correo)){
-      showFeedback('Ingresa un correo electrónico válido.', 'danger');
-      return;
-    }
-
-    /* Estructura preparada para backend: reemplazar por fetch() a tu endpoint */
-    const payload = { nombre, telefono, correo, mensaje, fecha: new Date().toISOString() };
-    console.log('Payload listo para backend:', payload);
-
-    showFeedback('¡Gracias ' + nombre + '! Tu mensaje fue enviado, te contactaremos pronto.', 'success');
-    form.reset();
-  });
-
-  function showFeedback(msg, type){
-    feedback.textContent = msg;
-    feedback.style.display = 'block';
-    feedback.style.background = type === 'success' ? 'rgba(37,211,102,.18)' : 'rgba(212,33,44,.2)';
-    feedback.style.color = type === 'success' ? '#8CF0B4' : '#FF9C9C';
-  }
 
   /* Mapa Leaflet */
   const lat = 25.9908, lng = -98.1000; /* Río Bravo, Tamaulipas aproximado */
