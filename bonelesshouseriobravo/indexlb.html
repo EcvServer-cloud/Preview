@@ -23,8 +23,9 @@
 <meta name="twitter:description" content="Boneless, wings, sushi y burgers. ¡Llega en minutos!">
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1608039755401-742074f0548d?w=1200&q=80">
 
-<!-- Favicon -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230B1A4A'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='%23F5B400'%3E🍗%3C/text%3E%3C/svg%3E">
+<!-- Favicon (logo del cliente en carpeta bhrb) -->
+<link rel="icon" type="image/jpeg" href="bhrb/logobhhrb.jpg">
+<link rel="apple-touch-icon" href="bhrb/logobhhrb.jpg">
 
 <!-- Schema.org -->
 <script type="application/ld+json">
@@ -129,6 +130,10 @@ img{max-width:100%;}
   display:flex; align-items:center; justify-content:center;
   font-size:1.4rem; color:var(--navy);
   flex-shrink:0;
+  overflow:hidden;
+}
+.logo-badge img{
+  width:100%; height:100%; object-fit:cover; border-radius:50%;
 }
 .navbar-brand-bh .brand-text{color:var(--white); line-height:1.1;}
 .navbar-brand-bh .brand-text .main{font-family:var(--font-display); font-size:1.15rem; color:var(--white);}
@@ -406,6 +411,7 @@ img{max-width:100%;}
 .footer-brand .logo-badge{
   width:50px; height:50px; border-radius:50%; background:var(--gold);
   display:flex; align-items:center; justify-content:center; font-size:1.5rem; color:var(--navy);
+  overflow:hidden;
 }
 .social-icons{display:flex; gap:.7rem; margin-top:1rem;}
 .social-icons a{
@@ -491,7 +497,7 @@ img{max-width:100%;}
 <nav class="navbar navbar-expand-lg navbar-bh fixed-top" id="mainNavbar" aria-label="Navegación principal">
   <div class="container">
     <a class="navbar-brand navbar-brand-bh" href="#inicio">
-      <span class="logo-badge"><i class="bi bi-egg-fried"></i></span>
+      <span class="logo-badge"><img src="bhrb/logobhhrb.jpg" alt="Logo Boneless House Río Bravo" loading="lazy" decoding="async"></span>
       <span class="brand-text">
         <span class="main d-block">Boneless</span>
         <span class="sub d-block">House</span>
@@ -802,7 +808,7 @@ img{max-width:100%;}
     <div class="row g-4">
       <div class="col-lg-4">
         <div class="footer-brand">
-          <span class="logo-badge"><i class="bi bi-egg-fried"></i></span>
+          <span class="logo-badge"><img src="bhrb/logobhhrb.jpg" alt="Logo Boneless House Río Bravo" loading="lazy" decoding="async"></span>
           <div>
             <strong class="d-block text-white" style="font-family:var(--font-display);">Boneless House</strong>
             <small>Río Bravo, Tam.</small>
