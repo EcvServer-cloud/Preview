@@ -282,7 +282,9 @@
   .footer-bottom{border-top:1px solid rgba(255,255,255,.12);font-size:.78rem;color:#d9a9bb;}
 
   /* ---------- Menu modal ---------- */
-  .menu-page-img{width:100%;border-radius:12px;margin-bottom:1rem;box-shadow:0 6px 16px rgba(0,0,0,.15);}
+  .menu-item-img{width:100%;height:130px;object-fit:cover;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,.15);}
+  .menu-item-name{font-weight:700;color:var(--wine);font-size:.82rem;margin-top:.4rem;}
+  .menu-item-price{color:var(--pink);font-weight:800;font-size:.8rem;}
 
   /* ---------- Anti-inspect toast ---------- */
   #devtoolsToast{
@@ -357,7 +359,7 @@
       </div>
       <div class="col-lg-6">
         <div class="hero-img-wrap">
-          <img src="https://picsum.photos/seed/cochinita-hero/900/700" alt="Cochinita pibil estilo Yucatán servida en La Cochibirria">
+          <img src="src/cochimg1.jpg" alt="Cochinita pibil estilo Yucatán servida en La Cochibirria">
           <div class="badge-round"><span class="big">100%</span>COCHINITA<br>ESTILO YUCATÁN</div>
         </div>
       </div>
@@ -370,7 +372,7 @@
   <div class="container py-4">
     <div class="row g-4 align-items-stretch">
       <div class="col-lg-4">
-        <img src="https://picsum.photos/seed/restaurant-front/600/500" alt="Fachada del restaurante La Cochibirria" class="about-img">
+        <img src="src/cochimg2.jpg" alt="Platillo destacado de La Cochibirria" class="about-img">
       </div>
       <div class="col-lg-4">
         <span class="eyebrow">Sobre nosotros</span>
@@ -396,7 +398,7 @@
           <h3>Promoción</h3>
           <div class="promo-title">Tamales<br>Cochinita</div>
           <div class="promo-price">3 tamales por $100 pesos</div>
-          <img src="https://picsum.photos/seed/tamales-promo/400/400" alt="Tamales de cochinita">
+          <img src="src/cochimg3.jpg" alt="Tamales de cochinita">
         </div>
       </div>
     </div>
@@ -413,7 +415,7 @@
     <div class="row g-4">
       <div class="col-6 col-lg-3">
         <div class="product-card expandable" data-bs-toggle="modal" data-bs-target="#menuModal">
-          <img src="https://picsum.photos/seed/quesabirria/500/400" alt="Quesabirria con consomé">
+          <img src="src/cochimg4.jpg" alt="Quesabirria con consomé">
           <div class="body">
             <h5>Quesabirria<br>con consomé</h5>
             <span class="price-tag">$130 c/u</span>
@@ -422,7 +424,7 @@
       </div>
       <div class="col-6 col-lg-3">
         <div class="product-card expandable" data-bs-toggle="modal" data-bs-target="#menuModal">
-          <img src="https://picsum.photos/seed/picabirria/500/400" alt="Picabirria">
+          <img src="src/cochimg5.jpg" alt="Picabirria">
           <div class="body">
             <h5>Picabirria</h5>
             <p class="desc mb-0">Picada grande con salsa, birria, crema, queso y cebolla</p>
@@ -432,7 +434,7 @@
       </div>
       <div class="col-6 col-lg-3">
         <div class="product-card expandable" data-bs-toggle="modal" data-bs-target="#menuModal">
-          <img src="https://picsum.photos/seed/cochinita-kilo/500/400" alt="Cochinita por kilo">
+          <img src="src/cochimg6.jpg" alt="Cochinita por kilo">
           <div class="body">
             <h5>Cochinita<br>por kilo</h5>
             <p class="desc mb-0">Sabor a lo grande</p>
@@ -442,7 +444,7 @@
       </div>
       <div class="col-6 col-lg-3">
         <div class="product-card expandable" data-bs-toggle="modal" data-bs-target="#menuModal">
-          <img src="https://picsum.photos/seed/tamales-cochinita/500/400" alt="Tamales de cochinita">
+          <img src="src/cochimg7.jpg" alt="Tamales de cochinita">
           <div class="body">
             <h5>Tamales de<br>cochinita</h5>
             <span class="price-tag">3 x $100</span>
@@ -486,11 +488,11 @@
     <div class="d-flex align-items-center gap-3">
       <button class="arrow-btn" id="galPrev"><i class="bi bi-chevron-left"></i></button>
       <div class="gallery-track" id="galleryTrack">
-        <img src="https://picsum.photos/seed/gallery1/400/400" alt="Platillo de La Cochibirria 1">
-        <img src="https://picsum.photos/seed/gallery2/400/400" alt="Platillo de La Cochibirria 2">
-        <img src="https://picsum.photos/seed/gallery3/400/400" alt="Platillo de La Cochibirria 3">
-        <img src="https://picsum.photos/seed/gallery4/400/400" alt="Tamales de La Cochibirria">
-        <img src="https://picsum.photos/seed/gallery5/400/400" alt="Interior de La Cochibirria">
+        <img src="src/cochimg8.jpg" alt="Platillo de La Cochibirria 1">
+        <img src="src/cochimg9.jpg" alt="Platillo de La Cochibirria 2">
+        <img src="src/cochimg10.jpg" alt="Platillo de La Cochibirria 3">
+        <img src="src/cochimg11.jpg" alt="Platillo de La Cochibirria 4">
+        <img src="src/cochimg1.jpg" alt="Platillo de La Cochibirria 5">
       </div>
       <button class="arrow-btn" id="galNext"><i class="bi bi-chevron-right"></i></button>
     </div>
@@ -638,9 +640,63 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body p-4" style="background:var(--cream);">
-        <img src="https://picsum.photos/seed/menu-page-1/900/1200" alt="Menú página 1" class="menu-page-img">
-        <img src="https://picsum.photos/seed/menu-page-2/900/1200" alt="Menú página 2" class="menu-page-img">
-        <img src="https://picsum.photos/seed/menu-page-3/900/1200" alt="Menú página 3" class="menu-page-img mb-0">
+        <div class="row g-3" id="menuGrid">
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg1.jpg" alt="Cochinita pibil estilo Yucatán" class="menu-item-img">
+            <div class="menu-item-name">Cochinita pibil</div>
+            <div class="menu-item-price">$300 kg</div>
+          </div>
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg2.jpg" alt="Cochinita pibil sobre tortillas" class="menu-item-img">
+            <div class="menu-item-name">Orden de cochinita</div>
+            <div class="menu-item-price">$90</div>
+          </div>
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg3.jpg" alt="Tamales de cochinita" class="menu-item-img">
+            <div class="menu-item-name">Tamales de cochinita</div>
+            <div class="menu-item-price">3 x $100</div>
+          </div>
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg4.jpg" alt="Quesabirria con consomé" class="menu-item-img">
+            <div class="menu-item-name">Quesabirria con consomé</div>
+            <div class="menu-item-price">$130 c/u</div>
+          </div>
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg5.jpg" alt="Picabirria" class="menu-item-img">
+            <div class="menu-item-name">Picabirria</div>
+            <div class="menu-item-price">$130 c/u</div>
+          </div>
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg6.jpg" alt="Cochinita por kilo" class="menu-item-img">
+            <div class="menu-item-name">Cochinita por kilo</div>
+            <div class="menu-item-price">$300 kg</div>
+          </div>
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg7.jpg" alt="Torta de cochinita" class="menu-item-img">
+            <div class="menu-item-name">Torta de cochinita</div>
+            <div class="menu-item-price">$95</div>
+          </div>
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg8.jpg" alt="Panucho de cochinita" class="menu-item-img">
+            <div class="menu-item-name">Panucho de cochinita</div>
+            <div class="menu-item-price">$80</div>
+          </div>
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg9.jpg" alt="Salbute de cochinita" class="menu-item-img">
+            <div class="menu-item-name">Salbute de cochinita</div>
+            <div class="menu-item-price">$75</div>
+          </div>
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg10.jpg" alt="Consomé de birria" class="menu-item-img">
+            <div class="menu-item-name">Consomé de birria</div>
+            <div class="menu-item-price">$60</div>
+          </div>
+          <div class="col-6 col-md-4">
+            <img src="src/cochimg11.jpg" alt="Combo familiar Cochibirria" class="menu-item-img">
+            <div class="menu-item-name">Combo familiar</div>
+            <div class="menu-item-price">$450</div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <a href="https://wa.me/528998663038" target="_blank" class="btn btn-whatsapp"><i class="bi bi-whatsapp me-1"></i> Pedir por WhatsApp</a>
@@ -660,6 +716,23 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+
+  /* ---------- Fallback para fotos de platillos (src/cochimg1.jpg ... cochimg11.jpg) ----------
+     Mientras no subas alguna de estas imágenes a la carpeta /src, se muestra un
+     recuadro rosa con un ícono de plato en su lugar, en vez de un ícono de imagen rota. ---------- */
+  var dishPlaceholder = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">' +
+    '<rect width="400" height="300" fill="#FCE4EF"/>' +
+    '<circle cx="200" cy="130" r="55" fill="none" stroke="#E6007E" stroke-width="6"/>' +
+    '<text x="200" y="230" font-family="sans-serif" font-size="20" fill="#B8005F" text-anchor="middle">Foto pendiente</text>' +
+    '</svg>'
+  );
+  document.querySelectorAll('img[src^="src/cochimg"]').forEach(function(img){
+    img.addEventListener('error', function(){
+      this.onerror = null;
+      this.src = dishPlaceholder;
+    });
+  });
 
   /* ---------- Mapa (Leaflet, gratuito) ---------- */
   // Coordenadas aproximadas de Reynosa, Tamaulipas para la referencia visual
