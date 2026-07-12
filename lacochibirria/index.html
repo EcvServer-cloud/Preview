@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cochibirria | Cochinita Pibil Estilo Yucatán en Reynosa</title>
+<meta name="description" content="La Cochibirria en Reynosa: cochinita pibil, picabirria, quesabirria y tamales 100% estilo Yucatán. Dine-in, delivery y takeout. Pide por WhatsApp.">
+<meta name="keywords" content="cochinita pibil Reynosa, picabirria, quesabirria, tamales, comida yucateca Reynosa">
+<link rel="icon" type="image/jpeg" href="src/logo.jpg" onerror="this.href='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23E6007E%22/%3E%3Ctext x=%2250%22 y=%2262%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22white%22%3ELC%3C/text%3E%3C/svg%3E'">
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- Leaflet (mapa gratuito) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;0,6..12,800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --pink:#E6007E;
+    --pink-dark:#B8005F;
+    --wine:#5B0A2E;
+    --wine-dark:#43081F;
+    --cream:#FFF6F2;
+    --gold:#F0B94D;
+    --whatsapp:#25D366;
+    --whatsapp-dark:#1DA851;
+    --radius-lg:26px;
+    --radius-md:16px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Nunito Sans', sans-serif;
+    color:#2B0716;
+    background:var(--cream);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.font-display{
+    font-family:'Fredoka', sans-serif;
+  }
+  .eyebrow{
+    color:var(--pink);
+    font-weight:700;
+    letter-spacing:.08em;
+    font-size:.85rem;
+    text-transform:uppercase;
+  }
+  a{text-decoration:none;}
+
+  /* ---------- Navbar ---------- */
+  .navbar-custom{
+    background:#fff;
+    box-shadow:0 4px 18px rgba(91,10,46,.08);
+    padding:.6rem 0;
+  }
+  .navbar-custom .nav-link{
+    font-weight:700;
+    color:#2B0716;
+    font-size:.92rem;
+    letter-spacing:.03em;
+    margin:0 .4rem;
+    transition:color .2s;
+  }
+  .navbar-custom .nav-link:hover,
+  .navbar-custom .nav-link.active{color:var(--pink);}
+  .logo-circle{
+    width:64px;height:64px;border-radius:50%;
+    border:3px solid var(--pink);
+    object-fit:cover;background:#fff;
+  }
+  .brand-name{
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+    color:var(--pink-dark);
+    font-size:1.05rem;
+    line-height:1.05;
+  }
+  .brand-tagline{font-size:.62rem;color:#a3325f;letter-spacing:.02em;}
+  .btn-whatsapp{
+    background:var(--whatsapp);
+    color:#fff;font-weight:700;
+    border-radius:50px;
+    padding:.6rem 1.4rem;
+    border:none;
+    box-shadow:0 6px 16px rgba(37,211,102,.35);
+    transition:transform .25s, box-shadow .25s;
+  }
+  .btn-whatsapp:hover{background:var(--whatsapp-dark);color:#fff;transform:translateY(-2px);}
+
+  /* ---------- Expand effect (click feedback) ---------- */
+  .expandable{transition:padding .35s ease, transform .35s ease, box-shadow .35s ease;}
+  .expandable.is-expanded{
+    padding-top:calc(1rem + 14px) !important;
+    padding-bottom:calc(1rem + 14px) !important;
+    transform:translateY(-2px);
+    box-shadow:0 14px 30px rgba(91,10,46,.18);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:linear-gradient(135deg,var(--pink) 0%, var(--pink-dark) 55%, var(--wine) 100%);
+    position:relative;
+    overflow:hidden;
+    padding:4.5rem 0 3rem;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;left:-10%;top:0;bottom:0;width:55%;
+    background:radial-gradient(circle at 30% 40%, rgba(255,255,255,.12), transparent 60%);
+    pointer-events:none;
+  }
+  .hero h1{
+    font-weight:600;
+    color:#fff;
+    font-size:clamp(2rem,5vw,3.2rem);
+    line-height:1.05;
+  }
+  .hero h1 .accent{
+    color:var(--wine-dark);
+    -webkit-text-stroke:1px rgba(255,255,255,.25);
+    font-weight:700;
+    display:block;
+    font-size:clamp(2.4rem,6.5vw,4rem);
+  }
+  .hero p.lead-text{color:#ffe3ef;font-weight:600;font-size:1.02rem;max-width:480px;}
+  .btn-pink-solid{
+    background:#fff;color:var(--pink-dark);font-weight:700;
+    border-radius:50px;padding:.75rem 1.6rem;border:2px solid #fff;
+    transition:all .25s;
+  }
+  .btn-pink-solid.filled{background:var(--pink-dark);color:#fff;border-color:var(--pink-dark);}
+  .btn-pink-solid:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.2);}
+  .hero-feature{color:#ffd9ea;font-weight:700;font-size:.78rem;}
+  .hero-feature i{color:#fff;font-size:1.3rem;}
+  .hero-img-wrap{position:relative;}
+  .hero-img-wrap img{
+    border-radius:var(--radius-lg);
+    box-shadow:0 25px 50px rgba(0,0,0,.35);
+    width:100%;object-fit:cover;aspect-ratio:4/3;
+  }
+  .badge-round{
+    position:absolute;bottom:-18px;right:-10px;
+    width:130px;height:130px;border-radius:50%;
+    background:var(--pink-dark);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;font-weight:700;font-size:.72rem;line-height:1.15;
+    border:5px solid #fff;box-shadow:0 10px 24px rgba(0,0,0,.3);
+    text-transform:uppercase;
+  }
+  .badge-round .big{font-family:'Fredoka',sans-serif;font-size:1.6rem;}
+
+  /* ---------- About ---------- */
+  .about-img{
+    border-radius:var(--radius-md);
+    width:100%;height:100%;object-fit:cover;
+    box-shadow:0 14px 30px rgba(91,10,46,.15);
+  }
+  .about-icon{
+    width:44px;height:44px;border-radius:50%;
+    background:#FCE4EF;color:var(--pink);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.15rem;
+  }
+  .about-icon-label{font-size:.72rem;font-weight:700;color:var(--wine);}
+  .promo-banner{
+    background:linear-gradient(160deg,var(--pink) 0%, var(--pink-dark) 100%);
+    border-radius:var(--radius-lg);
+    color:#fff;min-height:100%;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:2.2rem;position:relative;overflow:hidden;
+  }
+  .promo-banner img{
+    position:absolute;right:-8%;bottom:-10%;width:60%;
+    border-radius:50%;opacity:.9;object-fit:cover;aspect-ratio:1/1;
+    box-shadow:0 10px 26px rgba(0,0,0,.3);
+  }
+  .promo-banner h3{font-size:1rem;letter-spacing:.06em;text-transform:uppercase;}
+  .promo-banner .promo-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;line-height:1;}
+  .promo-banner .promo-price{
+    background:#fff;color:var(--pink-dark);font-weight:800;
+    display:inline-block;padding:.4rem 1rem;border-radius:50px;
+    margin-top:.8rem;width:fit-content;
+  }
+
+  /* ---------- Product cards ---------- */
+  .product-card{
+    border-radius:var(--radius-md);
+    overflow:hidden;background:#fff;
+    box-shadow:0 10px 24px rgba(91,10,46,.1);
+    height:100%;cursor:pointer;
+  }
+  .product-card img{width:100%;height:180px;object-fit:cover;}
+  .product-card .body{padding:1rem;}
+  .product-card h5{font-size:1rem;font-weight:700;color:var(--wine);}
+  .product-card .desc{font-size:.75rem;color:#8a5169;}
+  .price-tag{
+    background:var(--pink);color:#fff;font-weight:800;
+    border-radius:50px;padding:.3rem .9rem;font-size:.82rem;
+    display:inline-block;margin-top:.4rem;
+  }
+
+  /* ---------- Why choose us ---------- */
+  .why-strip{
+    background:linear-gradient(90deg,var(--pink-dark),var(--pink));
+    border-radius:var(--radius-lg);
+    color:#fff;padding:2rem 1.5rem;
+  }
+  .why-item i{font-size:1.5rem;}
+  .why-item span{font-weight:700;font-size:.82rem;}
+
+  /* ---------- Gallery ---------- */
+  .gallery-track{
+    display:flex;gap:1rem;overflow-x:auto;scroll-behavior:smooth;
+    scrollbar-width:none;padding-bottom:.5rem;
+  }
+  .gallery-track::-webkit-scrollbar{display:none;}
+  .gallery-track img{
+    height:220px;width:220px;flex:0 0 auto;
+    object-fit:cover;border-radius:var(--radius-md);
+    box-shadow:0 8px 20px rgba(91,10,46,.15);
+    transition:transform .3s;
+  }
+  .gallery-track img:hover{transform:scale(1.03);}
+  .arrow-btn{
+    width:46px;height:46px;border-radius:50%;
+    border:2px solid var(--pink);color:var(--pink);
+    background:#fff;display:flex;align-items:center;justify-content:center;
+    font-size:1.1rem;transition:all .2s;flex:0 0 auto;
+  }
+  .arrow-btn:hover{background:var(--pink);color:#fff;}
+
+  /* ---------- Testimonials ---------- */
+  .testimonial-card{
+    background:#fff;border-radius:var(--radius-md);
+    padding:1.4rem;box-shadow:0 10px 22px rgba(91,10,46,.1);
+    height:100%;
+  }
+  .testimonial-card .stars{color:var(--gold);font-size:.9rem;}
+  .testimonial-card p{font-style:italic;font-size:.9rem;color:#5a2337;}
+  .testimonial-card .author{font-weight:800;color:var(--wine);font-size:.85rem;}
+
+  /* ---------- CTA strip ---------- */
+  .cta-strip{
+    background:linear-gradient(100deg,var(--pink-dark),var(--pink));
+    color:#fff;padding:1.6rem 0;
+  }
+  .cta-strip h4{font-weight:700;font-size:1.15rem;}
+  .cta-strip .divider-icon{
+    width:46px;height:46px;border-radius:50%;
+    background:rgba(255,255,255,.15);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;flex:0 0 auto;
+  }
+  .cta-strip .small-label{font-size:.72rem;opacity:.85;}
+
+  /* ---------- Map ---------- */
+  #map{height:340px;border-radius:var(--radius-md);width:100%;box-shadow:0 10px 24px rgba(91,10,46,.15);}
+  .btn-como-llegar{
+    background:var(--wine);color:#fff;font-weight:700;border-radius:50px;
+    padding:.7rem 1.5rem;border:none;transition:all .25s;
+  }
+  .btn-como-llegar:hover{background:var(--wine-dark);color:#fff;transform:translateY(-2px);}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--wine-dark);color:#f3d9e4;}
+  footer h6{
+    color:#fff;font-weight:800;font-size:.78rem;
+    letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;
+  }
+  footer a{color:#f3d9e4;font-size:.86rem;line-height:2;}
+  footer a:hover{color:var(--gold);}
+  .footer-logo{width:70px;height:70px;border-radius:50%;border:3px solid var(--pink);background:#fff;object-fit:cover;}
+  .social-circle{
+    width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    transition:background .2s;
+  }
+  .social-circle:hover{background:var(--pink);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.12);font-size:.78rem;color:#d9a9bb;}
+
+  /* ---------- Menu modal ---------- */
+  .menu-page-img{width:100%;border-radius:12px;margin-bottom:1rem;box-shadow:0 6px 16px rgba(0,0,0,.15);}
+
+  /* ---------- Anti-inspect toast ---------- */
+  #devtoolsToast{
+    position:fixed;bottom:20px;right:20px;z-index:2000;
+    background:var(--wine-dark);color:#fff;padding:.85rem 1.2rem;
+    border-radius:10px;box-shadow:0 10px 24px rgba(0,0,0,.35);
+    font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:.5rem;
+    opacity:0;transform:translateY(20px);transition:all .3s;pointer-events:none;
+  }
+  #devtoolsToast.show{opacity:1;transform:translateY(0);}
+
+  section{scroll-margin-top:90px;}
+
+  @media(max-width:767px){
+    .badge-round{width:100px;height:100px;font-size:.62rem;right:5px;}
+    .badge-round .big{font-size:1.2rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#inicio">
+      <img src="src/logo.jpg" alt="Logo La Cochibirria" class="logo-circle"
+           onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%23E6007E%22/%3E%3Ctext x=%2250%22 y=%2260%22 font-size=%2238%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22%3ELC%3C/text%3E%3C/svg%3E'">
+      <span>
+        <span class="brand-name d-block">La Cochibirria</span>
+        <span class="brand-tagline d-block">En Reynosa la más sabrosa</span>
+      </span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <i class="bi bi-list fs-1" style="color:var(--pink)"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto text-center gap-lg-2 mt-3 mt-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#menu" id="navMenuLink">Menú</a></li>
+        <li class="nav-item"><a class="nav-link" href="#promociones">Promociones</a></li>
+        <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+      </ul>
+      <a href="https://wa.me/528998663038" target="_blank" class="btn btn-whatsapp mb-3 mb-lg-0 mx-auto mx-lg-0">
+        <i class="bi bi-whatsapp me-1"></i> Pedir por WhatsApp
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="inicio">
+  <div class="container position-relative">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <h1>En Reynosa,<span class="accent">la más sabrosa</span></h1>
+        <p class="lead-text mt-3">Cochinita pibil, picabirria, quesabirria y más antojitos con el auténtico sabor que nos distingue.</p>
+        <div class="d-flex flex-wrap gap-3 mt-4 expand-zone">
+          <a href="https://wa.me/528998663038" target="_blank" class="btn btn-pink-solid filled expand-trigger">
+            <i class="bi bi-whatsapp me-1"></i> Pedir por WhatsApp
+          </a>
+          <button class="btn btn-pink-solid" id="btnVerMenuHero" data-bs-toggle="modal" data-bs-target="#menuModal">
+            Ver Menú
+          </button>
+        </div>
+        <div class="d-flex flex-wrap gap-4 mt-4 pt-2">
+          <div class="d-flex align-items-center gap-2 hero-feature"><i class="bi bi-scooter"></i> Dine-in, Delivery <br>y Takeout</div>
+          <div class="d-flex align-items-center gap-2 hero-feature"><i class="bi bi-clock"></i> Abierto <br>ahora</div>
+          <div class="d-flex align-items-center gap-2 hero-feature"><i class="bi bi-heart"></i> Hecho con amor,<br>hecho en Reynosa</div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-img-wrap">
+          <img src="https://picsum.photos/seed/cochinita-hero/900/700" alt="Cochinita pibil estilo Yucatán servida en La Cochibirria">
+          <div class="badge-round"><span class="big">100%</span>COCHINITA<br>ESTILO YUCATÁN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= SOBRE NOSOTROS ================= -->
+<section id="nosotros" class="py-5">
+  <div class="container py-4">
+    <div class="row g-4 align-items-stretch">
+      <div class="col-lg-4">
+        <img src="https://picsum.photos/seed/restaurant-front/600/500" alt="Fachada del restaurante La Cochibirria" class="about-img">
+      </div>
+      <div class="col-lg-4">
+        <span class="eyebrow">Sobre nosotros</span>
+        <h2 class="mt-2 mb-3" style="color:var(--wine)">Pasión por el sabor tradicional</h2>
+        <p class="text-muted">En <strong>La Cochibirria</strong>, cada platillo se prepara con recetas auténticas, ingredientes frescos y el toque especial que nos hace únicos.</p>
+        <div class="row g-3 mt-2">
+          <div class="col-4 text-center">
+            <div class="about-icon mx-auto mb-2"><i class="bi bi-journal-text"></i></div>
+            <div class="about-icon-label">Recetas<br>auténticas</div>
+          </div>
+          <div class="col-4 text-center">
+            <div class="about-icon mx-auto mb-2"><i class="bi bi-basket"></i></div>
+            <div class="about-icon-label">Ingredientes<br>frescos</div>
+          </div>
+          <div class="col-4 text-center">
+            <div class="about-icon mx-auto mb-2"><i class="bi bi-award"></i></div>
+            <div class="about-icon-label">Calidad<br>y sabor</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4" id="promociones">
+        <div class="promo-banner expandable" tabindex="0">
+          <h3>Promoción</h3>
+          <div class="promo-title">Tamales<br>Cochinita</div>
+          <div class="promo-price">3 tamales por $100 pesos</div>
+          <img src="https://picsum.photos/seed/tamales-promo/400/400" alt="Tamales de cochinita">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LO MÁS PEDIDO ================= -->
+<section id="menu" class="py-5" style="background:#fff;">
+  <div class="container py-4">
+    <div class="text-center mb-5">
+      <span class="eyebrow">» Nuestros antojitos «</span>
+      <h2 class="mt-2" style="color:var(--wine)">» Lo más pedido «</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-6 col-lg-3">
+        <div class="product-card expandable" data-bs-toggle="modal" data-bs-target="#menuModal">
+          <img src="https://picsum.photos/seed/quesabirria/500/400" alt="Quesabirria con consomé">
+          <div class="body">
+            <h5>Quesabirria<br>con consomé</h5>
+            <span class="price-tag">$130 c/u</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="product-card expandable" data-bs-toggle="modal" data-bs-target="#menuModal">
+          <img src="https://picsum.photos/seed/picabirria/500/400" alt="Picabirria">
+          <div class="body">
+            <h5>Picabirria</h5>
+            <p class="desc mb-0">Picada grande con salsa, birria, crema, queso y cebolla</p>
+            <span class="price-tag">$130 c/u</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="product-card expandable" data-bs-toggle="modal" data-bs-target="#menuModal">
+          <img src="https://picsum.photos/seed/cochinita-kilo/500/400" alt="Cochinita por kilo">
+          <div class="body">
+            <h5>Cochinita<br>por kilo</h5>
+            <p class="desc mb-0">Sabor a lo grande</p>
+            <span class="price-tag">$300 kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="product-card expandable" data-bs-toggle="modal" data-bs-target="#menuModal">
+          <img src="https://picsum.photos/seed/tamales-cochinita/500/400" alt="Tamales de cochinita">
+          <div class="body">
+            <h5>Tamales de<br>cochinita</h5>
+            <span class="price-tag">3 x $100</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ¿POR QUÉ ELEGIRNOS? ================= -->
+<section class="container">
+  <div class="why-strip">
+    <div class="row text-center g-4">
+      <div class="col-12 mb-2"><strong>¿Por qué elegirnos?</strong></div>
+      <div class="col-6 col-md-2 4 col-lg d-flex flex-column align-items-center gap-2 why-item">
+        <i class="bi bi-heart-fill"></i><span>Sabor auténtico<br>que nos distingue</span>
+      </div>
+      <div class="col-6 col-md-2 col-lg d-flex flex-column align-items-center gap-2 why-item">
+        <i class="bi bi-patch-check-fill"></i><span>Ingredientes<br>de calidad</span>
+      </div>
+      <div class="col-6 col-md-2 col-lg d-flex flex-column align-items-center gap-2 why-item">
+        <i class="bi bi-person-fill"></i><span>Atención<br>personalizada</span>
+      </div>
+      <div class="col-6 col-md-2 col-lg d-flex flex-column align-items-center gap-2 why-item">
+        <i class="bi bi-people-fill"></i><span>Ambiente<br>familiar</span>
+      </div>
+      <div class="col-6 col-md-2 col-lg d-flex flex-column align-items-center gap-2 why-item">
+        <i class="bi bi-lightning-charge-fill"></i><span>Pedidos rápidos<br>y seguros</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALERÍA ================= -->
+<section id="galeria" class="py-5">
+  <div class="container py-4">
+    <div class="text-center mb-4">
+      <h2 style="color:var(--wine)">» Galería «</h2>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <button class="arrow-btn" id="galPrev"><i class="bi bi-chevron-left"></i></button>
+      <div class="gallery-track" id="galleryTrack">
+        <img src="https://picsum.photos/seed/gallery1/400/400" alt="Platillo de La Cochibirria 1">
+        <img src="https://picsum.photos/seed/gallery2/400/400" alt="Platillo de La Cochibirria 2">
+        <img src="https://picsum.photos/seed/gallery3/400/400" alt="Platillo de La Cochibirria 3">
+        <img src="https://picsum.photos/seed/gallery4/400/400" alt="Tamales de La Cochibirria">
+        <img src="https://picsum.photos/seed/gallery5/400/400" alt="Interior de La Cochibirria">
+      </div>
+      <button class="arrow-btn" id="galNext"><i class="bi bi-chevron-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIOS ================= -->
+<section class="py-5" style="background:#fff;">
+  <div class="container py-4">
+    <div class="text-center mb-4">
+      <h2 style="color:var(--wine)">» Lo que dicen nuestros clientes «</h2>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <button class="arrow-btn d-none d-md-flex" id="testPrev"><i class="bi bi-chevron-left"></i></button>
+      <div class="row g-4 flex-grow-1" id="testimonialTrack">
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="mt-2">"La mejor cochinita de Reynosa, el sabor es increíble y la atención excelente."</p>
+            <div class="author">— Carlos M.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="mt-2">"Las quesabirrias están de otro nivel, 100% recomendado."</p>
+            <div class="author">— Alejandra R.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="mt-2">"Ambiente familiar y comida deliciosa, siempre regreso."</p>
+            <div class="author">— Luis G.</div>
+          </div>
+        </div>
+      </div>
+      <button class="arrow-btn d-none d-md-flex" id="testNext"><i class="bi bi-chevron-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA STRIP ================= -->
+<section class="cta-strip">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-md-3">
+        <h4 class="mb-1">¿Listo para disfrutar?</h4>
+        <div class="small-label">Haz tu pedido por WhatsApp y disfruta en casa.</div>
+      </div>
+      <div class="col-md-3">
+        <a href="https://wa.me/528998663038" target="_blank" class="btn btn-whatsapp w-100 expand-trigger">
+          <i class="bi bi-whatsapp me-1"></i> 899 866 3038
+        </a>
+      </div>
+      <div class="col-md-3 d-flex align-items-center gap-2">
+        <div class="divider-icon"><i class="bi bi-geo-alt-fill"></i></div>
+        <div class="small-label">Calle Circuito Independencia 515 Esq.<br>Paseo de la cañada, Reynosa, México, 88703</div>
+      </div>
+      <div class="col-md-3 d-flex align-items-center gap-2">
+        <div class="divider-icon"><i class="bi bi-clock-fill"></i></div>
+        <div class="small-label">Abierto ahora<br>Todos los días 10:00 am - 10:00 pm</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UBICACIÓN / MAPA ================= -->
+<section id="ubicacion" class="py-5">
+  <div class="container py-4">
+    <div class="text-center mb-4">
+      <span class="eyebrow">Ubicación</span>
+      <h2 class="mt-2" style="color:var(--wine)">Visítanos en Reynosa</h2>
+    </div>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-7">
+        <div id="map"></div>
+      </div>
+      <div class="col-lg-5">
+        <p class="text-muted">Calle Circuito Independencia 515 Esq. Paseo de la cañada, Reynosa, Tamaulipas, México, 88703.</p>
+        <p class="text-muted"><i class="bi bi-clock me-2"></i>Todos los días · 10:00 am – 10:00 pm</p>
+        <a class="btn btn-como-llegar expand-trigger" id="btnComoLlegar" target="_blank"
+           href="https://www.google.com/maps/dir/?api=1&destination=Circuito+Independencia+515,+Paseo+de+la+Ca%C3%B1ada,+Reynosa,+Tamaulipas">
+          <i class="bi bi-signpost-2-fill me-1"></i> Cómo llegar
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="pt-5 pb-3">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-3">
+        <img src="src/logo.jpg" alt="Logo La Cochibirria" class="footer-logo mb-3"
+             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%23E6007E%22/%3E%3Ctext x=%2250%22 y=%2260%22 font-size=%2238%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22%3ELC%3C/text%3E%3C/svg%3E'">
+        <h5 class="text-white" style="font-family:'Fredoka',sans-serif">La Cochibirria</h5>
+        <p class="small">En Reynosa la más sabrosa.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Enlaces rápidos</h6>
+        <a href="#inicio" class="d-block">Inicio</a>
+        <a href="#nosotros" class="d-block">Nosotros</a>
+        <a href="#menu" class="d-block">Menú</a>
+        <a href="#promociones" class="d-block">Promociones</a>
+        <a href="#galeria" class="d-block">Galería</a>
+        <a href="#ubicacion" class="d-block">Ubicación</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Servicios</h6>
+        <a href="#" class="d-block">Dine-in</a>
+        <a href="#" class="d-block">Delivery</a>
+        <a href="#" class="d-block">Takeout</a>
+        <a href="https://wa.me/528998663038" class="d-block">Pedidos por WhatsApp</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Síguenos</h6>
+        <div class="d-flex gap-2">
+          <a href="#" class="social-circle"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-circle"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-circle"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h6>Contáctanos</h6>
+        <a href="https://wa.me/528998663038" class="d-block"><i class="bi bi-whatsapp me-1"></i> 899 866 3038</a>
+        <a href="tel:+528992694750" class="d-block"><i class="bi bi-telephone me-1"></i> +52 1 899 269 4750</a>
+        <a href="https://instagram.com/cochibirriareynosa" target="_blank" class="d-block"><i class="bi bi-instagram me-1"></i> cochibirriareynosa</a>
+      </div>
+    </div>
+    <div class="footer-bottom mt-4 pt-3 d-flex flex-column flex-md-row justify-content-between text-center text-md-start gap-2">
+      <span>&copy; 2024 La Cochibirria. Todos los derechos reservados.</span>
+      <span>Hecho con <i class="bi bi-heart-fill text-danger"></i> en Reynosa</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= MODAL MENÚ ================= -->
+<div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content" style="border-radius:20px;overflow:hidden;">
+      <div class="modal-header" style="background:var(--pink);color:#fff;">
+        <h5 class="modal-title" id="menuModalLabel"><i class="bi bi-journal-richtext me-2"></i>Nuestro Menú</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-4" style="background:var(--cream);">
+        <img src="https://picsum.photos/seed/menu-page-1/900/1200" alt="Menú página 1" class="menu-page-img">
+        <img src="https://picsum.photos/seed/menu-page-2/900/1200" alt="Menú página 2" class="menu-page-img">
+        <img src="https://picsum.photos/seed/menu-page-3/900/1200" alt="Menú página 3" class="menu-page-img mb-0">
+      </div>
+      <div class="modal-footer">
+        <a href="https://wa.me/528998663038" target="_blank" class="btn btn-whatsapp"><i class="bi bi-whatsapp me-1"></i> Pedir por WhatsApp</a>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast anti-inspección -->
+<div id="devtoolsToast"><i class="bi bi-shield-lock-fill"></i> Acceso al código no permitido</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+  /* ---------- Mapa (Leaflet, gratuito) ---------- */
+  // Coordenadas aproximadas de Reynosa, Tamaulipas para la referencia visual
+  var lat = 26.0754, lng = -98.2891;
+  var map = L.map('map').setView([lat, lng], 15);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
+  }).addTo(map);
+  L.marker([lat, lng]).addTo(map)
+    .bindPopup('<strong>La Cochibirria</strong><br>Calle Circuito Independencia 515 Esq.<br>Paseo de la cañada, Reynosa')
+    .openPopup();
+
+  /* ---------- Efecto de expansión al hacer clic (excepto "Ver Menú") ---------- */
+  var expandTargets = document.querySelectorAll('.expandable, .expand-trigger');
+  expandTargets.forEach(function(el){
+    el.addEventListener('click', function(e){
+      // El botón "Ver Menú" abre el modal y no debe llevar el efecto de expansión
+      if (el.id === 'btnVerMenuHero' || el.hasAttribute('data-bs-target') && el.getAttribute('data-bs-target') === '#menuModal') {
+        return;
+      }
+      var target = el.classList.contains('expandable') ? el : el.closest('.expandable') || el;
+      target.classList.toggle('is-expanded');
+    });
+  });
+
+  /* ---------- Galería: carrusel con flechas ---------- */
+  var galTrack = document.getElementById('galleryTrack');
+  document.getElementById('galPrev').addEventListener('click', function(){
+    galTrack.scrollBy({left:-240, behavior:'smooth'});
+  });
+  document.getElementById('galNext').addEventListener('click', function(){
+    galTrack.scrollBy({left:240, behavior:'smooth'});
+  });
+
+  /* ---------- Testimonios: carrusel simple (reordena tarjetas) ---------- */
+  var testTrack = document.getElementById('testimonialTrack');
+  function rotateTestimonials(direction){
+    var cards = Array.from(testTrack.children);
+    if(direction === 'next'){
+      testTrack.appendChild(cards[0]);
+    } else {
+      testTrack.insertBefore(cards[cards.length-1], cards[0]);
+    }
+  }
+  document.getElementById('testNext').addEventListener('click', function(){ rotateTestimonials('next'); });
+  document.getElementById('testPrev').addEventListener('click', function(){ rotateTestimonials('prev'); });
+
+  /* ---------- Protección básica: bloquear clic derecho y atajos de inspección ----------
+     Nota: esto es solo un elemento disuasorio de cara al usuario final; ningún método
+     del lado del cliente puede impedir por completo el acceso al código fuente de una
+     página web, ya que el navegador siempre debe descargarlo para poder mostrarla. ---------- */
+  var toast = document.getElementById('devtoolsToast');
+  function showBlockedToast(){
+    toast.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2500);
+  }
+
+  document.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+    showBlockedToast();
+  });
+
+  document.addEventListener('keydown', function(e){
+    var blockedCombo =
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && ['I','J','C','i','j','c'].includes(e.key)) ||
+      (e.ctrlKey && ['U','u','S','s'].includes(e.key)) ||
+      (e.metaKey && e.altKey && ['I','J','C','i','j','c'].includes(e.key));
+    if (blockedCombo){
+      e.preventDefault();
+      showBlockedToast();
+    }
+  });
+
+});
+</script>
+</body>
+</html>
