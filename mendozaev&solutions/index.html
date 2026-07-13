@@ -137,12 +137,18 @@ a:focus-visible, button:focus-visible, input:focus-visible{
   overflow:hidden;
   isolation:isolate;
 }
+.hero-video{
+  position:absolute;inset:0;z-index:-3;
+  width:100%;height:100%;object-fit:cover;
+  opacity:.38;
+  filter:saturate(1.1) contrast(1.05);
+}
 .hero-bg{
   position:absolute;inset:0;z-index:-2;
   background:
-    radial-gradient(ellipse 60% 50% at 78% 30%, rgba(0,102,255,.28), transparent 60%),
-    radial-gradient(ellipse 45% 40% at 10% 80%, rgba(34,197,94,.14), transparent 60%),
-    linear-gradient(180deg,#060b16 0%, #081226 55%, #060b16 100%);
+    radial-gradient(ellipse 60% 50% at 78% 30%, rgba(0,102,255,.32), transparent 60%),
+    radial-gradient(ellipse 45% 40% at 10% 80%, rgba(34,197,94,.16), transparent 60%),
+    linear-gradient(180deg,rgba(6,11,22,.88) 0%, rgba(8,18,38,.82) 55%, #060b16 100%);
 }
 .hero-grid{
   position:absolute;inset:0;z-index:-1;opacity:.35;
@@ -490,6 +496,9 @@ footer .contact-line i{color:var(--blue);margin-top:.15rem;}
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="inicio">
+  <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1528312635006-8ea0bc49ec63?auto=format&fit=crop&w=1200&q=60" aria-hidden="true">
+    <source src="https://assets.mixkit.co/videos/48922/48922-720.mp4" type="video/mp4">
+  </video>
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-orbit"></div>
@@ -906,6 +915,25 @@ footer .contact-line i{color:var(--blue);margin-top:.15rem;}
     });
   }, {threshold:.15});
   revealEls.forEach(el=>io.observe(el));
+
+  /* ---- Mobile offcanvas: close reliably on link click, then scroll ---- */
+  const mobileMenuEl = document.getElementById('mobileMenu');
+  if(mobileMenuEl && window.bootstrap){
+    const oc = bootstrap.Offcanvas.getOrCreateInstance(mobileMenuEl);
+    mobileMenuEl.querySelectorAll('a[href^="#"]').forEach(link=>{
+      link.addEventListener('click', function(e){
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetEl = document.querySelector(targetId);
+        const onHidden = () => {
+          mobileMenuEl.removeEventListener('hidden.bs.offcanvas', onHidden);
+          if(targetEl){ targetEl.scrollIntoView({behavior:'smooth', block:'start'}); }
+        };
+        mobileMenuEl.addEventListener('hidden.bs.offcanvas', onHidden);
+        oc.hide();
+      });
+    });
+  }
 
   /* ---- Product slider (native scroll) ---- */
   const scrollWrap = document.getElementById('productScroll');
