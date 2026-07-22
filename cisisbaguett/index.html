@@ -105,7 +105,21 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--verde-lima); outli
   background:var(--verde-lima);
 }
 .brand-logo{display:flex; align-items:center; gap:.5rem;}
-.brand-logo img{height:46px; width:auto; object-fit:contain;}
+.brand-logo img{
+  height:46px; width:46px; object-fit:cover; border-radius:50%;
+  border:2px solid rgba(255,255,255,.18);
+  background:#fff;
+}
+/* Hamburguesa visible sobre fondo verde oscuro (rule fix: icono invisible en mobile) */
+.navbar-cisis .navbar-toggler{
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:8px;
+  padding:.35rem .55rem;
+}
+.navbar-cisis .navbar-toggler:focus{box-shadow:0 0 0 3px rgba(139,197,63,.4);}
+.navbar-cisis .navbar-toggler-icon{
+  background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23eae7dc' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
 .brand-logo .brand-text{font-family:var(--font-display); font-size:1.5rem; color:var(--verde-lima); line-height:1;}
 .brand-logo .brand-sub{font-size:.55rem; letter-spacing:3px; color:#eae7dc; display:block; margin-top:-2px;}
 
@@ -327,10 +341,24 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--verde-lima); outli
 .menu-zoom-wrap{
   width:100%; overflow:hidden; position:relative;
   border-bottom:6px solid var(--crema-2);
-  touch-action:none;
+  touch-action:pan-y; /* permite hacer scroll vertical con un dedo; el pellizco con 2 dedos sigue haciendo zoom */
   cursor:zoom-in;
   background:#20241d;
 }
+.menu-zoom-wrap.is-zoomed{touch-action:none;}
+
+/* Botones flotantes para desplazar la modal del menú (fix scroll en mobile) */
+.menu-scroll-controls{
+  position:absolute; right:14px; bottom:14px; z-index:20;
+  display:flex; flex-direction:column; gap:.5rem;
+}
+.menu-scroll-controls .scroll-btn{
+  width:44px; height:44px; border-radius:50%;
+  background:var(--verde-lima); color:#fff; border:none;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.2rem; box-shadow:0 8px 18px rgba(0,0,0,.35);
+}
+.menu-scroll-controls .scroll-btn:active{background:var(--verde-lima-2);}
 .menu-zoom-wrap img{
   width:100%; display:block; user-select:none; -webkit-user-drag:none;
   transform-origin:center center;
@@ -342,6 +370,18 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--verde-lima); outli
   font-size:.75rem; text-align:center; padding:.4rem; display:flex; align-items:center; justify-content:center; gap:.4rem;
 }
 .menu-empty-state{color:#eae7dc; text-align:center; padding:3rem 1.2rem;}
+
+/* ============ GALLERY LIGHTBOX (carrusel a pantalla completa) ============ */
+#galleryModal .modal-content{background:#0f130f;}
+#galleryModal .carousel-inner img{
+  width:100%; max-height:82vh; object-fit:contain; background:#0f130f;
+}
+#galleryModal .carousel-caption{
+  position:static; color:#eae7dc; padding-top:.6rem;
+}
+#galleryModal .btn-close{opacity:.9;}
+#galleryModal .carousel-control-prev,
+#galleryModal .carousel-control-next{width:8%;}
 
 /* Anti-inspect toast */
 #blockToast{z-index:2000;}
@@ -363,7 +403,7 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--verde-lima); outli
       </span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menú de opciones">
-      <span class="navbar-toggler-icon" style="color:#fff;"></span>
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navMenu">
       <ul class="navbar-nav mx-auto mt-3 mt-lg-0 text-center">
@@ -624,7 +664,7 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--verde-lima); outli
     <div class="row gy-4">
       <div class="col-lg-4">
         <div class="brand-logo mb-2">
-          <img src="src/logo.png" alt="Logo Cisis Baguett" style="height:40px;" onerror="this.style.display='none';">
+          <img src="src/logo.jpg" alt="Logo Cisis Baguett" style="height:40px; width:40px; object-fit:cover; border-radius:50%; border:2px solid rgba(255,255,255,.18); background:#fff;" onerror="this.style.display='none';">
           <span class="brand-text">Cisis</span>
         </div>
         <p class="small">Sabor Casero en cada bocado.</p>
@@ -665,9 +705,33 @@ a:focus-visible, button:focus-visible{outline:3px solid var(--verde-lima); outli
         <h5 class="modal-title" id="menuModalLabel"><i class="bi bi-journal-richtext me-2"></i>Nuestro Menú</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
-      <div class="modal-body" id="menuModalBody">
+      <div class="modal-body" id="menuModalBody" style="position:relative;">
         <div class="menu-zoom-hint"><i class="bi bi-zoom-in"></i> Rueda del mouse o pellizca para hacer zoom · arrastra para mover</div>
         <div id="menuImagesContainer"></div>
+        <div class="menu-scroll-controls">
+          <button type="button" class="scroll-btn" id="menuScrollUp" aria-label="Subir en el menú"><i class="bi bi-chevron-up"></i></button>
+          <button type="button" class="scroll-btn" id="menuScrollDown" aria-label="Bajar en el menú"><i class="bi bi-chevron-down"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: GALERÍA A PANTALLA COMPLETA ============ -->
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content border-0">
+      <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" style="z-index:20;" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      <div id="galleryCarousel" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner" id="galleryCarouselInner"></div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
       </div>
     </div>
   </div>
@@ -723,13 +787,40 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------- Galería ---------- */
   const galSeeds = ['gal1','gal2','gal3','gal4','gal5','gal6','gal7'];
   const galStrip = document.getElementById('galleryStrip');
+  const galCarouselInner = document.getElementById('galleryCarouselInner');
+  const galleryModalEl = document.getElementById('galleryModal');
+  const galleryCarouselEl = document.getElementById('galleryCarousel');
+  let galleryCarousel = null;
+
   galSeeds.forEach((s,i) => {
-    const img = document.createElement('img');
-    img.src = `https://picsum.photos/seed/${s}/300/220`;
-    img.alt = 'Galería Cisis Baguett ' + (i+1);
-    img.loading = 'lazy';
-    galStrip.appendChild(img);
+    const fullUrl = `https://picsum.photos/seed/${s}/1200/900`;
+
+    /* miniatura en la tira de galería */
+    const thumb = document.createElement('img');
+    thumb.src = `https://picsum.photos/seed/${s}/300/220`;
+    thumb.alt = 'Galería Cisis Baguett ' + (i+1);
+    thumb.loading = 'lazy';
+    thumb.setAttribute('role', 'button');
+    thumb.setAttribute('tabindex', '0');
+    thumb.addEventListener('click', () => openGallery(i));
+    thumb.addEventListener('keydown', (e) => { if (e.key === 'Enter') openGallery(i); });
+    galStrip.appendChild(thumb);
+
+    /* slide correspondiente en el carrusel a pantalla completa */
+    const slide = document.createElement('div');
+    slide.className = 'carousel-item' + (i === 0 ? ' active' : '');
+    slide.innerHTML = `<img src="${fullUrl}" alt="Galería Cisis Baguett ${i+1} ampliada">`;
+    galCarouselInner.appendChild(slide);
   });
+
+  function openGallery(index) {
+    if (!galleryCarousel) {
+      galleryCarousel = new bootstrap.Carousel(galleryCarouselEl, {ride:false, interval:false, wrap:true});
+    }
+    const modal = bootstrap.Modal.getOrCreateInstance(galleryModalEl);
+    modal.show();
+    galleryCarousel.to(index);
+  }
 
   /* ---------- Efecto "expandir" al hacer click en botones de sección ----------
      (regla 21: al hacer click en botones de sección se expande/crece un poco,
@@ -828,6 +919,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function applyTransform() {
       img.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+      wrapEl.classList.toggle('is-zoomed', scale > 1);
     }
 
     wrapEl.addEventListener('wheel', (e) => {
@@ -878,6 +970,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }, {passive:false});
     wrapEl.addEventListener('touchend', () => { lastDist = null; });
   }
+
+  /* Botones arriba/abajo para desplazar la modal del menú (fix scroll mobile) */
+  const menuModalBody = document.getElementById('menuModalBody');
+  const btnUp = document.getElementById('menuScrollUp');
+  const btnDown = document.getElementById('menuScrollDown');
+  if (btnUp) btnUp.addEventListener('click', () => menuModalBody.scrollBy({top:-320, behavior:'smooth'}));
+  if (btnDown) btnDown.addEventListener('click', () => menuModalBody.scrollBy({top:320, behavior:'smooth'}));
 
   /* ============================================================
      4) BLOQUEO BÁSICO DE INSPECCIÓN (clic derecho / atajos)
