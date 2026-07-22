@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Cisis Baguett | Sabor Casero en Cada Bocado - Cocula, Jalisco</title>
+<meta name="description" content="Cisis Baguett: platillos, desayunos, baguettes, ensaladas, cafetería y bebidas hechos con ingredientes frescos en Cocula, Jalisco. Pide por WhatsApp.">
+<meta name="keywords" content="baguette, restaurante, Cocula Jalisco, comida casera, cafetería, desayunos">
+<link rel="icon" type="image/png" href="src/logo.png" id="favicon">
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+<!-- Leaflet (mapa gratuito) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --verde-oscuro:#122a17;
+  --verde-oscuro-2:#0d2012;
+  --verde-lima:#8bc53f;
+  --verde-lima-2:#6fa82f;
+  --crema:#f7f3e8;
+  --crema-2:#fbf8f0;
+  --mostaza:#c9892f;
+  --texto-oscuro:#1c2a1e;
+  --font-display:'Pacifico', cursive;
+  --font-base:'Poppins', sans-serif;
+  --radius:16px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-base);
+  background:var(--crema);
+  color:var(--texto-oscuro);
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:var(--font-base); font-weight:700;}
+a{text-decoration:none;}
+.section-title{
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  color:var(--verde-oscuro);
+}
+.section-eyebrow{display:flex;align-items:center;justify-content:center;gap:.75rem;color:var(--verde-lima-2);margin-bottom:.25rem;}
+.section-eyebrow i{font-size:1.1rem;}
+.btn-brand{
+  background:var(--verde-lima);
+  border:none;
+  color:#fff;
+  font-weight:600;
+  border-radius:50px;
+  padding:.7rem 1.6rem;
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.btn-brand:hover{background:var(--verde-lima-2); color:#fff; transform:translateY(-2px); box-shadow:0 10px 20px rgba(139,197,63,.35);}
+.btn-outline-brand{
+  border:2px solid #ffffffaa;
+  color:#fff;
+  border-radius:50px;
+  font-weight:600;
+  padding:.65rem 1.5rem;
+  background:transparent;
+  transition:all .25s ease;
+}
+.btn-outline-brand:hover{background:#ffffff1a; color:#fff; border-color:#fff;}
+.btn-dark-outline{border:2px solid var(--verde-oscuro); color:var(--verde-oscuro); border-radius:50px; font-weight:600; padding:.5rem 1.4rem; background:transparent;}
+.btn-dark-outline:hover{background:var(--verde-oscuro); color:#fff;}
+
+/* focus visibility for accessibility */
+a:focus-visible, button:focus-visible{outline:3px solid var(--verde-lima); outline-offset:2px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important; transition:none !important;}
+}
+
+/* ============ NAVBAR ============ */
+.navbar-cisis{
+  background:var(--verde-oscuro);
+  padding:.7rem 0;
+  position:sticky;
+  top:0;
+  z-index:1030;
+  box-shadow:0 2px 18px rgba(0,0,0,.25);
+}
+.navbar-cisis .nav-link{
+  color:#eae7dc;
+  font-weight:500;
+  margin:0 .6rem;
+  position:relative;
+}
+.navbar-cisis .nav-link.active,
+.navbar-cisis .nav-link:hover{color:var(--verde-lima);}
+.navbar-cisis .nav-link.active::after{
+  content:"";
+  position:absolute;
+  left:0; bottom:-4px;
+  width:100%; height:2px;
+  background:var(--verde-lima);
+}
+.brand-logo{display:flex; align-items:center; gap:.5rem;}
+.brand-logo img{height:46px; width:auto; object-fit:contain;}
+.brand-logo .brand-text{font-family:var(--font-display); font-size:1.5rem; color:var(--verde-lima); line-height:1;}
+.brand-logo .brand-sub{font-size:.55rem; letter-spacing:3px; color:#eae7dc; display:block; margin-top:-2px;}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  background:var(--verde-oscuro);
+  min-height:88vh;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  padding:3rem 0;
+}
+.hero-bg-layer{
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+}
+.hero-bg-layer .blob{
+  position:absolute; border-radius:50%; filter:blur(60px); opacity:.25;
+}
+.hero-bg-layer .blob-1{width:420px;height:420px; background:var(--verde-lima); top:-120px; left:-140px;}
+.hero-bg-layer .blob-2{width:340px;height:340px; background:var(--mostaza); bottom:-100px; left:20%;}
+.hero-bg-layer .grain{
+  position:absolute; inset:0;
+  background-image:radial-gradient(#ffffff08 1px, transparent 1px);
+  background-size:18px 18px;
+}
+.hero-bg-layer svg.brush{position:absolute; opacity:.5;}
+.hero-content{position:relative; z-index:2;}
+.hero-badge-line{
+  color:var(--verde-lima);
+  font-weight:600;
+  font-size:.95rem;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+.hero-title{
+  color:#fff;
+  font-size:clamp(2rem, 5vw, 3.1rem);
+  font-weight:800;
+  line-height:1.1;
+  margin-bottom:.25rem;
+}
+.hero-title .accent{
+  font-family:var(--font-display);
+  color:var(--verde-lima);
+  font-weight:400;
+  font-size:clamp(2.4rem, 6vw, 3.8rem);
+  display:inline-block;
+  position:relative;
+}
+.hero-title .accent .spark{position:absolute; right:-28px; top:-14px; color:var(--mostaza); font-size:1.4rem;}
+.hero-text{color:#d8d6c8; max-width:460px; margin:1rem 0 1.6rem;}
+.hero-actions{display:flex; gap:1rem; flex-wrap:wrap;}
+
+.hero-visual{position:relative; z-index:2; min-height:340px;}
+.hero-visual .img-main{
+  width:100%; max-width:520px; border-radius:24px; box-shadow:0 30px 60px rgba(0,0,0,.4);
+  animation:floatY 5s ease-in-out infinite;
+}
+.hero-visual .img-drink{
+  position:absolute; right:0; bottom:-10px; width:38%; max-width:210px;
+  border-radius:20px; box-shadow:0 20px 40px rgba(0,0,0,.45);
+  animation:floatY 4.2s ease-in-out infinite .3s;
+}
+.hero-tag{
+  position:absolute; left:8%; bottom:6%;
+  background:var(--verde-oscuro-2);
+  color:var(--mostaza);
+  border:1px solid var(--mostaza);
+  padding:.6rem 1rem;
+  border-radius:10px;
+  font-weight:700;
+  font-size:.85rem;
+  text-transform:uppercase;
+  line-height:1.2;
+  box-shadow:0 12px 24px rgba(0,0,0,.35);
+}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+
+/* ============ FEATURES STRIP ============ */
+.features-strip{
+  background:var(--crema-2);
+  padding:2rem 0;
+  border-bottom:1px solid #e4ded0;
+}
+.feature-item{display:flex; align-items:flex-start; gap:.9rem;}
+.feature-item i{font-size:1.7rem; color:var(--verde-lima-2);}
+.feature-item h6{font-weight:700; margin-bottom:.15rem; color:var(--verde-oscuro);}
+.feature-item p{font-size:.85rem; color:#5b5c52; margin:0;}
+
+/* ============ MENU CATEGORY CARDS ============ */
+.menu-card{
+  background:#fff;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 6px 20px rgba(20,30,15,.08);
+  height:100%;
+  transition:max-height .35s ease, box-shadow .3s ease;
+}
+.menu-card:hover{box-shadow:0 16px 34px rgba(20,30,15,.16);}
+.menu-card img{width:100%; height:150px; object-fit:cover;}
+.menu-card .body{padding:1.1rem 1rem 1.4rem; text-align:center;}
+.menu-card i.cat-icon{font-size:1.4rem; color:var(--verde-lima-2); margin-bottom:.35rem; display:block;}
+.menu-card h6{font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--verde-oscuro); font-size:.95rem;}
+.menu-card p{font-size:.8rem; color:#6b6c60; margin-bottom:.8rem;}
+.menu-card .btn-brand{font-size:.8rem; padding:.45rem 1.2rem;}
+
+/* expand-on-click effect (rule 21) */
+.expandable{transition:padding-bottom .35s ease, transform .35s ease;}
+.expandable.expanded{padding-bottom:1.6rem; transform:translateY(-4px);}
+
+/* ============ PROMO CARDS ============ */
+.promo-card{
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 6px 20px rgba(20,30,15,.08);
+  height:100%;
+}
+.promo-card img{width:100%; height:130px; object-fit:cover;}
+.promo-card .body{padding:.9rem 1rem 1.2rem;}
+.promo-card .tag{font-size:.7rem; font-weight:700; letter-spacing:1px; color:var(--verde-lima-2); text-transform:uppercase;}
+.promo-card .price{font-size:1.5rem; font-weight:800; color:var(--verde-oscuro);}
+.promo-card .price span{font-size:.85rem; font-weight:500; color:#777;}
+.promo-anniv{
+  background:var(--verde-oscuro);
+  border-radius:var(--radius);
+  color:#fff;
+  padding:1.6rem 1.4rem;
+  height:100%;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.promo-anniv .years{font-family:var(--font-display); color:var(--mostaza); font-size:2.6rem; line-height:1;}
+.promo-anniv h5{font-weight:800; text-transform:uppercase; margin:.3rem 0 .7rem;}
+.promo-anniv p{color:#d8d6c8; font-size:.85rem; margin-bottom:0;}
+
+/* ============ ABOUT ============ */
+.about-img{border-radius:var(--radius); overflow:hidden; box-shadow:0 20px 40px rgba(20,30,15,.15);}
+.about-img img{width:100%; display:block;}
+.about-badge{color:var(--verde-lima-2); font-weight:700; letter-spacing:2px; font-size:.8rem; text-transform:uppercase;}
+.about-title{font-weight:800; color:var(--verde-oscuro);}
+.about-title .accent{font-family:var(--font-display); color:var(--verde-lima); font-weight:400;}
+.about-feature{display:flex; align-items:center; gap:.5rem; font-size:.82rem; color:var(--texto-oscuro); font-weight:600;}
+.about-feature i{color:var(--verde-lima-2); font-size:1.1rem;}
+
+/* ============ GALLERY ============ */
+.gallery-strip{display:flex; gap:.8rem; overflow-x:auto; padding-bottom:.5rem; scroll-snap-type:x mandatory;}
+.gallery-strip img{
+  height:150px; width:180px; object-fit:cover; border-radius:12px; flex:0 0 auto;
+  scroll-snap-align:start; cursor:pointer; transition:transform .3s ease;
+}
+.gallery-strip img:hover{transform:scale(1.04);}
+.gallery-strip::-webkit-scrollbar{height:6px;}
+.gallery-strip::-webkit-scrollbar-thumb{background:#c9c2ad; border-radius:10px;}
+
+/* ============ HOW TO ORDER ============ */
+.order-steps{
+  background:var(--verde-oscuro);
+  border-radius:24px;
+  padding:2.5rem 2rem;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+.step-circle{
+  width:46px; height:46px; border-radius:50%;
+  background:var(--verde-lima);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; color:var(--verde-oscuro); margin:0 auto .6rem;
+}
+.order-steps h6{font-weight:700; margin-bottom:.2rem;}
+.order-steps p{font-size:.8rem; color:#c9c7ba;}
+.chef-note{font-family:var(--font-display); color:var(--verde-lima); font-size:1.6rem;}
+
+/* ============ LOCATION / CONTACT ============ */
+.info-card{background:#fff; border-radius:var(--radius); padding:1.4rem; box-shadow:0 6px 20px rgba(20,30,15,.08); height:100%;}
+.info-card h6{font-weight:800; text-transform:uppercase; color:var(--verde-oscuro); letter-spacing:1px;}
+#map{height:220px; width:100%; border-radius:12px; margin-bottom:.9rem;}
+.contact-line{display:flex; align-items:center; gap:.6rem; margin-bottom:.6rem; font-size:.9rem;}
+.contact-line i{color:var(--verde-lima-2); font-size:1.1rem;}
+.cta-card{background:var(--verde-oscuro); color:#fff; border-radius:var(--radius); padding:1.6rem; height:100%; display:flex; flex-direction:column; justify-content:center;}
+.cta-card h5{font-weight:800;}
+.cta-card p{color:#d8d6c8; font-size:.88rem;}
+
+/* ============ FOOTER ============ */
+.site-footer{background:var(--verde-oscuro-2); color:#cfcdc0; padding:3rem 0 1.2rem;}
+.site-footer h6{color:#fff; font-weight:700; text-transform:uppercase; font-size:.85rem; letter-spacing:1px;}
+.site-footer a{color:#cfcdc0; font-size:.88rem; display:block; margin-bottom:.4rem;}
+.site-footer a:hover{color:var(--verde-lima);}
+.social-icons a{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px; border-radius:50%; border:1px solid #454f43; margin-right:.5rem; color:#cfcdc0;
+}
+.social-icons a:hover{background:var(--verde-lima); border-color:var(--verde-lima); color:var(--verde-oscuro-2);}
+.footer-bottom{border-top:1px solid #263229; margin-top:2rem; padding-top:1rem; font-size:.78rem;}
+
+/* WhatsApp floating button */
+.wa-float{
+  position:fixed; bottom:22px; right:22px; z-index:1040;
+  width:58px; height:58px; border-radius:50%;
+  background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:1.7rem; box-shadow:0 10px 25px rgba(0,0,0,.3);
+  animation:pulse 2.4s infinite;
+}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5);}70%{box-shadow:0 0 0 14px rgba(37,211,102,0);}100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}}
+
+/* ============ MENU MODAL ============ */
+#menuModal .modal-dialog{max-width:80%; margin-top:2rem;}
+@media (max-width:767.98px){
+  #menuModal .modal-dialog{max-width:100%; margin:0; height:100%;}
+  #menuModal .modal-content{height:100%; border-radius:0;}
+}
+#menuModal .modal-content{background:var(--crema-2); border:none; border-radius:20px; overflow:hidden;}
+#menuModal .modal-header{background:var(--verde-oscuro); color:#fff; border:none;}
+#menuModal .modal-header .btn-close{filter:invert(1);}
+#menuModal .modal-body{padding:0; background:#20241d;}
+.menu-zoom-wrap{
+  width:100%; overflow:hidden; position:relative;
+  border-bottom:6px solid var(--crema-2);
+  touch-action:none;
+  cursor:zoom-in;
+  background:#20241d;
+}
+.menu-zoom-wrap img{
+  width:100%; display:block; user-select:none; -webkit-user-drag:none;
+  transform-origin:center center;
+  transition:transform .12s ease-out;
+  pointer-events:none;
+}
+.menu-zoom-hint{
+  position:sticky; top:0; z-index:5; background:rgba(18,42,23,.85); color:#eae7dc;
+  font-size:.75rem; text-align:center; padding:.4rem; display:flex; align-items:center; justify-content:center; gap:.4rem;
+}
+.menu-empty-state{color:#eae7dc; text-align:center; padding:3rem 1.2rem;}
+
+/* Anti-inspect toast */
+#blockToast{z-index:2000;}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar navbar-expand-lg navbar-cisis" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand brand-logo" href="#inicio">
+      <img src="src/logo.png" alt="Logo Cisis Baguett" onerror="this.style.display='none'; document.getElementById('brandFallback').style.display='inline-flex';">
+      <span id="brandFallback" style="display:none;" class="brand-logo">
+        <i class="bi bi-egg-fried" style="color:var(--verde-lima); font-size:1.6rem;"></i>
+      </span>
+      <span>
+        <span class="brand-text">Cisis</span>
+        <span class="brand-sub">BAGUETT</span>
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menú de opciones">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto mt-3 mt-lg-0 text-center">
+        <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" id="navMenuBtn" data-bs-toggle="modal" data-bs-target="#menuModal">Menú</a></li>
+        <li class="nav-item"><a class="nav-link" href="#promociones">Promociones</a></li>
+        <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+      </ul>
+      <a href="https://wa.me/523751006726" target="_blank" rel="noopener" class="btn btn-brand d-none d-lg-inline-flex align-items-center gap-2">
+        <i class="bi bi-whatsapp"></i> Pedir por WhatsApp
+      </a>
+      <a href="https://wa.me/523751006726" target="_blank" rel="noopener" class="btn btn-brand d-lg-none mt-2 w-100">
+        <i class="bi bi-whatsapp"></i> Pedir por WhatsApp
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="inicio">
+  <div class="hero-bg-layer">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="grain"></div>
+    <svg class="brush" width="220" height="140" viewBox="0 0 220 140" style="top:8%; left:2%;">
+      <path d="M10 100 Q60 20 120 60 T210 40" stroke="#8bc53f" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="container">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6 hero-content">
+        <div class="hero-badge-line"><i class="bi bi-egg-fried"></i> Cocina casera desde Cocula, Jalisco</div>
+        <h1 class="hero-title">SABOR CASERO<br>en cada
+          <span class="accent">bocado<i class="bi bi-stars spark"></i></span>
+        </h1>
+        <p class="hero-text">Disfruta nuestros platillos, desayunos, baguettes, bebidas y más. Hechos con ingredientes frescos y el toque único de Cisis Baguett.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/523751006726" target="_blank" rel="noopener" class="btn btn-brand"><i class="bi bi-whatsapp me-1"></i> Pedir por WhatsApp</a>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#menuModal" class="btn btn-outline-brand"><i class="bi bi-play-circle me-1"></i> Ver menú completo</a>
+        </div>
+      </div>
+      <div class="col-lg-6 hero-visual">
+        <img src="https://picsum.photos/seed/cisisbaguette/700/500" alt="Baguette de arrachera Cisis Baguett" class="img-main">
+        <img src="https://picsum.photos/seed/cisisdrink/300/400" alt="Bebida refrescante Cisis Baguett" class="img-drink">
+        <div class="hero-tag">Baguette<br>Arrachera<br>o Pollo</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ FEATURES STRIP ============ -->
+<section class="features-strip">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-6 col-lg-3">
+        <div class="feature-item"><i class="bi bi-egg-fried"></i>
+          <div><h6>Sabor Casero</h6><p>Recetas únicas preparadas con ingredientes frescos.</p></div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="feature-item"><i class="bi bi-flower2"></i>
+          <div><h6>Variedad</h6><p>Platillos, desayunos, baguettes, ensaladas y bebidas.</p></div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="feature-item"><i class="bi bi-cup-hot"></i>
+          <div><h6>Cafetería</h6><p>Cafés y frappés y bebidas para todos los gustos.</p></div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="feature-item"><i class="bi bi-geo-alt"></i>
+          <div><h6>Hecho en Cocula</h6><p>Orgullosamente servimos a nuestra comunidad.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU CATEGORIES ============ -->
+<section class="py-5" id="menu-categorias">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-eyebrow"><i class="bi bi-leaf"></i></div>
+      <h2 class="section-title">Nuestro Menú</h2>
+      <p class="text-muted">Explora nuestras categorías y descubre tu favorita</p>
+    </div>
+    <div class="row g-4" id="menuCategoriesRow">
+      <!-- cards injected by data below -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROMOCIONES ============ -->
+<section class="py-5" id="promociones" style="background:var(--crema-2);">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-eyebrow"><i class="bi bi-leaf"></i></div>
+      <h2 class="section-title">Promociones y Combos</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-6 col-lg-2">
+        <div class="promo-card expandable">
+          <img src="https://picsum.photos/seed/combodesayuno/300/220" alt="Combo desayuno">
+          <div class="body"><div class="tag">Combos Desayuno</div><div class="price">Desde $99</div>
+            <button class="btn btn-dark-outline btn-sm mt-2 w-100 expand-btn">Ver más</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="promo-card expandable">
+          <img src="https://picsum.photos/seed/combocompleto/300/220" alt="Combo completo">
+          <div class="body"><div class="tag">Combos Completos</div><div class="price">Desde $115</div>
+            <button class="btn btn-dark-outline btn-sm mt-2 w-100 expand-btn">Ver más</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="promo-card expandable">
+          <img src="https://picsum.photos/seed/paquetefam/300/220" alt="Paquete familiar">
+          <div class="body"><div class="tag">Paquetes Familiares</div><div class="price">Desde $139</div>
+            <button class="btn btn-dark-outline btn-sm mt-2 w-100 expand-btn">Ver más</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="promo-card expandable">
+          <img src="https://picsum.photos/seed/sodaitaliana/300/220" alt="Baguette más soda italiana">
+          <div class="body"><div class="tag">Baguett + Soda Italiana</div><div class="price">Por solo $149</div>
+            <button class="btn btn-dark-outline btn-sm mt-2 w-100 expand-btn">Ver más</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="promo-anniv">
+          <div class="years">5 años</div>
+          <h5>Nos respaldan</h5>
+          <p>Gracias a tu preferencia seguimos creciendo y llevando el mejor sabor a tu mesa. ¡Gracias por ser parte de nuestra historia!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOSOTROS ============ -->
+<section class="py-5" id="nosotros">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="about-img">
+          <img src="https://picsum.photos/seed/cisisinterior/700/520" alt="Interior del restaurante Cisis Baguett">
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="about-badge">Sobre Nosotros</div>
+        <h2 class="about-title">Hecho con pasión, <span class="accent">pensado para ti</span></h2>
+        <p class="text-muted">En Cisis Baguett nos encanta lo que hacemos. Utilizamos ingredientes de calidad para ofrecerte platillos deliciosos, bebidas únicas y un servicio cálido en un ambiente agradable.</p>
+        <div class="row g-3 mt-2">
+          <div class="col-6"><div class="about-feature"><i class="bi bi-patch-check"></i> Ingredientes frescos</div></div>
+          <div class="col-6"><div class="about-feature"><i class="bi bi-journal-text"></i> Recetas originales</div></div>
+          <div class="col-6"><div class="about-feature"><i class="bi bi-heart"></i> Atención cálida</div></div>
+          <div class="col-6"><div class="about-feature"><i class="bi bi-egg-fried"></i> Calidad en cada preparación</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERIA ============ -->
+<section class="py-5" style="background:var(--crema-2);">
+  <div class="container">
+    <div class="text-center mb-4">
+      <div class="section-eyebrow"><i class="bi bi-leaf"></i></div>
+      <h2 class="section-title">Galería</h2>
+    </div>
+    <div class="gallery-strip" id="galleryStrip"></div>
+  </div>
+</section>
+
+<!-- ============ COMO PEDIR ============ -->
+<section class="py-5">
+  <div class="container">
+    <div class="order-steps">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-9">
+          <div class="row text-center g-4">
+            <div class="col-6 col-md-3">
+              <div class="step-circle"><i class="bi bi-list-check"></i></div>
+              <h6>1. Elige tu platillo</h6>
+              <p>Explora nuestro menú y selecciona lo que más se te antoje.</p>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="step-circle"><i class="bi bi-whatsapp"></i></div>
+              <h6>2. Contáctanos</h6>
+              <p>Haz tu pedido por WhatsApp de forma rápida y sencilla.</p>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="step-circle"><i class="bi bi-check2-circle"></i></div>
+              <h6>3. Confirma tu pedido</h6>
+              <p>Te confirmamos disponibilidad, tiempo de preparación y total a pagar.</p>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="step-circle"><i class="bi bi-bag-check"></i></div>
+              <h6>4. Disfruta</h6>
+              <p>Recoge tu pedido o recíbelo en la comodidad de tu hogar.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 text-center">
+          <i class="bi bi-emoji-smile" style="font-size:2.2rem; color:var(--verde-lima);"></i>
+          <div class="chef-note">¡Listo! Buen provecho</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UBICACION / CONTACTO ============ -->
+<section class="py-5" id="ubicacion" style="background:var(--crema-2);">
+  <div class="container">
+    <div class="row g-4" id="contacto">
+      <div class="col-lg-4">
+        <div class="info-card">
+          <h6 class="mb-3"><i class="bi bi-geo-alt-fill me-1"></i> Ubicación</h6>
+          <div id="map"></div>
+          <p class="small mb-1"><i class="bi bi-pin-map me-1"></i> Carretera Barra de Navidad, Cocula, Jalisco, México, 48500</p>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Cocula,Jalisco,Mexico" target="_blank" rel="noopener" class="btn btn-brand btn-sm mt-2">
+            <i class="bi bi-signpost-2 me-1"></i> Cómo llegar
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="info-card">
+          <h6 class="mb-3"><i class="bi bi-telephone-fill me-1"></i> Contacto</h6>
+          <div class="contact-line"><i class="bi bi-telephone"></i> 377 688 1020</div>
+          <div class="contact-line"><i class="bi bi-whatsapp"></i> +52 1 375 100 6726</div>
+          <div class="contact-line"><i class="bi bi-facebook"></i> Cisis Baguett</div>
+          <div class="contact-line"><i class="bi bi-clock"></i> Abierto ahora — Lunes a Domingo, 8:00 a.m. – 10:00 p.m.</div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="cta-card">
+          <h5>¡Haz tu pedido ahora!</h5>
+          <p>Estamos listos para atenderte por WhatsApp.</p>
+          <a href="https://wa.me/523751006726" target="_blank" rel="noopener" class="btn btn-brand">
+            <i class="bi bi-whatsapp me-1"></i> Pedir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-4">
+        <div class="brand-logo mb-2">
+          <img src="src/logo.png" alt="Logo Cisis Baguett" style="height:40px;" onerror="this.style.display='none';">
+          <span class="brand-text">Cisis</span>
+        </div>
+        <p class="small">Sabor Casero en cada bocado.</p>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://wa.me/523751006726" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h6>Navegación</h6>
+        <a href="#inicio">Inicio</a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#menuModal">Menú</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#ubicacion">Ubicación</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h6>Horarios</h6>
+        <p class="small mb-0">Lunes a Domingo<br>8:00 a.m. – 10:00 p.m.</p>
+        <p class="small mt-2">Cocula, Jalisco, México</p>
+      </div>
+    </div>
+    <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between">
+      <span>© 2024 Cisis Baguett. Todos los derechos reservados.</span>
+      <span>Diseñado por TAW Sitios Web</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/523751006726" target="_blank" rel="noopener" class="wa-float" aria-label="Pedir por WhatsApp"><i class="bi bi-whatsapp"></i></a>
+
+<!-- ============ MODAL: MENU DE COMIDA ============ -->
+<div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="menuModalLabel"><i class="bi bi-journal-richtext me-2"></i>Nuestro Menú</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="menuModalBody">
+        <div class="menu-zoom-hint"><i class="bi bi-zoom-in"></i> Rueda del mouse o pellizca para hacer zoom · arrastra para mover</div>
+        <div id="menuImagesContainer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast: bloqueo de inspección -->
+<div class="position-fixed bottom-0 start-50 translate-middle-x p-3" id="blockToast" style="display:none;">
+  <div class="toast align-items-center text-white border-0" style="background:var(--verde-oscuro);" role="alert">
+    <div class="d-flex">
+      <div class="toast-body"><i class="bi bi-shield-lock me-2"></i>Acceso al código no permitido</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" onclick="document.getElementById('blockToast').style.display='none';"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+/* ============================================================
+   1) NAVBAR: resaltar sección activa al hacer scroll
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* ---------- Datos de categorías de menú (reutilizable) ---------- */
+  const categorias = [
+    {img:'https://picsum.photos/seed/platillos/300/220', icon:'bi-egg-fried', nombre:'Platillos', desc:'Sabor casero que te encanta'},
+    {img:'https://picsum.photos/seed/desayunos/300/220', icon:'bi-sun', nombre:'Desayunos', desc:'Inicia tu día con energía'},
+    {img:'https://picsum.photos/seed/baguettes/300/220', icon:'bi-basket2', nombre:'Baguettes', desc:'Crujientes, llenos de sabor'},
+    {img:'https://picsum.photos/seed/ensaladas/300/220', icon:'bi-flower3', nombre:'Ensaladas', desc:'Frescas, nutritivas y deliciosas'},
+    {img:'https://picsum.photos/seed/cafeteria/300/220', icon:'bi-cup-hot', nombre:'Cafetería', desc:'Cafés, frappés y más'},
+    {img:'https://picsum.photos/seed/bebidas/300/220', icon:'bi-cup-straw', nombre:'Bebidas', desc:'Refrescos, jugos y especialidades'}
+  ];
+  const row = document.getElementById('menuCategoriesRow');
+  categorias.forEach(c => {
+    const col = document.createElement('div');
+    col.className = 'col-6 col-lg-4 col-xl-2';
+    col.innerHTML = `
+      <div class="menu-card expandable">
+        <img src="${c.img}" alt="${c.nombre}">
+        <div class="body">
+          <i class="bi ${c.icon} cat-icon"></i>
+          <h6>${c.nombre}</h6>
+          <p>${c.desc}</p>
+          <button class="btn btn-brand w-100 expand-btn">Ver menú</button>
+        </div>
+      </div>`;
+    row.appendChild(col);
+  });
+
+  /* ---------- Galería ---------- */
+  const galSeeds = ['gal1','gal2','gal3','gal4','gal5','gal6','gal7'];
+  const galStrip = document.getElementById('galleryStrip');
+  galSeeds.forEach((s,i) => {
+    const img = document.createElement('img');
+    img.src = `https://picsum.photos/seed/${s}/300/220`;
+    img.alt = 'Galería Cisis Baguett ' + (i+1);
+    img.loading = 'lazy';
+    galStrip.appendChild(img);
+  });
+
+  /* ---------- Efecto "expandir" al hacer click en botones de sección ----------
+     (regla 21: al hacer click en botones de sección se expande/crece un poco,
+     excepto el botón de Menú que abre la modal) */
+  document.querySelectorAll('.expand-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      const card = this.closest('.expandable');
+      if (card) card.classList.toggle('expanded');
+    });
+  });
+
+  /* ---------- Resaltar link activo del navbar según sección visible ---------- */
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const navLinks = document.querySelectorAll('.navbar-cisis .nav-link[href^="#"]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.navbar-cisis .nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, {rootMargin: '-40% 0px -50% 0px'});
+  sections.forEach(s => observer.observe(s));
+
+  /* Cerrar el menú hamburguesa al elegir una opción en móvil */
+  document.querySelectorAll('#navMenu .nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const nav = document.getElementById('navMenu');
+      if (nav.classList.contains('show')) {
+        bootstrap.Collapse.getOrCreateInstance(nav).hide();
+      }
+    });
+  });
+
+  /* ============================================================
+     2) MAPA (Leaflet - librería gratuita) con botón "Cómo llegar"
+     ============================================================ */
+  try {
+    const coords = [19.9575, -104.0967]; // Cocula, Jalisco (aproximado)
+    const map = L.map('map', {scrollWheelZoom:false}).setView(coords, 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+    L.marker(coords).addTo(map).bindPopup('Cisis Baguett').openPopup();
+  } catch (e) { /* mapa no disponible sin conexión */ }
+
+  /* ============================================================
+     3) MODAL DE MENÚ: cargar imágenes src/menu1.jpg, menu2.jpg, ...
+        y activar zoom/pan en cada una.
+     ============================================================ */
+  const menuContainer = document.getElementById('menuImagesContainer');
+  const maxMenuImages = 12;
+  const extensions = ['jpg','jpeg','png'];
+  let foundAny = false;
+  let checked = 0;
+  const totalChecks = maxMenuImages * extensions.length;
+
+  function finalizeIfDone() {
+    checked++;
+    if (checked === totalChecks && !foundAny) {
+      menuContainer.innerHTML = `
+        <div class="menu-empty-state">
+          <i class="bi bi-images" style="font-size:2.2rem;"></i>
+          <p class="mt-2 mb-0">Agrega tus imágenes del menú en la carpeta <code>src/</code><br>
+          nombradas <strong>menu1.jpg</strong>, <strong>menu2.jpg</strong>, etc. para que aparezcan aquí automáticamente.</p>
+        </div>`;
+    }
+  }
+
+  for (let i = 1; i <= maxMenuImages; i++) {
+    extensions.forEach(ext => {
+      const testImg = new Image();
+      testImg.onload = function () {
+        foundAny = true;
+        addZoomableImage(`src/menu${i}.${ext}`, i);
+        finalizeIfDone();
+      };
+      testImg.onerror = finalizeIfDone;
+      testImg.src = `src/menu${i}.${ext}`;
+    });
+  }
+
+  function addZoomableImage(src, index) {
+    const wrap = document.createElement('div');
+    wrap.className = 'menu-zoom-wrap';
+    wrap.innerHTML = `<img src="${src}" alt="Página de menú ${index}" draggable="false">`;
+    menuContainer.appendChild(wrap);
+    initZoomPan(wrap);
+  }
+
+  /* Zoom con rueda + pan con arrastre + doble click para reset (vanilla JS) */
+  function initZoomPan(wrapEl) {
+    const img = wrapEl.querySelector('img');
+    let scale = 1, posX = 0, posY = 0, isDragging = false, startX = 0, startY = 0;
+
+    function applyTransform() {
+      img.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+    }
+
+    wrapEl.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.15 : 0.15;
+      scale = Math.min(Math.max(1, scale + delta), 4);
+      if (scale === 1) { posX = 0; posY = 0; }
+      applyTransform();
+    }, {passive:false});
+
+    wrapEl.addEventListener('dblclick', () => {
+      scale = scale > 1 ? 1 : 2;
+      posX = 0; posY = 0;
+      applyTransform();
+    });
+
+    wrapEl.addEventListener('pointerdown', (e) => {
+      if (scale === 1) return;
+      isDragging = true;
+      startX = e.clientX - posX;
+      startY = e.clientY - posY;
+      wrapEl.setPointerCapture(e.pointerId);
+    });
+    wrapEl.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      posX = e.clientX - startX;
+      posY = e.clientY - startY;
+      applyTransform();
+    });
+    ['pointerup','pointercancel','pointerleave'].forEach(evt => {
+      wrapEl.addEventListener(evt, () => { isDragging = false; });
+    });
+
+    /* Pellizco (pinch) básico para móviles con dos dedos */
+    let lastDist = null;
+    wrapEl.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const dist = Math.hypot(dx, dy);
+        if (lastDist) {
+          scale = Math.min(Math.max(1, scale + (dist - lastDist) * 0.01), 4);
+          applyTransform();
+        }
+        lastDist = dist;
+      }
+    }, {passive:false});
+    wrapEl.addEventListener('touchend', () => { lastDist = null; });
+  }
+
+  /* ============================================================
+     4) BLOQUEO BÁSICO DE INSPECCIÓN (clic derecho / atajos)
+        Nota: esto es disuasorio, no una medida de seguridad real;
+        cualquier navegador permite acceder al código fuente igualmente.
+     ============================================================ */
+  function showBlockToast() {
+    const toastEl = document.getElementById('blockToast');
+    toastEl.style.display = 'block';
+    const toast = new bootstrap.Toast(toastEl.querySelector('.toast'), {delay: 2200});
+    toast.show();
+  }
+
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    showBlockToast();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const key = e.key ? e.key.toUpperCase() : '';
+    const blockCombo =
+      key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(key)) ||
+      (e.ctrlKey && key === 'U') ||
+      (e.metaKey && e.altKey && ['I','J','C'].includes(key));
+    if (blockCombo) {
+      e.preventDefault();
+      showBlockToast();
+    }
+  });
+});
+</script>
+</body>
+</html>
