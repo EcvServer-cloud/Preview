@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Bloom Spa | Bienestar que florece en ti — Chihuahua</title>
+<meta name="description" content="Bloom Spa en Chihuahua: tratamientos faciales, masajes y paquetes de bienestar en pareja o con amigas. Relájate, renueva tu energía y consiéntete. Reserva por WhatsApp.">
+<meta name="keywords" content="spa Chihuahua, masajes Chihuahua, tratamientos faciales, spa bienestar, Bloom Spa, paquete aniversario spa, spa en pareja">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Bloom Spa | Bienestar que florece en ti">
+<meta property="og:description" content="Relájate, renueva tu energía y dedica tiempo a lo más importante: tu bienestar.">
+<meta property="og:type" content="website">
+<link rel="icon" id="favicon" href="src/logo.jpg">
+
+<!-- Bootstrap 5 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --cream:#F8F3E9;
+    --cream-2:#EFE6D3;
+    --green:#3B4A2E;
+    --green-2:#4C5D3B;
+    --gold:#A9763F;
+    --gold-2:#C79256;
+    --ink:#2C271F;
+    --ink-soft:#6B6255;
+    --white:#FFFFFF;
+    --radius:18px;
+    --shadow:0 20px 45px -20px rgba(43,38,29,.25);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Jost',sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.display-font{
+    font-family:'Playfair Display',serif;
+  }
+  .script{
+    font-family:'Parisienne',cursive;
+    color:var(--gold);
+    font-weight:400;
+    line-height:1;
+  }
+  a{text-decoration:none;}
+  .btn-spa{
+    background:var(--green);
+    color:var(--white)!important;
+    border:none;
+    border-radius:50px;
+    padding:.85rem 1.9rem;
+    font-size:.95rem;
+    letter-spacing:.03em;
+    transition:.25s ease;
+    white-space:nowrap;
+  }
+  .btn-spa:hover{background:var(--green-2);color:var(--white)!important;transform:translateY(-2px);}
+  .btn-outline-spa{
+    background:transparent;
+    color:var(--ink)!important;
+    border:1.5px solid var(--ink);
+    border-radius:50px;
+    padding:.85rem 1.9rem;
+    font-size:.95rem;
+    transition:.25s ease;
+  }
+  .btn-outline-spa:hover{background:var(--ink);color:var(--cream)!important;}
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:.78rem;
+    color:var(--gold);
+    font-weight:600;
+  }
+  .section-title-wrap{text-align:center;margin-bottom:2.6rem;}
+  .section-title-wrap .divider-flex{display:flex;align-items:center;justify-content:center;gap:.9rem;margin-bottom:.4rem;}
+  .section-title-wrap .divider-flex i{color:var(--gold);font-size:1.1rem;}
+  .section-title-wrap h2{font-size:2.1rem;color:var(--green);margin:0;}
+  .section-title-wrap p{color:var(--ink-soft);margin:.4rem 0 0;}
+
+  /* ---------- Header ---------- */
+  #siteHeader{
+    background:rgba(248,243,233,.92);
+    backdrop-filter:blur(10px);
+    position:sticky;top:0;z-index:1000;
+    padding:.7rem 0;
+    border-bottom:1px solid rgba(43,38,29,.06);
+    transition:.3s;
+  }
+  #siteHeader .navbar-brand{display:flex;align-items:center;gap:.6rem;}
+  #siteHeader .navbar-brand img{height:44px;width:44px;object-fit:cover;border-radius:50%;}
+  #siteHeader .brand-text{font-family:'Playfair Display',serif;line-height:1.05;}
+  #siteHeader .brand-text .l1{font-size:1.15rem;font-weight:700;letter-spacing:.06em;color:var(--gold);}
+  #siteHeader .brand-text .l2{font-size:.7rem;letter-spacing:.35em;color:var(--ink);}
+  #siteHeader .nav-link{
+    color:var(--ink)!important;
+    font-size:.92rem;
+    font-weight:500;
+    margin:0 .55rem;
+    position:relative;
+  }
+  #siteHeader .nav-link.active{color:var(--gold)!important;}
+  #siteHeader .nav-link.active::after{
+    content:'';position:absolute;left:0;bottom:-4px;width:100%;height:2px;background:var(--gold);
+  }
+  .navbar-toggler{border:none;padding:.3rem .5rem;}
+  .navbar-toggler .bi{font-size:1.4rem;color:var(--ink);}
+  .navbar-toggler:focus{box-shadow:none;}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:2.6rem 0 3rem;}
+  .hero h1{font-size:2.6rem;line-height:1.15;color:var(--ink);font-weight:600;}
+  .hero .script-line{font-size:3.6rem;display:block;margin-top:-.3rem;}
+  .hero p.lead-text{color:var(--ink-soft);font-size:1.02rem;max-width:420px;margin:1.1rem 0 1.6rem;}
+  .hero-feats{display:flex;gap:1.6rem;flex-wrap:wrap;margin-bottom:1.8rem;}
+  .hero-feats .feat{display:flex;align-items:center;gap:.55rem;max-width:130px;}
+  .hero-feats .feat i{font-size:1.3rem;color:var(--gold);}
+  .hero-feats .feat span{font-size:.78rem;color:var(--ink-soft);line-height:1.15;}
+  .hero-btns{display:flex;gap:.9rem;flex-wrap:wrap;}
+  .hero-visual{position:relative;}
+  .hero-visual img.main{
+    width:100%;height:400px;object-fit:cover;border-radius:var(--radius);
+    box-shadow:var(--shadow);
+  }
+  .hero-badge{
+    position:absolute;top:8%;right:4%;
+    width:190px;height:190px;border-radius:50%;
+    background:var(--cream-2);
+    border:2px solid rgba(169,118,63,.35);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    box-shadow:0 15px 30px -10px rgba(43,38,29,.3);
+    font-family:'Playfair Display',serif;color:var(--gold);
+    text-align:center;
+  }
+  .hero-badge .b1{font-size:1.5rem;font-weight:700;letter-spacing:.05em;}
+  .hero-badge .b-icon{font-size:.85rem;margin:.15rem 0;}
+  .hero-badge .b2{font-size:1.3rem;font-weight:700;letter-spacing:.15em;}
+
+  /* ---------- Trust bar ---------- */
+  .trust-bar{background:var(--cream-2);padding:1.6rem 0;}
+  .trust-item{display:flex;gap:.8rem;align-items:flex-start;}
+  .trust-item i{font-size:1.5rem;color:var(--gold);flex-shrink:0;}
+  .trust-item h6{font-family:'Playfair Display',serif;font-size:.92rem;margin:0 0 .15rem;color:var(--green);}
+  .trust-item p{font-size:.8rem;color:var(--ink-soft);margin:0;}
+
+  /* ---------- Welcome ---------- */
+  .welcome{padding:4.5rem 0;}
+  .welcome-img{border-radius:var(--radius);width:100%;height:460px;object-fit:cover;box-shadow:var(--shadow);}
+  .welcome h2{font-size:2rem;color:var(--green);margin-top:.2rem;}
+  .welcome ul{list-style:none;padding:0;margin:1.2rem 0;}
+  .welcome ul li{display:flex;gap:.6rem;align-items:flex-start;margin-bottom:.55rem;color:var(--ink-soft);}
+  .welcome ul li i{color:var(--green);margin-top:.2rem;}
+  .welcome .quote{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:1.05rem;margin-top:1rem;}
+  .promo-card{
+    background:var(--cream-2);border-radius:var(--radius);padding:2rem 1.6rem;text-align:center;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;height:100%;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .promo-card .eyebrow2{font-family:'Playfair Display',serif;color:var(--ink);font-size:1rem;}
+  .promo-card .month{font-family:'Playfair Display',serif;color:var(--gold);font-size:2.1rem;font-weight:700;margin:.1rem 0;}
+  .promo-card .script{font-size:2.3rem;}
+  .promo-card p{color:var(--ink-soft);font-size:.88rem;margin:1rem 0 1.3rem;}
+  .promo-card .socials{display:flex;gap:.8rem;justify-content:center;margin-top:1.2rem;}
+  .promo-card .socials a{
+    width:34px;height:34px;border-radius:50%;background:var(--green);color:var(--white);
+    display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:.2s;
+  }
+  .promo-card .socials a:hover{background:var(--gold);}
+
+  /* ---------- Treatments ---------- */
+  .treatments{padding:3.5rem 0 4.5rem;}
+  .treat-card{
+    background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 12px 30px -18px rgba(43,38,29,.35);
+    height:100%;transition:.25s;
+  }
+  .treat-card:hover{transform:translateY(-6px);box-shadow:0 20px 35px -18px rgba(43,38,29,.4);}
+  .treat-card img{width:100%;height:170px;object-fit:cover;}
+  .treat-card .body{padding:1.1rem 1.2rem 1.3rem;}
+  .treat-card h5{font-family:'Playfair Display',serif;font-size:1.02rem;color:var(--green);margin-bottom:.3rem;}
+  .treat-card p{font-size:.82rem;color:var(--ink-soft);min-height:38px;margin-bottom:.5rem;}
+  .treat-card .price{font-weight:600;color:var(--gold);margin-bottom:.8rem;display:block;font-size:.95rem;}
+  .treat-card .btn-spa{width:100%;padding:.6rem;font-size:.85rem;}
+
+  /* ---------- Promo banner ---------- */
+  .promo-banner{background:var(--green);border-radius:var(--radius);padding:2.4rem;color:var(--white);position:relative;overflow:hidden;}
+  .promo-banner h3{font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:.6rem;}
+  .promo-banner p{color:rgba(255,255,255,.8);font-size:.9rem;margin-bottom:1.2rem;max-width:280px;}
+  .promo-banner .btn-outline-light{border-radius:50px;font-size:.88rem;padding:.7rem 1.6rem;}
+  .promo-mini{background:rgba(255,255,255,.08);border-radius:14px;padding:1.2rem 1rem;height:100%;}
+  .promo-mini i{font-size:1.6rem;color:var(--gold-2);margin-bottom:.5rem;display:block;}
+  .promo-mini h6{font-family:'Playfair Display',serif;font-size:.9rem;margin-bottom:.3rem;}
+  .promo-mini p{font-size:.78rem;color:rgba(255,255,255,.75);margin:0;}
+
+  /* ---------- Gallery ---------- */
+  .gallery{padding:4rem 0 3.5rem;}
+  .gallery-track-wrap{position:relative;}
+  .gallery-track{display:flex;gap:1rem;overflow-x:auto;scroll-behavior:smooth;padding:.4rem .2rem 1rem;scrollbar-width:none;}
+  .gallery-track::-webkit-scrollbar{display:none;}
+  .gallery-track img{
+    height:210px;width:230px;flex:0 0 auto;object-fit:cover;border-radius:14px;cursor:pointer;
+    box-shadow:0 10px 22px -14px rgba(43,38,29,.4);transition:.2s;
+  }
+  .gallery-track img:hover{transform:scale(1.02);}
+  .gallery-arrow{
+    position:absolute;top:45%;transform:translateY(-50%);
+    width:38px;height:38px;border-radius:50%;background:var(--white);border:1px solid rgba(43,38,29,.15);
+    display:flex;align-items:center;justify-content:center;z-index:5;box-shadow:0 6px 16px -6px rgba(43,38,29,.3);
+  }
+  .gallery-arrow.left{left:-10px;}
+  .gallery-arrow.right{right:-10px;}
+  .gallery-dots{display:flex;justify-content:center;gap:.4rem;margin-top:.4rem;}
+  .gallery-dots span{width:6px;height:6px;border-radius:50%;background:var(--ink-soft);opacity:.35;}
+  .gallery-dots span.active{opacity:1;background:var(--gold);}
+
+  /* ---------- How it works ---------- */
+  .how{padding:3rem 0 4rem;}
+  .step-card{background:var(--cream-2);border-radius:16px;padding:1.6rem 1.2rem;text-align:center;position:relative;height:100%;}
+  .step-num{
+    width:32px;height:32px;border-radius:50%;background:var(--green);color:var(--white);
+    display:flex;align-items:center;justify-content:center;font-weight:600;margin:0 auto .8rem;font-size:.9rem;
+  }
+  .step-card i{font-size:1.5rem;color:var(--gold);margin-bottom:.5rem;display:block;}
+  .step-card h6{font-family:'Playfair Display',serif;color:var(--green);font-size:.95rem;margin-bottom:.3rem;}
+  .step-card p{font-size:.8rem;color:var(--ink-soft);margin:0;}
+  .step-connector{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.3rem;}
+
+  /* ---------- Visit / contact ---------- */
+  .visit{padding:1rem 0 4rem;}
+  .visit-box{background:var(--cream-2);border-radius:var(--radius);padding:2rem;}
+  .map-frame{border-radius:14px;overflow:hidden;height:260px;width:100%;border:1px solid rgba(43,38,29,.1);}
+  .info-line{display:flex;gap:.6rem;margin-bottom:.7rem;font-size:.88rem;color:var(--ink-soft);}
+  .info-line i{color:var(--gold);margin-top:.15rem;}
+  .visit h5{font-family:'Playfair Display',serif;color:var(--green);margin-bottom:.9rem;font-size:1.1rem;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--cream-2);padding:3rem 0 1.4rem;margin-top:2rem;}
+  footer .brand-text .l1{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;}
+  footer p.tag{color:var(--ink-soft);font-size:.85rem;margin:.5rem 0 1rem;}
+  footer h6{font-family:'Playfair Display',serif;color:var(--green);font-size:.9rem;margin-bottom:.8rem;}
+  footer a.footlink{display:block;color:var(--ink-soft)!important;font-size:.85rem;margin-bottom:.5rem;}
+  footer a.footlink:hover{color:var(--gold)!important;}
+  footer .socials a{
+    width:32px;height:32px;border-radius:50%;background:var(--green);color:var(--white);
+    display:flex;align-items:center;justify-content:center;font-size:.85rem;margin-right:.5rem;
+  }
+  .foot-bottom{border-top:1px solid rgba(43,38,29,.1);margin-top:2rem;padding-top:1.1rem;font-size:.78rem;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;}
+
+  /* ---------- Lightbox ---------- */
+  #lightboxModal .modal-content{background:transparent;border:none;}
+  #lightboxModal .carousel-item img{max-height:82vh;width:100%;object-fit:contain;}
+  #lightboxModal .btn-close{background-color:var(--white);opacity:1;position:absolute;top:1rem;right:1rem;z-index:10;}
+
+  /* fallback icon box when image missing */
+  .img-fallback{
+    display:flex;align-items:center;justify-content:center;background:var(--cream-2);color:var(--gold);
+  }
+  .img-fallback i{font-size:1.8rem;}
+
+  /* protection notice */
+  #protNotice{
+    position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+    background:var(--ink);color:var(--white);padding:.6rem 1.2rem;border-radius:40px;font-size:.82rem;
+    z-index:3000;opacity:0;pointer-events:none;transition:.25s;
+  }
+  #protNotice.show{opacity:1;}
+
+  @media(max-width:991px){
+    .hero h1{font-size:2rem;}
+    .hero .script-line{font-size:2.6rem;}
+    .hero-badge{position:static;width:150px;height:150px;margin:1rem auto 0;}
+    .hero-visual img.main{height:280px;}
+    #siteHeader .navbar-collapse{background:var(--cream);padding:1rem;border-radius:12px;margin-top:.6rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header id="siteHeader">
+  <nav class="navbar navbar-expand-lg container">
+    <a class="navbar-brand" href="#inicio">
+      <img src="src/logo.jpg" alt="Logo Bloom Spa" onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('div'),{innerHTML:'<i class=\'bi bi-flower1\'></i>',className:'img-fallback',style:'width:44px;height:44px;border-radius:50%;font-size:1.2rem;'}))">
+      <span class="brand-text"><span class="l1">BLOOM</span><br><span class="l2">SPA</span></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Abrir menú">
+      <i class="bi bi-list"></i>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+      <ul class="navbar-nav align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tratamientos">Tratamientos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tratamientos">Paquetes</a></li>
+        <li class="nav-item"><a class="nav-link" href="#promociones">Promociones</a></li>
+        <li class="nav-item"><a class="nav-link" href="#bienvenida">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">Contacto</a></li>
+        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+          <a class="btn-spa d-inline-flex align-items-center gap-2" href="https://wa.me/523331234567" target="_blank" rel="noopener">
+            <i class="bi bi-whatsapp"></i> Reservar por WhatsApp
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="inicio" class="hero">
+  <div class="container">
+    <div class="row align-items-center gy-4">
+      <div class="col-lg-6">
+        <h1>BIENESTAR QUE<span class="script script-line">florece en ti</span></h1>
+        <p class="lead-text">Relájate, renueva tu energía y dedica tiempo a lo más importante: tu bienestar.</p>
+        <div class="hero-feats">
+          <div class="feat"><i class="bi bi-flower2"></i><span>Relajación profunda</span></div>
+          <div class="feat"><i class="bi bi-battery-charging"></i><span>Recupera tu energía</span></div>
+          <div class="feat"><i class="bi bi-stars"></i><span>Resultados visibles</span></div>
+          <div class="feat"><i class="bi bi-person-heart"></i><span>Atención personalizada</span></div>
+        </div>
+        <div class="hero-btns">
+          <a href="https://wa.me/523331234567" target="_blank" rel="noopener" class="btn-spa"><i class="bi bi-whatsapp me-1"></i>Reservar por WhatsApp</a>
+          <a href="#tratamientos" class="btn-outline-spa">Conoce nuestros tratamientos</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-visual">
+          <img class="main" src="src/hero.jpg" alt="Ambiente relajante de Bloom Spa con velas y flores"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=1200&auto=format&fit=crop'">
+          <div class="hero-badge">
+            <span class="b1">BLOOM</span>
+            <i class="bi bi-flower1 b-icon"></i>
+            <span class="b2">SPA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<section class="trust-bar">
+  <div class="container">
+    <div class="row gy-3">
+      <div class="col-6 col-lg-3">
+        <div class="trust-item"><i class="bi bi-droplet"></i><div><h6>Productos de calidad</h6><p>Utilizamos productos profesionales de alta calidad.</p></div></div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="trust-item"><i class="bi bi-person-badge"></i><div><h6>Terapeutas expertas</h6><p>Personal capacitado y en constante actualización.</p></div></div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="trust-item"><i class="bi bi-flower3"></i><div><h6>Ambiente relajante</h6><p>Espacios diseñados para tu confort y descanso.</p></div></div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="trust-item"><i class="bi bi-heart"></i><div><h6>Tu bienestar, nuestra misión</h6><p>Cada detalle pensado especialmente para ti.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIENVENIDA ============ -->
+<section id="bienvenida" class="welcome">
+  <div class="container">
+    <div class="row align-items-center gy-4">
+      <div class="col-lg-5">
+        <img class="welcome-img" src="src/bienvenida.jpg" alt="Tratamiento facial en Bloom Spa"
+             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1000&auto=format&fit=crop'">
+      </div>
+      <div class="col-lg-4">
+        <span class="eyebrow">Bienvenida a</span>
+        <h2>BLOOM SPA</h2>
+        <p style="color:var(--ink-soft);font-size:.92rem;">En Bloom Spa queremos acompañarte durante este mes con experiencias diseñadas para ayudarte a relajarte, renovar tu energía y reconectar con el estrés diario.</p>
+        <ul>
+          <li><i class="bi bi-check-circle-fill"></i> Relajar cuerpo y mente.</li>
+          <li><i class="bi bi-check-circle-fill"></i> Recuperar tu energía.</li>
+          <li><i class="bi bi-check-circle-fill"></i> Consentirte con nuestros tratamientos.</li>
+          <li><i class="bi bi-check-circle-fill"></i> Crear momentos especiales contigo, en pareja o con alguien que quieres.</li>
+        </ul>
+        <p class="quote">"Porque cuando tú estás bien,<br>todo a tu alrededor también florece."</p>
+      </div>
+      <div class="col-lg-3">
+        <div class="promo-card">
+          <div class="eyebrow2">Este</div>
+          <div class="month">Agosto de</div>
+          <div class="script">Bienestar</div>
+          <p>Aprovecha nuestras promociones especiales y dedica tiempo a ti.</p>
+          <a href="#promociones" class="btn-spa">Ver promociones</a>
+          <span style="font-size:.75rem;color:var(--ink-soft);margin-top:1rem;">Síguenos en:</span>
+          <div class="socials">
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRATAMIENTOS ============ -->
+<section id="tratamientos" class="treatments">
+  <div class="container">
+    <div class="section-title-wrap">
+      <div class="divider-flex"><i class="bi bi-flower1"></i></div>
+      <h2>NUESTROS TRATAMIENTOS</h2>
+      <p>Descubre nuestros tratamientos y paquetes diseñados para ti.</p>
+    </div>
+    <div class="row g-4" id="treatGrid"></div>
+  </div>
+</section>
+
+<!-- ============ PROMOCIONES ESPECIALES ============ -->
+<section id="promociones" class="container mb-5">
+  <div class="promo-banner">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-3">
+        <h3>PROMOCIONES ESPECIALES</h3>
+        <p>Este mes tenemos beneficios exclusivos para ti. ¡No te lo pierdas!</p>
+        <a href="https://wa.me/523331234567" target="_blank" rel="noopener" class="btn btn-outline-light">Ver todas las promociones</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="promo-mini"><i class="bi bi-percent"></i><h6>Descuentos especiales</h6><p>En tratamientos seleccionados durante agosto.</p></div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="promo-mini"><i class="bi bi-gift"></i><h6>Paquetes exclusivos</h6><p>Diseñados para regalar bienestar o consentirte.</p></div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="promo-mini"><i class="bi bi-heart"></i><h6>Bonos de regalo</h6><p>Sorprende a alguien especial con bienestar.</p></div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="promo-mini"><i class="bi bi-calendar-heart"></i><h6>Mes del bienestar</h6><p>Actividades y sorpresas todo el mes.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERÍA ============ -->
+<section class="gallery">
+  <div class="container">
+    <div class="section-title-wrap">
+      <div class="divider-flex"><i class="bi bi-flower1"></i><span></span></div>
+      <h2>GALERÍA</h2>
+    </div>
+    <div class="gallery-track-wrap">
+      <button class="gallery-arrow left" id="galLeft" aria-label="Anterior"><i class="bi bi-chevron-left"></i></button>
+      <div class="gallery-track" id="galleryTrack"></div>
+      <button class="gallery-arrow right" id="galRight" aria-label="Siguiente"><i class="bi bi-chevron-right"></i></button>
+    </div>
+    <div class="gallery-dots" id="galleryDots"></div>
+  </div>
+</section>
+
+<!-- Lightbox modal -->
+<div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      <div id="lightboxCarousel" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner" id="lightboxInner"></div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CÓMO FUNCIONA ============ -->
+<section class="how">
+  <div class="container">
+    <div class="section-title-wrap">
+      <div class="divider-flex"><i class="bi bi-flower1"></i></div>
+      <h2>¿CÓMO FUNCIONA?</h2>
+    </div>
+    <div class="row g-3 align-items-center">
+      <div class="col-md-3">
+        <div class="step-card"><div class="step-num">1</div><i class="bi bi-journal-bookmark"></i><h6>Elige tu tratamiento</h6><p>Explora nuestros tratamientos y paquetes.</p></div>
+      </div>
+      <div class="col-md-1 d-none d-md-flex step-connector"><i class="bi bi-arrow-right"></i></div>
+      <div class="col-md-3">
+        <div class="step-card"><div class="step-num">2</div><i class="bi bi-whatsapp"></i><h6>Reserva por WhatsApp</h6><p>Contáctanos y agenda tu cita fácilmente.</p></div>
+      </div>
+      <div class="col-md-1 d-none d-md-flex step-connector"><i class="bi bi-arrow-right"></i></div>
+      <div class="col-md-3">
+        <div class="step-card"><div class="step-num">3</div><i class="bi bi-heart"></i><h6>Disfruta tu experiencia</h6><p>Relájate y vive momentos únicos de bienestar.</p></div>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-3">
+        <div class="step-card"><div class="step-num">4</div><i class="bi bi-flower2"></i><h6>Siéntete renovada</h6><p>Sal con más energía, belleza y equilibrio.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISÍTANOS ============ -->
+<section id="ubicacion" class="visit">
+  <div class="container">
+    <div class="visit-box">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5><i class="bi bi-geo-alt me-1"></i>VISÍTANOS</h5>
+          <p style="font-size:.9rem;color:var(--ink-soft);">Calle del Sauce #123<br>Col. Jardines del Sol<br>Chihuahua, Chih. C.P. 31272</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Calle+del+Sauce+123+Col+Jardines+del+Sol+Chihuahua+Chih" target="_blank" rel="noopener" class="btn-spa d-inline-flex align-items-center gap-2 mt-2">
+            Cómo llegar <i class="bi bi-signpost-2"></i>
+          </a>
+        </div>
+        <div class="col-lg-4">
+          <div class="map-frame">
+            <iframe
+              title="Ubicación de Bloom Spa en el mapa"
+              width="100%" height="100%" style="border:0;"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Chihuahua,+Chih.&output=embed">
+            </iframe>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <h5>HORARIOS</h5>
+          <div class="info-line"><i class="bi bi-clock"></i><span>Lunes a Viernes<br>9:00 a.m. – 8:00 p.m.</span></div>
+          <div class="info-line"><i class="bi bi-clock"></i><span>Sábado<br>9:00 a.m. – 6:00 p.m.</span></div>
+          <div class="info-line"><i class="bi bi-clock"></i><span>Domingo<br>Cerrado</span></div>
+        </div>
+        <div class="col-lg-2">
+          <h5>CONTACTO</h5>
+          <div class="info-line"><i class="bi bi-telephone"></i><span>333 123 4567</span></div>
+          <div class="info-line"><i class="bi bi-envelope"></i><span>hola@bloomspa.mx</span></div>
+          <div class="info-line"><i class="bi bi-instagram"></i><span>@bloomspa</span></div>
+          <a href="https://wa.me/523331234567" target="_blank" rel="noopener" class="btn-spa mt-2 d-inline-flex align-items-center gap-2">
+            <i class="bi bi-whatsapp"></i> Reservar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-4">
+        <a class="navbar-brand mb-2 d-inline-flex" href="#inicio">
+          <span class="brand-text"><span class="l1">BLOOM</span><br><span class="l2" style="letter-spacing:.35em;font-size:.7rem;">SPA</span></span>
+        </a>
+        <p class="tag">Bienestar que florece en ti.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h6>NAVEGACIÓN</h6>
+        <a class="footlink" href="#inicio">Inicio</a>
+        <a class="footlink" href="#tratamientos">Tratamientos</a>
+        <a class="footlink" href="#tratamientos">Paquetes</a>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h6>&nbsp;</h6>
+        <a class="footlink" href="#promociones">Promociones</a>
+        <a class="footlink" href="#ubicacion">Ubicación</a>
+        <a class="footlink" href="#ubicacion">Contacto</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Bloom Spa. Todos los derechos reservados.</span>
+      <span>Diseñado por TAW Sitios Web <i class="bi bi-heart-fill" style="color:var(--gold);"></i></span>
+    </div>
+  </div>
+</footer>
+
+<div id="protNotice">Acceso al código no permitido</div>
+
+<!-- Treatment detail modal -->
+<div class="modal fade" id="treatModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:16px;overflow:hidden;">
+      <img id="treatModalImg" src="" alt="" style="width:100%;height:220px;object-fit:cover;">
+      <div class="modal-body p-4">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Cerrar" style="background-color:#fff;border-radius:50%;padding:.4rem;"></button>
+        <h5 id="treatModalTitle" style="font-family:'Playfair Display',serif;color:var(--green);"></h5>
+        <p id="treatModalDesc" style="color:var(--ink-soft);font-size:.9rem;"></p>
+        <p id="treatModalPrice" style="color:var(--gold);font-weight:600;"></p>
+        <a href="https://wa.me/523331234567" target="_blank" rel="noopener" class="btn-spa w-100 d-inline-flex align-items-center justify-content-center gap-2">
+          <i class="bi bi-whatsapp"></i> Reservar este tratamiento
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script>
+/* =========================================================
+   DATOS DE TRATAMIENTOS
+========================================================= */
+const treatments = [
+  {img:'treat1.jpg', title:'Glow de Cristal', desc:'Limpieza y renovación facial profunda.', price:'$1,499.00'},
+  {img:'treat2.jpg', title:'Paquete Aniversario', desc:'Celebra tu relación en pareja.', price:'$2,499.00'},
+  {img:'treat3.jpg', title:'Ritual Bloom', desc:'Un viaje sensorial para cuerpo y mente.', price:'$1,550.00'},
+  {img:'treat4.jpg', title:'Paquete Relax Total', desc:'Disfruta la combinación perfecta de relajación.', price:'$1,995 – $3,990'},
+  {img:'treat5.jpg', title:'Paquete Piel Perfecta', desc:'Tratamiento facial personalizado.', price:'$3,300 – $4,000'},
+  {img:'treat6.jpg', title:'Ritual Happy Birthday', desc:'Celebra tu día, cuídate y disfrútalo.', price:'$3,400.00'},
+  {img:'treat7.jpg', title:'Amigas Duo Bloom', desc:'Comparte momentos increíbles juntas.', price:'$3,100.00'},
+  {img:'treat8.jpg', title:'Bloom Energía Renovada', desc:'Renueva tu energía física y mental.', price:'$950 – $1,799'},
+  {img:'treat9.jpg', title:'Paquete "Burbuja Bloom"', desc:'Relájate en un baño de burbujas y bienestar.', price:'$2,400 – $4,800'},
+];
+
+const FALLBACK_IMG = 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=800&auto=format&fit=crop';
+
+const treatGrid = document.getElementById('treatGrid');
+treatments.forEach((t, i) => {
+  const col = document.createElement('div');
+  col.className = 'col-6 col-md-4 col-lg-' + (i < 5 ? '' : '3') + (i < 5 ? '' : '');
+  col.className = 'col-6 col-md-4 col-lg-3';
+  col.innerHTML = `
+    <div class="treat-card">
+      <img src="src/${t.img}" alt="${t.title} – Bloom Spa" loading="lazy"
+           onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
+      <div class="body">
+        <h5>${t.title}</h5>
+        <p>${t.desc}</p>
+        <span class="price">${t.price}</span>
+        <button class="btn-spa" data-idx="${i}">Ver detalles</button>
+      </div>
+    </div>`;
+  treatGrid.appendChild(col);
+});
+
+const treatModal = new bootstrap.Modal(document.getElementById('treatModal'));
+treatGrid.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-idx]');
+  if(!btn) return;
+  const t = treatments[btn.dataset.idx];
+  document.getElementById('treatModalImg').src = 'src/' + t.img;
+  document.getElementById('treatModalImg').onerror = function(){ this.onerror=null; this.src = FALLBACK_IMG; };
+  document.getElementById('treatModalTitle').textContent = t.title;
+  document.getElementById('treatModalDesc').textContent = t.desc;
+  document.getElementById('treatModalPrice').textContent = t.price;
+  treatModal.show();
+});
+
+/* =========================================================
+   GALERÍA — autodetección de imágenes src/galeria1.jpg, 2, 3...
+========================================================= */
+const galleryTrack = document.getElementById('galleryTrack');
+const galleryDots = document.getElementById('galleryDots');
+const lightboxInner = document.getElementById('lightboxInner');
+const extensions = ['jpg','jpeg','png'];
+
+function tryLoadImage(basePath){
+  return new Promise((resolve) => {
+    let i = 0;
+    function attempt(){
+      if(i >= extensions.length){ resolve(null); return; }
+      const img = new Image();
+      const path = `${basePath}.${extensions[i]}`;
+      img.onload = () => resolve(path);
+      img.onerror = () => { i++; attempt(); };
+      img.src = path;
+    }
+    attempt();
+  });
+}
+
+async function buildGallery(){
+  const found = [];
+  let n = 1;
+  let misses = 0;
+  // busca consecutivamente galeria1, galeria2... hasta 2 fallos seguidos (por si falta un número)
+  while(n <= 40 && misses < 2){
+    const path = await tryLoadImage(`src/galeria${n}`);
+    if(path){ found.push(path); misses = 0; } else { misses++; }
+    n++;
+  }
+
+  if(found.length === 0){
+    galleryTrack.innerHTML = `
+      <div class="d-flex align-items-center justify-content-center w-100 py-5" style="color:var(--ink-soft);">
+        <div class="text-center">
+          <i class="bi bi-images" style="font-size:2rem;color:var(--gold);"></i>
+          <p class="mt-2 mb-0">Aún no hay fotos en la galería.<br>Agrega imágenes en <code>src/galeria1.jpg</code>, <code>src/galeria2.jpg</code>...</p>
+        </div>
+      </div>`;
+    document.getElementById('galLeft').style.display = 'none';
+    document.getElementById('galRight').style.display = 'none';
+    return;
+  }
+
+  found.forEach((path, idx) => {
+    const img = document.createElement('img');
+    img.src = path;
+    img.alt = `Bloom Spa — galería ${idx + 1}`;
+    img.loading = 'lazy';
+    img.dataset.idx = idx;
+    galleryTrack.appendChild(img);
+
+    const item = document.createElement('div');
+    item.className = 'carousel-item' + (idx === 0 ? ' active' : '');
+    item.innerHTML = `<img src="${path}" class="d-block mx-auto" alt="Bloom Spa — foto ${idx + 1}">`;
+    lightboxInner.appendChild(item);
+
+    const dot = document.createElement('span');
+    if(idx === 0) dot.classList.add('active');
+    galleryDots.appendChild(dot);
+  });
+
+  const carouselEl = document.getElementById('lightboxCarousel');
+  const carousel = new bootstrap.Carousel(carouselEl, {ride:false});
+  const lightboxModalEl = document.getElementById('lightboxModal');
+  const lightboxModal = new bootstrap.Modal(lightboxModalEl);
+
+  galleryTrack.querySelectorAll('img').forEach(img => {
+    img.addEventListener('click', () => {
+      carousel.to(parseInt(img.dataset.idx, 10));
+      lightboxModal.show();
+    });
+  });
+
+  const dots = galleryDots.querySelectorAll('span');
+  carouselEl.addEventListener('slid.bs.carousel', (e) => {
+    dots.forEach(d => d.classList.remove('active'));
+    if(dots[e.to]) dots[e.to].classList.add('active');
+  });
+
+  document.getElementById('galLeft').addEventListener('click', () => {
+    galleryTrack.scrollBy({left:-250, behavior:'smooth'});
+  });
+  document.getElementById('galRight').addEventListener('click', () => {
+    galleryTrack.scrollBy({left:250, behavior:'smooth'});
+  });
+}
+buildGallery();
+
+/* =========================================================
+   Sección activa en el navbar al hacer scroll
+========================================================= */
+const sections = ['inicio','tratamientos','promociones','bienvenida','ubicacion'];
+const navLinks = document.querySelectorAll('#mainNav .nav-link');
+window.addEventListener('scroll', () => {
+  let current = 'inicio';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 140) current = id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+}, {passive:true});
+
+/* =========================================================
+   Protección de código — nivel disuasorio (no seguridad real)
+========================================================= */
+const notice = document.getElementById('protNotice');
+function showNotice(){
+  notice.classList.add('show');
+  clearTimeout(showNotice._t);
+  showNotice._t = setTimeout(() => notice.classList.remove('show'), 1800);
+}
+document.addEventListener('contextmenu', e => { e.preventDefault(); showNotice(); });
+document.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  const blocked =
+    k === 'f12' ||
+    (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(k)) ||
+    (e.ctrlKey && k === 'u');
+  if(blocked){ e.preventDefault(); showNotice(); }
+});
+</script>
+</body>
+</html>
