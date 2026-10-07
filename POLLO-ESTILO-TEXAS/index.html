@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pollo Estilo Texas | Pollo, Hamburguesas y Más</title>
+<meta name="description" content="Conoce Pollo Estilo Texas, consulta nuestro menú, encuentra tu sucursal más cercana y contáctanos por WhatsApp.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pollo Estilo Texas | Pollo, Hamburguesas y Más">
+<meta property="og:description" content="Consulta nuestro menú, encuentra tu sucursal más cercana y contáctanos por WhatsApp.">
+<meta property="og:locale" content="es_MX">
+<!-- og:image / og:url: agregar cuando exista dominio e imagen oficial -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+/* ===== 1. VARIABLES DE MARCA ===== */
+:root{--vino:#6e0f14;--vino-2:#4a090d;--crema:#f7efe3;--oro:#f5b82e;--negro:#16110f;--wa:#1faa59;
+--display:'Alfa Slab One',Georgia,serif;--body:'Barlow',system-ui,sans-serif}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:var(--body);color:var(--negro);background:var(--crema);overflow-x:hidden}
+h1,h2,h3,.brand{font-family:var(--display);font-weight:400}
+section{padding:3.5rem 0}
+.sec-title{color:var(--vino);font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:.25rem}
+.sec-sub{color:#5b4b44;margin-bottom:1.75rem}
+:focus-visible{outline:3px solid var(--oro);outline-offset:2px}
+
+/* ===== 2. BOTONES ===== */
+.btn-oro{background:var(--oro);color:var(--negro);font-weight:700;border:0;border-radius:50rem}
+.btn-oro:hover{background:#ffc94d;color:var(--negro)}
+.btn-wa{background:var(--wa);color:#fff;font-weight:700;border:0;border-radius:50rem}
+.btn-wa:hover{background:#178a47;color:#fff}
+.btn-linea{border:2px solid #fff;color:#fff;font-weight:700;border-radius:50rem}
+.btn-linea:hover{background:#fff;color:var(--negro)}
+.btn-negro{background:var(--negro);color:#fff;font-weight:600;border-radius:.6rem}
+.btn-negro:hover{background:#000;color:#fff}
+
+/* ===== 3. HEADER ===== */
+.site-header{background:var(--vino);position:sticky;top:0;z-index:1030;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.brand{color:#fff;text-decoration:none;display:flex;align-items:center;gap:.6rem;font-size:1.25rem;letter-spacing:.5px}
+.brand:hover{color:#fff}
+.logo-mark{width:44px;height:44px;border-radius:50%;background:var(--oro);color:var(--vino);display:grid;place-items:center;font-size:1.5rem;border:3px solid #fff;flex:none}
+.site-header .nav-link{color:#fff;font-weight:600}
+.site-header .nav-link:hover,.site-header .nav-link.active{color:var(--oro)}
+.navbar-toggler{border-color:rgba(255,255,255,.5)}
+.navbar-toggler-icon{filter:invert(1)}
+
+/* ===== 4. HERO ===== */
+.hero{background:var(--negro);color:#fff;padding:0;position:relative;overflow:hidden}
+.hero .row{min-height:min(78vh,560px)}
+.hero-copy{padding:3rem 0}
+.hero-kicker{font-weight:600;letter-spacing:.5px;font-size:clamp(1rem,2.5vw,1.3rem)}
+.hero h1{font-size:clamp(2.2rem,7vw,4.2rem);line-height:1.05;margin:.4rem 0 1rem}
+.hero h1 span{color:var(--oro);display:block}
+.hero p{font-size:1.15rem;max-width:30rem}
+.hero-img{min-height:260px;height:100%}
+
+/* Imagen o marcador de posición (se reemplaza en IMG, ver JS) */
+.ph{background:linear-gradient(135deg,#8a1a1f,#2a0c0d);color:var(--oro);display:grid;place-items:center;text-align:center;font-size:.85rem;padding:1rem;width:100%;height:100%}
+.ph i{font-size:2.6rem;display:block}
+.media{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ===== 5. BENEFICIOS ===== */
+.benefits{padding:1.5rem 0;background:#fff;border-bottom:1px solid #eadfce}
+.benefit{display:flex;align-items:center;gap:.7rem}
+.benefit i{font-size:2rem;color:var(--vino)}
+.benefit strong{display:block;line-height:1.1}
+.benefit small{color:#5b4b44}
+
+/* ===== 6. NOSOTROS ===== */
+.about-img{border-radius:1rem;overflow:hidden;aspect-ratio:4/3;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+
+/* ===== 7. MENÚ (tarjetas) ===== */
+.menu-sec{background:var(--vino);color:#fff}
+.menu-sec .sec-title{color:#fff}.menu-sec .sec-sub{color:#f0dcd0}
+.cat-card{display:block;width:100%;padding:0;border:2px solid rgba(255,255,255,.25);border-radius:.9rem;overflow:hidden;background:var(--vino-2);color:#fff;text-align:left;position:relative}
+.cat-card:hover{border-color:var(--oro)}
+.cat-card .cat-img{aspect-ratio:4/3}
+.cat-card span{display:block;padding:.6rem .8rem;font-weight:700}
+
+/* ===== 8. MODAL DEL MENÚ ===== */
+.modal-content{border:0;border-radius:1rem;overflow:hidden;background:var(--crema)}
+.modal-header{background:var(--vino);color:#fff;border:0}
+.modal-header .modal-title{font-family:var(--display)}
+.menu-cats{display:flex;gap:.5rem;overflow-x:auto;padding:.75rem;background:#fff;border-bottom:1px solid #eadfce}
+.menu-cat-btn{white-space:nowrap;border:2px solid var(--vino);background:#fff;color:var(--vino);font-weight:700;border-radius:50rem;padding:.55rem 1rem;min-height:44px}
+.menu-cat-btn.active{background:var(--vino);color:#fff}
+.prod{background:#fff;border-radius:.8rem;padding:1rem;height:100%;border:1px solid #eadfce;display:flex;gap:.8rem;align-items:flex-start}
+.prod i{font-size:1.8rem;color:var(--vino)}
+.prod h3{font-family:var(--body);font-weight:700;font-size:1.05rem;margin:0}
+.prod p{margin:.15rem 0;color:#5b4b44;font-size:.92rem}
+.prod .precio{font-weight:700;color:var(--vino);font-size:.9rem}
+@media(min-width:768px){
+ .menu-layout{display:flex;min-height:420px}
+ .menu-cats{flex-direction:column;overflow:visible;width:240px;flex:none;border-bottom:0;border-right:1px solid #eadfce;padding:1rem}
+ .menu-cat-btn{text-align:left;border-radius:.7rem}
+ .menu-body{flex:1;padding:1.25rem}
+}
+.menu-body{padding:1rem}
+
+/* ===== 9. SUCURSALES ===== */
+.branch{background:#fff;border-radius:1rem;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.12);height:100%;display:flex;flex-direction:column}
+.branch .b-img{aspect-ratio:16/9}
+.branch-body{padding:1.1rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.branch h3{font-size:1.2rem;color:var(--vino);margin:0}
+.branch li{list-style:none;display:flex;gap:.6rem;font-size:.95rem}
+.branch li i{color:var(--vino)}
+.branch ul{padding:0;margin:0;display:grid;gap:.45rem}
+.branch .acts{display:flex;gap:.5rem;margin-top:auto;padding-top:.6rem}
+.branch .acts .btn{flex:1;padding:.6rem .4rem;font-size:.92rem}
+
+/* ===== 10. PROMOCIONES ===== */
+.promo{border-radius:1rem;overflow:hidden;background:var(--negro);color:#fff;height:100%;display:flex;flex-direction:column}
+.promo .p-img{aspect-ratio:16/10}
+.promo-body{padding:1rem}
+.promo h3{font-size:1.15rem;color:var(--oro)}
+.badge-demo{background:var(--oro);color:var(--negro);font-weight:700;transform:rotate(-2deg);display:inline-block;padding:.3rem .6rem;border-radius:.3rem;font-size:.75rem;margin-bottom:.5rem}
+
+/* ===== 11. CTA FINAL + FOOTER ===== */
+.cta{background:linear-gradient(135deg,var(--vino),var(--vino-2));color:#fff;text-align:center}
+.cta h2{font-size:clamp(1.8rem,5vw,2.8rem);color:var(--oro)}
+footer{background:var(--negro);color:#d9cfc7;padding:2.5rem 0 1.5rem}
+footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
+.social a{font-size:1.4rem;margin-right:.9rem;opacity:.9}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+ <nav class="navbar navbar-expand-lg py-2" aria-label="Navegación principal">
+  <div class="container">
+   <a class="brand" href="#inicio" aria-label="Pollo Estilo Texas, inicio">
+    <span class="logo-mark" aria-hidden="true"><i class="bi bi-star-fill"></i></span>
+    <span>POLLO <small class="text-warning">ESTILO</small> TEXAS</span>
+   </a>
+   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Abrir menú de navegación">
+    <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="nav">
+    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+     <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+     <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+     <li class="nav-item"><a class="nav-link" href="#menu">Menú</a></li>
+     <li class="nav-item"><a class="nav-link" href="#sucursales">Sucursales</a></li>
+     <li class="nav-item"><a class="nav-link" href="#promociones">Promociones</a></li>
+    </ul>
+    <a class="btn btn-wa px-4" data-wa target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+   </div>
+  </div>
+ </nav>
+</header>
+
+<main>
+<!-- ===== HERO ===== -->
+<section id="inicio" class="hero" aria-labelledby="hero-title">
+ <div class="container">
+  <div class="row align-items-center g-0">
+   <div class="col-lg-6 hero-copy">
+    <p class="hero-kicker mb-0">EL AUTÉNTICO SABOR DE TEXAS</p>
+    <h1 id="hero-title">POLLO, SABOR Y <span>TRADICIÓN</span></h1>
+    <p>Crujiente, jugoso y siempre fresco.<br>En cada visita, el verdadero sabor del buen pollo.</p>
+    <div class="d-flex flex-wrap gap-2 mt-4">
+     <button class="btn btn-oro btn-lg px-4" data-menu="pollos"><i class="bi bi-cup-hot"></i> Ver menú</button>
+     <a class="btn btn-linea btn-lg px-4" data-wa target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
+    </div>
+   </div>
+   <div class="col-lg-6"><div class="hero-img" data-img="hero" data-alt="Piezas de pollo frito crujiente con papas fritas" data-icon="bi-egg-fried"></div></div>
+  </div>
+ </div>
+</section>
+
+<!-- ===== BENEFICIOS ===== -->
+<section class="benefits" aria-label="Por qué elegirnos">
+ <div class="container"><div class="row g-3" id="benefits"></div></div>
+</section>
+
+<!-- ===== NOSOTROS ===== -->
+<section id="nosotros" aria-labelledby="nos-title">
+ <div class="container">
+  <div class="row align-items-center g-4">
+   <div class="col-md-6">
+    <h2 id="nos-title" class="sec-title">Nosotros</h2>
+    <!-- EDITABLE: texto comercial genérico -->
+    <p class="fs-5">En Pollo Estilo Texas buscamos ofrecer una experiencia de sabor que combine pollo crujiente, productos preparados al momento y el estilo que nuestros clientes disfrutan en cada visita.</p>
+   </div>
+   <div class="col-md-6"><div class="about-img" data-img="nosotros" data-alt="Interior de un restaurante de comida rápida con clientes" data-icon="bi-shop"></div></div>
+  </div>
+ </div>
+</section>
+
+<!-- ===== MENÚ (tarjetas que abren el modal) ===== -->
+<section id="menu" class="menu-sec" aria-labelledby="menu-title">
+ <div class="container">
+  <h2 id="menu-title" class="sec-title">Nuestro Menú</h2>
+  <p class="sec-sub">Elige tu favorito.</p>
+  <div class="row g-3" id="cat-cards"></div>
+  <div class="text-center mt-4"><button class="btn btn-oro btn-lg px-5" data-menu="pollos">Ver menú completo</button></div>
+ </div>
+</section>
+
+<!-- ===== SUCURSALES ===== -->
+<section id="sucursales" aria-labelledby="suc-title">
+ <div class="container">
+  <h2 id="suc-title" class="sec-title">Nuestras sucursales</h2>
+  <p class="sec-sub">Encuentra la más cercana y ven por tu pollo.</p>
+  <div class="row g-4" id="branches"></div>
+ </div>
+</section>
+
+<!-- ===== PROMOCIONES ===== -->
+<section id="promociones" class="bg-white" aria-labelledby="pro-title">
+ <div class="container">
+  <h2 id="pro-title" class="sec-title">Promociones</h2>
+  <p class="sec-sub">Descubre nuestras promociones y productos destacados.</p>
+  <div class="row g-4" id="promos"></div>
+ </div>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<section class="cta" aria-labelledby="cta-title">
+ <div class="container">
+  <h2 id="cta-title">¿Ya se te antojó?</h2>
+  <p class="fs-5">Encuentra tu sucursal más cercana y disfruta el sabor de Pollo Estilo Texas.</p>
+  <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+   <button class="btn btn-oro btn-lg px-4" data-menu="pollos">Ver menú</button>
+   <a class="btn btn-linea btn-lg px-4" href="#sucursales">Encontrar sucursal</a>
+   <a class="btn btn-wa btn-lg px-4" data-wa target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+  </div>
+ </div>
+</section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer id="contacto">
+ <div class="container">
+  <div class="row g-4">
+   <div class="col-md-5">
+    <div class="brand mb-2"><span class="logo-mark" aria-hidden="true"><i class="bi bi-star-fill"></i></span> Pollo Estilo Texas</div>
+    <p>Pollo crujiente, hamburguesas y más. Sucursales en Reynosa, Tamaulipas.</p>
+    <div class="social">
+     <!-- Redes: reemplazar href="#" por las URLs oficiales cuando existan -->
+     <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+     <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+    </div>
+   </div>
+   <div class="col-6 col-md-3">
+    <ul class="list-unstyled m-0 d-grid gap-1">
+     <li><a href="#inicio">Inicio</a></li>
+     <li><button class="btn btn-link p-0 text-decoration-none" style="color:#d9cfc7" data-menu="pollos">Menú</button></li>
+     <li><a href="#sucursales">Sucursales</a></li>
+     <li><a href="#promociones">Promociones</a></li>
+     <li><a href="#contacto">Contacto</a></li>
+    </ul>
+   </div>
+   <div class="col-6 col-md-4"><a class="btn btn-wa" data-wa target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> Escríbenos</a></div>
+  </div>
+  <hr class="border-secondary mt-4">
+  <small>© 2026 Pollo Estilo Texas · Sitio por TAW Sitios Web</small>
+ </div>
+</footer>
+
+<!-- ===== MODAL ÚNICO DEL MENÚ ===== -->
+<div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalTitle" aria-hidden="true">
+ <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
+  <div class="modal-content">
+   <div class="modal-header">
+    <h2 class="modal-title fs-4" id="menuModalTitle">Nuestro Menú</h2>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar menú"></button>
+   </div>
+   <div class="modal-body p-0">
+    <div class="menu-layout">
+     <div class="menu-cats" id="menuCats" role="tablist" aria-label="Categorías"></div>
+     <div class="menu-body"><div class="row g-3" id="menuProducts" aria-live="polite"></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* ============ CONFIGURACIÓN EDITABLE (TAW) ============ */
+
+// WhatsApp: formato internacional México (52). Mensaje editable.
+const WA_MESSAGE = 'Hola, me gustaría conocer más sobre Pollo Estilo Texas.';
+// Número general del header/hero/CTA: por ahora usa el de Juárez. CAMBIAR si el negocio da uno general.
+const WA_GENERAL = '528991202431';
+
+// Imágenes: pegar aquí URLs verificadas de Unsplash/Pexels (o archivos propios).
+// Vacío = se muestra un marcador visual. NO se inventaron URLs.
+const IMG = {
+  hero: '',        // REEMPLAZAR: foto grande de pollo frito crujiente
+  nosotros: '',    // REEMPLAZAR: foto de restaurante / clientes
+  pollos: '', hamburguesas: '', complementos: '', bebidas: '',
+  sucursal: '',    // REEMPLAZAR: foto de fachada (o una por sucursal con branch.img)
+  promo: ''        // REEMPLAZAR: foto genérica de promociones
+};
+
+const BENEFITS = [
+  {i:'bi-trophy', t:'Pollo 100%', d:'De la mejor calidad'},
+  {i:'bi-star-fill', t:'Recetas', d:'Al estilo Texas'},
+  {i:'bi-geo-alt-fill', t:'Sucursales', d:'En Reynosa'},
+  {i:'bi-emoji-smile-fill', t:'El mejor', d:'servicio'}
+];
+
+const BRANCHES = [
+  {name:'Sucursal Juárez', hours:'Lunes a Domingo 11:00 AM – 9:00 PM', address:'Héroes de la Reforma #119', colony:'Col. Benito Juárez', phone:'899 120 2431', wa:'528991202431'},
+  {name:'Sucursal Balcones', hours:'Lunes a Domingo 11:00 AM – 10:00 PM', address:'Av. Alcalá #930', colony:'Col. Balcones de Alcalá', phone:'899 494 4811', wa:'528994944811'},
+  {name:'Sucursal Diamante', hours:'Lunes a Domingo 11:00 AM – 10:00 PM', address:'Blvd. La Joya #280', colony:'Col. Villa Diamante', phone:'899 259 2069', wa:'528992592069'}
+];
+
+/* DEMO / REEMPLAZAR CON MENÚ REAL
+   Cada producto: {name, desc, price}. price:null muestra "Precio por confirmar". */
+const menuData = {
+  pollos: [
+    {name:'Pollo entero', desc:'Producto de demostración', price:null},
+    {name:'Medio pollo', desc:'Producto de demostración', price:null},
+    {name:'Cuarto de pollo', desc:'Producto de demostración', price:null},
+    {name:'Piezas de pollo', desc:'Producto de demostración', price:null}
+  ],
+  hamburguesas: [
+    {name:'Hamburguesa clásica', desc:'Producto de demostración', price:null},
+    {name:'Hamburguesa especial', desc:'Producto de demostración', price:null},
+    {name:'Hamburguesa doble', desc:'Producto de demostración', price:null}
+  ],
+  complementos: [
+    {name:'Papas fritas', desc:'Producto de demostración', price:null},
+    {name:'Ensalada', desc:'Producto de demostración', price:null},
+    {name:'Complemento del día', desc:'Producto de demostración', price:null}
+  ],
+  bebidas: [
+    {name:'Refrescos', desc:'Producto de demostración', price:null},
+    {name:'Agua', desc:'Producto de demostración', price:null},
+    {name:'Bebidas preparadas', desc:'Producto de demostración', price:null}
+  ]
+};
+
+const CATEGORIES = {
+  pollos:{label:'Pollos', icon:'bi-egg-fried'},
+  hamburguesas:{label:'Hamburguesas', icon:'bi-basket'},
+  complementos:{label:'Complementos', icon:'bi-cup-straw'},
+  bebidas:{label:'Bebidas', icon:'bi-cup'}
+};
+
+// PROMOCIONES DE EJEMPLO / REEMPLAZAR CON PROMOCIONES REALES
+const PROMOS = [
+  {title:'Combo familiar', text:'Espacio para tu promoción real.'},
+  {title:'Combo individual', text:'Espacio para tu promoción real.'},
+  {title:'Promoción del día', text:'Espacio para tu promoción real.'}
+];
+
+/* ============ LÓGICA ============ */
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const waLink = (n = WA_GENERAL, m = WA_MESSAGE) => `https://wa.me/${n}?text=${encodeURIComponent(m)}`;
+const mapsLink = b => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.address}, ${b.colony}, Reynosa, Tamaulipas`)}`;
+
+// Imagen real si hay URL; si no, marcador visual
+function mediaHTML(key, alt, icon, w=800, h=600){
+  const src = IMG[key];
+  return src
+    ? `<img class="media" src="${esc(src)}" alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy">`
+    : `<div class="ph" role="img" aria-label="${esc(alt)}"><div><i class="bi ${icon}"></i>Imagen de referencia<br>(reemplazar en IMG.${key})</div></div>`;
+}
+
+function renderMedia(){
+  document.querySelectorAll('[data-img]').forEach(el=>{
+    el.innerHTML = mediaHTML(el.dataset.img, el.dataset.alt, el.dataset.icon);
+  });
+}
+
+function renderBenefits(){
+  $('#benefits').innerHTML = BENEFITS.map(b=>`
+    <div class="col-6 col-md-3"><div class="benefit"><i class="bi ${b.i}" aria-hidden="true"></i>
+    <div><strong>${esc(b.t)}</strong><small>${esc(b.d)}</small></div></div></div>`).join('');
+}
+
+function renderCategoryCards(){
+  $('#cat-cards').innerHTML = Object.entries(CATEGORIES).map(([k,c])=>`
+    <div class="col-6 col-md-3"><button class="cat-card" data-menu="${k}" aria-label="Abrir menú: ${esc(c.label)}">
+    <div class="cat-img">${mediaHTML(k, 'Referencia de '+c.label.toLowerCase(), c.icon, 400, 300)}</div>
+    <span>${esc(c.label)}</span></button></div>`).join('');
+}
+
+function renderBranches(){
+  $('#branches').innerHTML = BRANCHES.map(b=>`
+    <div class="col-md-6 col-lg-4"><article class="branch">
+     <div class="b-img">${mediaHTML('sucursal','Fachada de '+b.name,'bi-shop',640,360)}</div>
+     <div class="branch-body">
+      <h3>${esc(b.name)}</h3>
+      <ul>
+       <li><i class="bi bi-clock" aria-hidden="true"></i><span>${esc(b.hours)}</span></li>
+       <li><i class="bi bi-geo-alt-fill" aria-hidden="true"></i><span>${esc(b.address)}<br>${esc(b.colony)}</span></li>
+       <li><i class="bi bi-telephone-fill" aria-hidden="true"></i><a href="tel:+52${b.phone.replace(/\s/g,'')}">${esc(b.phone)}</a></li>
+      </ul>
+      <div class="acts">
+       <a class="btn btn-negro" href="${mapsLink(b)}" target="_blank" rel="noopener"><i class="bi bi-geo-alt"></i> Cómo llegar</a>
+       <a class="btn btn-wa" href="${waLink(b.wa)}" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+      </div>
+     </div></article></div>`).join('');
+}
+
+function renderPromos(){
+  $('#promos').innerHTML = PROMOS.map(p=>`
+    <div class="col-md-4"><article class="promo">
+     <div class="p-img">${mediaHTML('promo','Imagen de referencia de promoción','bi-tag-fill',640,400)}</div>
+     <div class="promo-body"><span class="badge-demo">PROMOCIÓN DE EJEMPLO</span>
+     <h3>${esc(p.title)}</h3><p class="mb-0">${esc(p.text)}</p></div></article></div>`).join('');
+}
+
+/* ----- Modal de menú: un solo modal, contenido dinámico ----- */
+let menuModal, currentCat = 'pollos';
+
+function renderMenuCats(){
+  $('#menuCats').innerHTML = Object.entries(CATEGORIES).map(([k,c])=>
+    `<button class="menu-cat-btn" role="tab" data-cat="${k}" aria-selected="false"><i class="bi ${c.icon}"></i> ${esc(c.label)}</button>`).join('');
+}
+
+function showCategory(key){
+  if(!menuData[key]) key = 'pollos';
+  currentCat = key;
+  document.querySelectorAll('.menu-cat-btn').forEach(b=>{
+    const on = b.dataset.cat === key;
+    b.classList.toggle('active', on); b.setAttribute('aria-selected', on);
+  });
+  const icon = CATEGORIES[key].icon;
+  $('#menuProducts').innerHTML = menuData[key].map(p=>`
+    <div class="col-12 col-md-6"><div class="prod"><i class="bi ${icon}" aria-hidden="true"></i>
+    <div><h3>${esc(p.name)}</h3><p>${esc(p.desc||'')}</p>
+    <span class="precio">${p.price ? esc(p.price) : 'Precio por confirmar'}</span></div></div></div>`).join('');
+  $('.menu-body').scrollTop = 0;
+}
+
+function openMenu(key){
+  showCategory(key);
+  menuModal.show();
+}
+
+/* ----- Inicio ----- */
+document.addEventListener('DOMContentLoaded', ()=>{
+  renderMedia(); renderBenefits(); renderCategoryCards();
+  renderBranches(); renderPromos(); renderMenuCats();
+  menuModal = new bootstrap.Modal($('#menuModal'));
+
+  // Enlaces generales de WhatsApp
+  document.querySelectorAll('[data-wa]').forEach(a=>a.href = waLink());
+
+  // Delegación: cualquier elemento con data-menu abre el mismo modal
+  document.addEventListener('click', e=>{
+    const t = e.target.closest('[data-menu]');
+    if(t){ openMenu(t.dataset.menu); return; }
+    const c = e.target.closest('.menu-cat-btn');
+    if(c) showCategory(c.dataset.cat);
+    // Cerrar menú hamburguesa al navegar (móvil)
+    if(e.target.closest('#nav .nav-link')){
+      const n = $('#nav'); if(n.classList.contains('show')) bootstrap.Collapse.getOrCreateInstance(n).hide();
+    }
+  });
+});
+</script>
+</body>
+</html>
