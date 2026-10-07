@@ -417,7 +417,7 @@ function renderBranches(){
 function renderPromos(){
   $('#promos').innerHTML = PROMOS.map(p=>`
     <div class="col-md-4"><article class="promo">
-     <div class="p-img">${esc(p.img)}</div>
+     <div class="p-img"><img src="${esc(p.img)}"/></div>
      <div class="promo-body"><span class="badge-demo">PROMO DEL MES</span>
      <h3>${esc(p.title)}</h3><p class="mb-0">${esc(p.text)}</p></div></article></div>`).join('');
 }
