@@ -49,24 +49,18 @@ section{padding:3.5rem 0}
 .navbar-toggler{border-color:rgba(255,255,255,.5)}
 .navbar-toggler-icon{filter:invert(1)}
 
-/* ===== 4. HERO ===== */
-.hero{background:var(--negro);color:#fff;padding:0;position:relative;overflow:hidden}
+/* ===== 4. HERO (video de fondo) ===== */
+.hero{position:relative;overflow:hidden;background:var(--negro);color:#fff;padding:0}
 .hero .row{min-height:min(78vh,560px)}
+.hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-overlay{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(22,17,15,.85) 0%,rgba(22,17,15,.55) 55%,rgba(22,17,15,.3) 100%)}
+.hero .container{position:relative;z-index:2}
 .hero-copy{padding:3rem 0}
 .hero-kicker{font-weight:600;letter-spacing:.5px;font-size:clamp(1rem,2.5vw,1.3rem)}
 .hero h1{font-size:clamp(2.2rem,7vw,4.2rem);line-height:1.05;margin:.4rem 0 1rem}
 .hero h1 span{color:var(--oro);display:block}
 .hero p{font-size:1.15rem;max-width:30rem}
-.hero-img{min-height:260px;height:100%}
-
- .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.hero-overlay{position:absolute;inset:0;z-index:1;
-  background:linear-gradient(90deg,rgba(22,17,15,.88) 0%,rgba(22,17,15,.55) 55%,rgba(22,17,15,.25) 100%)}
-.hero .container{position:relative;z-index:2}
-
-/* Accesibilidad: sin video si el usuario prefiere menos movimiento */
-@media (prefers-reduced-motion:reduce){.hero-video{display:none}}
- @media (max-width:575px){.hero-video{display:none}}
  
 /* Imagen o marcador de posición (se reemplaza en IMG, ver JS) */
 .ph{background:linear-gradient(135deg,#8a1a1f,#2a0c0d);color:var(--oro);display:grid;place-items:center;text-align:center;font-size:.85rem;padding:1rem;width:100%;height:100%}
@@ -168,13 +162,11 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
 <main>
 <!-- ===== HERO ===== -->
 <section id="inicio" class="hero" aria-labelledby="hero-title">
-   <!--Vídeo de Tim  Samuel de Pexels: -->
-  <video class="hero-video" autoplay muted loop playsinline preload="metadata"
-        aria-hidden="true">
+ <!-- Video de fondo (Pexels, Tim Samuel) -->
+ <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1">
   <source src="img/video-inicio.mp4" type="video/mp4">
-</video>
- 
-<div class="hero-overlay"></div>
+ </video>
+ <div class="hero-overlay"></div>
 
  <div class="container">
   <div class="row align-items-center g-0">
@@ -187,7 +179,6 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
      <a class="btn btn-linea btn-lg px-4" data-wa target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
     </div>
    </div>
-   
   </div>
  </div>
 </section>
@@ -464,9 +455,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
   renderMedia(); renderBenefits(); renderCategoryCards();
   renderBranches(); renderPromos(); renderMenuCats();
   menuModal = new bootstrap.Modal($('#menuModal'));
- 
+ // Video del hero: forzar reproducción y avisar si el archivo falla
 const hv = $('.hero-video');
-if (hv) { hv.muted = true; hv.play().catch(() => {}); }
+if (hv) {
+  hv.muted = true; hv.defaultMuted = true;
+  const tryPlay = () => hv.play().catch(() => {});
+  tryPlay();
+  ['click','touchstart','scroll'].forEach(ev => window.addEventListener(ev, tryPlay, {once:true, passive:true}));
+  hv.querySelector('source').addEventListener('error', () =>
+    console.warn('El video del hero no cargó. Revisa la ruta y el códec:', hv.querySelector('source').src));
+}
   // Enlaces generales de WhatsApp
   document.querySelectorAll('[data-wa]').forEach(a=>a.href = waLink());
 
