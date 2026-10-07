@@ -358,9 +358,9 @@ const CATEGORIES = {
 
 // PROMOCIONES DE EJEMPLO / REEMPLAZAR CON PROMOCIONES REALES
 const PROMOS = [
-  {title:'Combo 10 piezas', text:'Normal o Spicy + 5 Bisquets + 1 complemento familiar a elegir.'},
-  {title:'Combo individual', text:'Normal o Spicy + 6 Bisquets + 1 complemento familiar a elegir.'},
-  {title:'Promoción del día', text:'Adquiere la promo del dia y obten 2 bisquets gratis.'}
+  {title:'Combo 8 piezas', text:'Normal o Spicy + 5 Bisquets + 1 complemento familiar a elegir.', img:'img/promo8piezas.jpg'},
+  {title:'Combo 10 piezas', text:'Normal o Spicy + 6 Bisquets + 1 complemento familiar a elegir.', img:''},
+  {title:'Promoción del día', text:'Adquiere la promo del dia y obten 2 bisquets gratis.', img:''}
 ];
 
 /* ============ LÓGICA ============ */
@@ -417,8 +417,8 @@ function renderBranches(){
 function renderPromos(){
   $('#promos').innerHTML = PROMOS.map(p=>`
     <div class="col-md-4"><article class="promo">
-     <div class="p-img">${mediaHTML('promo','Imagen de referencia de promoción','bi-tag-fill',640,400)}</div>
-     <div class="promo-body"><span class="badge-demo">PROMOCIÓN DE EJEMPLO</span>
+     <div class="p-img">${esc(p.img)}</div>
+     <div class="promo-body"><span class="badge-demo">PROMO DEL MES</span>
      <h3>${esc(p.title)}</h3><p class="mb-0">${esc(p.text)}</p></div></article></div>`).join('');
 }
 
