@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
  <link rel="icon" type="image/jpeg" href="img/PET-LOGO.jpg">
 
-<title>Pollo Estilo Texas | Pollo, Hamburguesas y Más</title>
+<title>Pollo Estilo Texas | Pollo Frito, Bisquets, Burritos y Más</title>
 <meta name="description" content="Conoce Pollo Estilo Texas, consulta nuestro menú, encuentra tu sucursal más cercana y contáctanos por WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Pollo Estilo Texas | Pollo, Hamburguesas y Más">
+<meta property="og:title" content="Pollo Estilo Texas | Pollo Frito, Bisquets, Burritos y Más">
 <meta property="og:description" content="Consulta nuestro menú, encuentra tu sucursal más cercana y contáctanos por WhatsApp.">
 <meta property="og:locale" content="es_MX">
 <!-- og:image / og:url: agregar cuando exista dominio e imagen oficial -->
@@ -250,10 +250,10 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
   <div class="row g-4">
    <div class="col-md-5">
     <div class="brand mb-2"><img style="height:65px;" src="img/PET-LOGO2.png"></div>
-    <p>Pollo crujiente, hamburguesas y más. Sucursales en Reynosa, Tamaulipas.</p>
+    <p>Pollo crujiente, Bisquets y más. Sucursales en Reynosa, Tamaulipas.</p>
     <div class="social">
      <!-- Redes: reemplazar href="#" por las URLs oficiales cuando existan -->
-     <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+     <a href="https://www.facebook.com/profile.php?id=61594050370976" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
      <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
     </div>
    </div>
@@ -305,9 +305,9 @@ const WA_GENERAL = '528991202431';
 const IMG = {
   hero: '',        // REEMPLAZAR: foto grande de pollo frito crujiente
   nosotros: '',    // REEMPLAZAR: foto de restaurante / clientes
-  pollos: '', hamburguesas: '', complementos: '', bebidas: '',
+  pollos: 'img/pollos.jpg', otros: 'img/otros.jpg', complementos: 'img/complementos.jpg', bebidas: 'img/bebidas.jpg',
   sucursal: '',    // REEMPLAZAR: foto de fachada (o una por sucursal con branch.img)
-  promo: ''        // REEMPLAZAR: foto genérica de promociones
+  promo: 'img/promo8piezas.jpg'        // REEMPLAZAR: foto genérica de promociones
 };
 
 const BENEFITS = [
@@ -327,20 +327,20 @@ const BRANCHES = [
    Cada producto: {name, desc, price}. price:null muestra "Precio por confirmar". */
 const menuData = {
   pollos: [
-    {name:'Pollo entero', desc:'Producto de demostración', price:null},
-    {name:'Medio pollo', desc:'Producto de demostración', price:null},
-    {name:'Cuarto de pollo', desc:'Producto de demostración', price:null},
-    {name:'Piezas de pollo', desc:'Producto de demostración', price:null}
+    {name:'8 piezas', desc:'4 piernas, 4 muslos y 1 complemento familiar a elegir', price:null},
+    {name:'10 Piezas', desc:'5 piernas, 5 muslos, 5 bisquets y 1 pure familiar de 453gr', price:null},
+    {name:'12 piezas', desc:'6 piernas, 6 muslos, 6 bisquets y 1 pure familiar de 453gr', price:null},
+    {name:'Tipos de Pollo', desc:'a elegir normal o Spicy', price:null}
   ],
-  hamburguesas: [
-    {name:'Hamburguesa clásica', desc:'Producto de demostración', price:null},
-    {name:'Hamburguesa especial', desc:'Producto de demostración', price:null},
+  otros: [
+    {name:'Hamburguesa de pollo', desc:'Producto de demostración', price:null},
+    {name:'Burritos', desc:'Producto de demostración', price:null},
     {name:'Hamburguesa doble', desc:'Producto de demostración', price:null}
   ],
   complementos: [
     {name:'Papas fritas', desc:'Producto de demostración', price:null},
-    {name:'Ensalada', desc:'Producto de demostración', price:null},
-    {name:'Complemento del día', desc:'Producto de demostración', price:null}
+    {name:'Ensalada', desc:'Ensalada de repollo con zanahoria y aderezo agridulce', price:null},
+    {name:'bisquets', desc:'Producto de demostración', price:null}
   ],
   bebidas: [
     {name:'Refrescos', desc:'Producto de demostración', price:null},
@@ -351,16 +351,16 @@ const menuData = {
 
 const CATEGORIES = {
   pollos:{label:'Pollos', icon:'bi-egg-fried'},
-  hamburguesas:{label:'Hamburguesas', icon:'bi-basket'},
+  otros:{label:'Otros', icon:'bi-basket'},
   complementos:{label:'Complementos', icon:'bi-cup-straw'},
   bebidas:{label:'Bebidas', icon:'bi-cup'}
 };
 
 // PROMOCIONES DE EJEMPLO / REEMPLAZAR CON PROMOCIONES REALES
 const PROMOS = [
-  {title:'Combo familiar', text:'Espacio para tu promoción real.'},
-  {title:'Combo individual', text:'Espacio para tu promoción real.'},
-  {title:'Promoción del día', text:'Espacio para tu promoción real.'}
+  {title:'Combo 10 piezas', text:'Normal o Spicy + 5 Bisquets + 1 complemento familiar a elegir.'},
+  {title:'Combo individual', text:'Normal o Spicy + 6 Bisquets + 1 complemento familiar a elegir.'},
+  {title:'Promoción del día', text:'Adquiere la promo del dia y obten 2 bisquets gratis.'}
 ];
 
 /* ============ LÓGICA ============ */
