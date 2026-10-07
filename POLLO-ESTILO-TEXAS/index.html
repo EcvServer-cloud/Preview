@@ -57,6 +57,14 @@ section{padding:3.5rem 0}
 .hero p{font-size:1.15rem;max-width:30rem}
 .hero-img{min-height:260px;height:100%}
 
+ .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-overlay{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(22,17,15,.88) 0%,rgba(22,17,15,.55) 55%,rgba(22,17,15,.25) 100%)}
+.hero .container{position:relative;z-index:2}
+
+/* Accesibilidad: sin video si el usuario prefiere menos movimiento */
+@media (prefers-reduced-motion:reduce){.hero-video{display:none}}
+ 
 /* Imagen o marcador de posición (se reemplaza en IMG, ver JS) */
 .ph{background:linear-gradient(135deg,#8a1a1f,#2a0c0d);color:var(--oro);display:grid;place-items:center;text-align:center;font-size:.85rem;padding:1rem;width:100%;height:100%}
 .ph i{font-size:2.6rem;display:block}
@@ -158,6 +166,12 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
 <!-- ===== HERO ===== -->
 <section id="inicio" class="hero" aria-labelledby="hero-title">
  <div class="container">
+  <!--Vídeo de Tim  Samuel de Pexels: -->
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata"
+       poster="img/hero-poster.jpg" aria-hidden="true">
+  <source src="https://www.pexels.com/es-es/video/persona-mujer-comiendo-sueter-6696278/" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
   <div class="row align-items-center g-0">
    <div class="col-lg-6 hero-copy">
     <p class="hero-kicker mb-0">EL AUTÉNTICO SABOR DE TEXAS</p>
