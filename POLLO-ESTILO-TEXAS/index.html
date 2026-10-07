@@ -480,6 +480,30 @@ if (hv) {
     }
   });
 });
+
+ /* ---- Disable right click / devtools shortcuts (deterrent only) ---- */
+  const showNotice = (e) => {
+    e.preventDefault();
+    let toast = document.getElementById('secToast');
+    if(!toast){
+      toast = document.createElement('div');
+      toast.id = 'secToast';
+      toast.textContent = 'Accion no permitida.';
+      toast.style.cssText = 'position:fixed;bottom:90px;right:22px;background:#0b1220;color:#fff;border:1px solid rgba(0,194,255,.4);padding:.7rem 1.1rem;border-radius:10px;font-family:Inter,sans-serif;font-size:.85rem;z-index:2000;box-shadow:0 10px 24px rgba(0,0,0,.4);';
+      document.body.appendChild(toast);
+      setTimeout(()=>toast.remove(), 2200);
+    }
+  };
+  document.addEventListener('contextmenu', showNotice);
+  document.addEventListener('keydown', (e)=>{
+    const k = e.key.toLowerCase();
+    if(e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(k)) || (e.ctrlKey && k === 'u')){
+      showNotice(e);
+    }
+  });
+
+})();
+ 
 </script>
 </body>
 </html>
