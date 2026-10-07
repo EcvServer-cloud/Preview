@@ -178,7 +178,7 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
 
  <div class="container">
   <div class="row align-items-center g-0">
-   <div class="col-lg-6 hero-copy">
+   <div class="col-lg-7 hero-copy">
     <p class="hero-kicker mb-0">EL AUTÉNTICO SABOR DE TEXAS</p>
     <h1 id="hero-title">POLLO, SABOR Y <span>TRADICIÓN</span></h1>
     <p>Crujiente, jugoso y siempre fresco.<br>En cada visita, el verdadero sabor del buen pollo.</p>
@@ -187,7 +187,7 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
      <a class="btn btn-linea btn-lg px-4" data-wa target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
     </div>
    </div>
-   <div class="col-lg-6"><div class="hero-img" data-img="hero" data-alt="Piezas de pollo frito crujiente con papas fritas" data-icon="bi-egg-fried"></div></div>
+   
   </div>
  </div>
 </section>
@@ -464,7 +464,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   renderMedia(); renderBenefits(); renderCategoryCards();
   renderBranches(); renderPromos(); renderMenuCats();
   menuModal = new bootstrap.Modal($('#menuModal'));
-
+ 
+const hv = $('.hero-video');
+if (hv) { hv.muted = true; hv.play().catch(() => {}); }
   // Enlaces generales de WhatsApp
   document.querySelectorAll('[data-wa]').forEach(a=>a.href = waLink());
 
