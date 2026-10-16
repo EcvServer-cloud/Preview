@@ -295,18 +295,23 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
  
 <!-- ===== MODAL ÚNICO DEL MENÚ ===== -->
 <div class="modal fade" id="PedidoModal" tabindex="-1" aria-labelledby="PedidoModalTitle" aria-hidden="true">
- <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
-  <div class="modal-content">
-   <!-- 2. Contenedor. Su contenido sirve de respaldo si el módulo no carga. -->
-    <section aria-label="Haz tu pedido">
-      <div id="taw-orders">
-        <p>Para hacer tu pedido, escríbenos por WhatsApp o llámanos.</p>
+  <div class="modal-dialog modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-4" id="PedidoModalTitle">Haz tu pedido</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
-      <noscript><p>Activa JavaScript para hacer tu pedido en línea.</p></noscript>
-    </section>
+      <div class="modal-body">
+        <!-- Aquí se monta TAW Orders. Si no carga, queda este botón de respaldo. -->
+        <div id="taw-orders">
+          <a class="btn btn-success" data-wa target="_blank" rel="noopener">
+            <i class="bi bi-whatsapp"></i> Pedir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
- </div>
-</div
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
