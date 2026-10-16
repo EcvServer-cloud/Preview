@@ -17,6 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+ <link rel="stylesheet" href="TAWORDERSLITE/taw-orders-lite.css">
 <style>
 /* ===== 1. VARIABLES DE MARCA ===== */
 :root{--vino:#6e0f14;--vino-2:#4a090d;--crema:#f7efe3;--oro:#f5b82e;--negro:#16110f;--wa:#1faa59;
@@ -176,7 +177,7 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
     <p>Crujiente, jugoso y siempre fresco.<br>En cada visita, el verdadero sabor del buen pollo.</p>
     <div class="d-flex flex-wrap gap-2 mt-4">
      <button class="btn btn-oro btn-lg px-4" data-menu="pollos"><i class="bi bi-cup-hot"></i> Ver menú</button>
-     <a class="btn btn-linea btn-lg px-4" data-wa target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
+     <a class="btn btn-linea btn-lg px-4" href="#PedidoModal" role="button" data-bs-toggle="modal" data-bs-target="#PedidoModal"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>    
     </div>
    </div>
   </div>
@@ -290,6 +291,22 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
   </div>
  </div>
 </div>
+
+ 
+<!-- ===== MODAL ÚNICO DEL MENÚ ===== -->
+<div class="modal fade" id="PedidoModal" tabindex="-1" aria-labelledby="PedidoModalTitle" aria-hidden="true">
+ <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
+  <div class="modal-content">
+   <!-- 2. Contenedor. Su contenido sirve de respaldo si el módulo no carga. -->
+    <section aria-label="Haz tu pedido">
+      <div id="taw-orders">
+        <p>Para hacer tu pedido, escríbenos por WhatsApp o llámanos.</p>
+      </div>
+      <noscript><p>Activa JavaScript para hacer tu pedido en línea.</p></noscript>
+    </section>
+  </div>
+ </div>
+</div
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -504,5 +521,23 @@ if (hv) {
 
  
 </script>
+  <!-- 3. Scripts del módulo (este orden; taw-orders-lite.js va al final) -->
+  <script src="TAWORDERSLITE/taw-orders-cart.js"></script>
+  <script src="tTAWORDERSLITE/aw-orders-order.js"></script>
+  <script src="TAWORDERSLITE/taw-orders-whatsapp.js"></script>
+  <script src="TAWORDERSLITE/taw-orders-lite.js"></script>
+
+  <!-- 4. Inicialización -->
+  <script>
+    TAWOrders.init({
+      menuUrl: "TAWORDERSLITE/menu.json",
+      target: "#taw-orders",
+      theme: {
+        panelColor: "#08172B"
+      }
+    }).catch(function () {
+      /* El módulo ya mostró el aviso en pantalla y registró el detalle en la consola. */
+    });
+  </script>
 </body>
 </html>
