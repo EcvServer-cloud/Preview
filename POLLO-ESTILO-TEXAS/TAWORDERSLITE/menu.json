@@ -3,24 +3,24 @@
     "id": "pollo-estilo-texas-demo",
     "name": "Pollo Estilo Texas",
     "currency": "MXN",
-    "whatsapp": "528990000000",
+    "whatsapp": "528991202431",
     "greeting": "Hola",
     "taxRate": 16,
     "branches": [
       {
         "id": "juarez",
         "name": "Sucursal Juárez",
-        "whatsapp": "528990000001"
+        "whatsapp": "528991202431"
       },
       {
         "id": "balcones",
         "name": "Sucursal Balcones",
-        "whatsapp": "528990000002"
+        "whatsapp": "528994944811"
       },
       {
         "id": "diamante",
         "name": "Sucursal Diamante",
-        "whatsapp": "528990000003"
+        "whatsapp": "528992592069"
       }
     ]
   },
