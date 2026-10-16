@@ -17,6 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
  <link rel="stylesheet" href="TAWORDERSLITE/taw-orders-lite.css">
 <style>
 /* ===== 1. VARIABLES DE MARCA ===== */
@@ -131,6 +132,27 @@ footer{background:var(--negro);color:#d9cfc7;padding:2.5rem 0 1.5rem}
 footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
 .social a{font-size:1.4rem;margin-right:.9rem;opacity:.9}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ===== MAPA DE SUCURSALES ===== */
+.branch-map-wrap{position:relative;z-index:0;isolation:isolate;border-radius:1rem;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.branch-map{height:380px;background:#e9dfd0}
+@media(min-width:768px){.branch-map{height:460px}}
+.leaflet-container{font-family:var(--body);font-size:1rem}
+.pet-pin{background:none;border:0}
+.pet-pin img{width:48px;height:48px;border-radius:50%;border:3px solid var(--vino);background:#fff;object-fit:cover;box-shadow:0 3px 8px rgba(0,0,0,.4);display:block}
+.pet-pin::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);border:8px solid transparent;border-top:10px solid var(--vino);border-bottom:0}
+.card-popup .leaflet-popup-content-wrapper{padding:0;border-radius:1rem;overflow:hidden}
+.card-popup .leaflet-popup-content{margin:0;width:auto!important;min-width:260px}
+.card-popup .leaflet-popup-content p{margin:0}
+.card-popup .branch{box-shadow:none;border-radius:0;height:auto}
+.card-popup .acts .btn{color:#fff}
+.card-popup .leaflet-popup-close-button{color:#fff;text-shadow:0 1px 3px #000;z-index:2}
+
+/* ===== SLIDER DE PROMOCIONES ===== */
+.promo-slider{max-width:1000px;margin:0 auto;border-radius:1rem;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.2);background:var(--negro)}
+.promo-slide{display:block;width:100%;aspect-ratio:2/1;padding:0;border:0;background:none;cursor:pointer}
+.promo-slide .media,.promo-slide .ph{width:100%;height:100%;object-fit:cover}
+.promo-slider .carousel-control-prev,.promo-slider .carousel-control-next{width:12%}
 </style>
 </head>
 <body>
@@ -218,6 +240,7 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
  <div class="container">
   <h2 id="suc-title" class="sec-title">Nuestras sucursales</h2>
   <p class="sec-sub">Encuentra la más cercana y ven por tu pollo.</p>
+  <div class="branch-map-wrap mb-4"><div id="branchMap" class="branch-map" role="region" aria-label="Mapa con las sucursales"></div></div>
   <div class="row g-4" id="branches"></div>
  </div>
 </section>
@@ -227,7 +250,8 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
  <div class="container">
   <h2 id="pro-title" class="sec-title">Promociones</h2>
   <p class="sec-sub">Descubre nuestras promociones y productos destacados.</p>
-  <div class="row g-4" id="promos"></div>
+  <div id="promos"></div>
+  <p class="text-center small text-muted mt-2 mb-0">Toca una promoción para ver el detalle o pedirla.</p>
  </div>
 </section>
 
@@ -314,6 +338,7 @@ footer a{color:#d9cfc7;text-decoration:none}footer a:hover{color:var(--oro)}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* ============ CONFIGURACIÓN EDITABLE (TAW) ============ */
 
@@ -339,11 +364,9 @@ const BENEFITS = [
   {i:'bi-emoji-smile-fill', t:'El mejor', d:'servicio'}
 ];
 
-const BRANCHES = [
-  {name:'Sucursal Juárez', hours:'Lunes a Domingo 11:00 AM – 9:00 PM', address:'Héroes de la Reforma #119', colony:'Col. Benito Juárez', phone:'899 120 2431', wa:'528991202431'},
-  {name:'Sucursal Balcones', hours:'Lunes a Domingo 11:00 AM – 10:00 PM', address:'Av. Alcalá #930', colony:'Col. Balcones de Alcalá', phone:'899 494 4811', wa:'528994944811'},
-  {name:'Sucursal Diamante', hours:'Lunes a Domingo 11:00 AM – 10:00 PM', address:'Blvd. La Joya #280', colony:'Col. Villa Diamante', phone:'899 259 2069', wa:'528992592069'}
-];
+// Sucursales: se cargan desde este JSON. Para agregar una, solo añade un objeto en data/sucursales.json
+const BRANCHES_URL = 'data/sucursales.json';
+let BRANCH_CITY = 'Reynosa, Tamaulipas', PIN_LOGO = 'img/PET-LOGO.png', branchMap;
 
 /* DEMO / REEMPLAZAR CON MENÚ REAL
    Cada producto: {name, desc, price}. price:null muestra "Precio por confirmar". */
@@ -378,22 +401,24 @@ const CATEGORIES = {
   bebidas:{label:'Bebidas', icon:'bi-cup'}
 };
 
-// PROMOCIONES DE EJEMPLO / REEMPLAZAR CON PROMOCIONES REALES
+// PROMOCIONES (slider). Cada slide es una imagen clicable:
+//   action:'menu'   -> abre el menú en la categoría "target" (clave de menuData, ej. 'pollos')
+//   action:'pedido' -> abre "Haz tu pedido" y trata de ir a la sección "target" (ej. 'Promociones')
 const PROMOS = [
-  {title:'Combo 8 piezas', text:'Normal o Spicy + 5 Bisquets + 1 complemento familiar a elegir.', img:'img/promo8piezas.jpg'},
-  {title:'Combo 10 piezas', text:'Normal o Spicy + 6 Bisquets + 1 complemento familiar a elegir.', img:''},
-  {title:'Promoción del día', text:'Adquiere la promo del dia y obten 2 bisquets gratis.', img:''}
+  {img:'img/promo8piezas.jpg', alt:'Combo 8 piezas: Normal o Spicy con 5 bisquets y un complemento familiar', action:'pedido', target:'Promociones'},
+  {img:'', alt:'Combo 10 piezas: Normal o Spicy con 6 bisquets y un complemento familiar', action:'menu', target:'pollos'},
+  {img:'', alt:'Promoción del día: 2 bisquets gratis', action:'pedido', target:'Promociones'}
 ];
 
 /* ============ LÓGICA ============ */
 const $ = (s, r=document) => r.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const waLink = (n = WA_GENERAL, m = WA_MESSAGE) => `https://wa.me/${n}?text=${encodeURIComponent(m)}`;
-const mapsLink = b => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.address}, ${b.colony}, Reynosa, Tamaulipas`)}`;
+const mapsLink = b => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(
+  (typeof b.lat === 'number' && typeof b.lng === 'number') ? `${b.lat},${b.lng}` : `${b.address}, ${b.colony}, ${BRANCH_CITY}`);
 
 // Imagen real si hay URL; si no, marcador visual
-function mediaHTML(key, alt, icon, w=800, h=600){
-  const src = IMG[key];
+function mediaHTML(key, alt, icon, w=800, h=600, src=IMG[key]){
   return src
     ? `<img class="media" src="${esc(src)}" alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy">`
     : `<div class="ph" role="img" aria-label="${esc(alt)}"><div><i class="bi ${icon}"></i>Imagen de referencia<br>(reemplazar en IMG.${key})</div></div>`;
@@ -418,30 +443,102 @@ function renderCategoryCards(){
     <span>${esc(c.label)}</span></button></div>`).join('');
 }
 
-function renderBranches(){
-  $('#branches').innerHTML = BRANCHES.map(b=>`
-    <div class="col-md-6 col-lg-4"><article class="branch">
-     <div class="b-img">${mediaHTML('sucursal','Fachada de '+b.name,'bi-shop',640,360)}</div>
-     <div class="branch-body">
-      <h3>${esc(b.name)}</h3>
-      <ul>
-       <li><i class="bi bi-clock" aria-hidden="true"></i><span>${esc(b.hours)}</span></li>
-       <li><i class="bi bi-geo-alt-fill" aria-hidden="true"></i><span>${esc(b.address)}<br>${esc(b.colony)}</span></li>
-       <li><i class="bi bi-telephone-fill" aria-hidden="true"></i><a href="tel:+52${b.phone.replace(/\s/g,'')}">${esc(b.phone)}</a></li>
-      </ul>
-      <div class="acts">
-       <a class="btn btn-negro" href="${mapsLink(b)}" target="_blank" rel="noopener"><i class="bi bi-geo-alt"></i> Cómo llegar</a>
-       <a class="btn btn-wa" href="${waLink(b.wa)}" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> WhatsApp</a>
-      </div>
-     </div></article></div>`).join('');
+// Tarjeta de sucursal (se usa en la lista y dentro del mapa)
+function branchCard(b){
+  return `<article class="branch">
+   <div class="b-img">${mediaHTML('sucursal','Fachada de '+b.name,'bi-shop',640,360,b.img||IMG.sucursal)}</div>
+   <div class="branch-body">
+    <h3>${esc(b.name)}</h3>
+    <ul>
+     <li><i class="bi bi-clock" aria-hidden="true"></i><span>${esc(b.hours)}</span></li>
+     <li><i class="bi bi-geo-alt-fill" aria-hidden="true"></i><span>${esc(b.address)}<br>${esc(b.colony)}</span></li>
+     <li><i class="bi bi-telephone-fill" aria-hidden="true"></i><a href="tel:+52${b.phone.replace(/\s/g,'')}">${esc(b.phone)}</a></li>
+    </ul>
+    <div class="acts">
+     <a class="btn btn-negro" href="${mapsLink(b)}" target="_blank" rel="noopener"><i class="bi bi-geo-alt"></i> Cómo llegar</a>
+     <a class="btn btn-wa" href="${waLink(b.wa)}" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+    </div>
+   </div></article>`;
+}
+
+function renderBranches(list){
+  $('#branches').innerHTML = list.map(b=>`<div class="col-md-6 col-lg-4">${branchCard(b)}</div>`).join('');
+}
+
+// Coordenadas: usa lat/lng del JSON. Si faltan, busca la dirección una vez (OpenStreetMap) y la guarda en el navegador.
+async function getCoords(b){
+  if(typeof b.lat === 'number' && typeof b.lng === 'number') return [b.lat, b.lng];
+  const key = 'taw-geo:' + (b.id || b.name);
+  try{ const c = JSON.parse(localStorage.getItem(key)); if(c) return c; }catch(e){}
+  for(const q of [`${b.address}, ${b.colony}, ${BRANCH_CITY}`, `${b.address}, ${BRANCH_CITY}`]){
+    try{
+      const r = await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(q));
+      const j = await r.json();
+      if(j[0]){ const c = [+j[0].lat, +j[0].lon]; try{ localStorage.setItem(key, JSON.stringify(c)); }catch(e){} return c; }
+    }catch(e){}
+  }
+  console.warn('Sin coordenadas para', b.name, '→ agrega lat y lng en el JSON');
+  return null;
+}
+
+async function renderMap(list){
+  if(!window.L) return console.warn('Leaflet no cargó');
+  branchMap = L.map('branchMap', {scrollWheelZoom:false, dragging:!L.Browser.mobile}).setView([26.05,-98.30], 12);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(branchMap);
+  const coords = await Promise.all(list.map(getCoords)), pts = [];
+  list.forEach((b,i)=>{
+    if(!coords[i]) return;
+    const icon = L.divIcon({className:'pet-pin', html:`<img src="${esc(PIN_LOGO)}" alt="">`, iconSize:[48,58], iconAnchor:[24,58], popupAnchor:[0,-56]});
+    L.marker(coords[i], {icon, title:b.name, alt:b.name}).addTo(branchMap)
+      .bindPopup(branchCard(b), {className:'card-popup', maxWidth:300, minWidth:260, autoPanPadding:[20,20]});
+    pts.push(coords[i]);
+  });
+  if(pts.length > 1) branchMap.fitBounds(pts, {padding:[50,50]});
+  else if(pts.length) branchMap.setView(pts[0], 15);
+}
+
+async function initBranches(){
+  try{
+    const res = await fetch(BRANCHES_URL, {cache:'no-cache'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    BRANCH_CITY = data.city || BRANCH_CITY; PIN_LOGO = data.logo || PIN_LOGO;
+    const list = data.branches || [];
+    renderBranches(list);
+    renderMap(list);
+  }catch(err){
+    console.error('No se pudo cargar', BRANCHES_URL, err);
+    $('#branches').innerHTML = '<div class="col-12"><p class="alert alert-warning mb-0">No pudimos cargar las sucursales. Escríbenos por WhatsApp y te ayudamos.</p></div>';
+  }
 }
 
 function renderPromos(){
-  $('#promos').innerHTML = PROMOS.map(p=>`
-    <div class="col-md-4"><article class="promo">
-     <div class="p-img"><img src="${esc(p.img)}"/></div>
-     <div class="promo-body"><span class="badge-demo">PROMO DEL MES</span>
-     <h3>${esc(p.title)}</h3><p class="mb-0">${esc(p.text)}</p></div></article></div>`).join('');
+  if(!PROMOS.length) return;
+  const many = PROMOS.length > 1;
+  $('#promos').innerHTML = `<div id="promoCarousel" class="carousel slide promo-slider" data-bs-ride="carousel" aria-label="Promociones">
+    ${many ? `<div class="carousel-indicators">${PROMOS.map((p,i)=>`<button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="${i}"${i?'':' class="active" aria-current="true"'} aria-label="Promoción ${i+1}"></button>`).join('')}</div>` : ''}
+    <div class="carousel-inner">${PROMOS.map((p,i)=>`
+     <div class="carousel-item${i?'':' active'}" data-bs-interval="6000">
+      <button type="button" class="promo-slide" data-promo-action="${esc(p.action||'')}" data-promo-target="${esc(p.target||'')}" aria-label="${esc(p.alt)}">
+       ${mediaHTML('promo', p.alt, 'bi-tag-fill', 1200, 600, p.img)}
+      </button></div>`).join('')}</div>
+    ${many ? `<button class="carousel-control-prev" type="button" data-bs-target="#promoCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Anterior</span></button>
+    <button class="carousel-control-next" type="button" data-bs-target="#promoCarousel" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Siguiente</span></button>` : ''}
+  </div>`;
+}
+
+// Abre "Haz tu pedido" e intenta cambiar a la sección indicada (busca un botón/pestaña con ese nombre)
+function openPedido(section){
+  const el = $('#PedidoModal');
+  const go = () => {
+    if(!section) return;
+    const t = [...el.querySelectorAll('#taw-orders button, #taw-orders [role="tab"], #taw-orders a')]
+      .find(x => x.textContent.trim().toLowerCase().includes(section.toLowerCase()));
+    if(t) t.click(); else console.warn('No encontré la sección de pedidos:', section);
+  };
+  if(el.classList.contains('show')) return go();
+  el.addEventListener('shown.bs.modal', go, {once:true});
+  bootstrap.Modal.getOrCreateInstance(el).show();
 }
 
 /* ----- Modal de menú: un solo modal, contenido dinámico ----- */
@@ -475,7 +572,7 @@ function openMenu(key){
 /* ----- Inicio ----- */
 document.addEventListener('DOMContentLoaded', ()=>{
   renderMedia(); renderBenefits(); renderCategoryCards();
-  renderBranches(); renderPromos(); renderMenuCats();
+  initBranches(); renderPromos(); renderMenuCats();
   menuModal = new bootstrap.Modal($('#menuModal'));
  // Video del hero: forzar reproducción y avisar si el archivo falla
 const hv = $('.hero-video');
@@ -492,6 +589,12 @@ if (hv) {
 
   // Delegación: cualquier elemento con data-menu abre el mismo modal
   document.addEventListener('click', e=>{
+    const pr = e.target.closest('[data-promo-action]');
+    if(pr){
+      const pa = pr.dataset.promoAction, pt = pr.dataset.promoTarget;
+      if(pa === 'menu') openMenu(pt || 'pollos'); else if(pa === 'pedido') openPedido(pt);
+      return;
+    }
     const t = e.target.closest('[data-menu]');
     if(t){ openMenu(t.dataset.menu); return; }
     const c = e.target.closest('.menu-cat-btn');
