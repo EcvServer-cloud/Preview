@@ -1,0 +1,104 @@
+{
+  "business": {
+    "id": "pollo-estilo-texas-demo",
+    "name": "Pollo Estilo Texas",
+    "currency": "MXN",
+    "whatsapp": "528990000000",
+    "greeting": "Hola",
+    "taxRate": 16,
+    "branches": [
+      {
+        "id": "juarez",
+        "name": "Sucursal Juárez",
+        "whatsapp": "528990000001"
+      },
+      {
+        "id": "balcones",
+        "name": "Sucursal Balcones",
+        "whatsapp": "528990000002"
+      },
+      {
+        "id": "diamante",
+        "name": "Sucursal Diamante",
+        "whatsapp": "528990000003"
+      }
+    ]
+  },
+  "orderSettings": {
+    "pickup": true,
+    "delivery": true,
+    "deliveryFee": 30,
+    "minimumOrder": 0
+  },
+  "categories": [
+    {
+      "id": "paquetes",
+      "name": "Paquetes familiares",
+      "products": [
+        {
+          "id": "paquete-8",
+          "name": "Paquete de 8 piezas",
+          "description": "8 piezas de pollo con complementos",
+          "price": 249,
+          "image": "img/paquete-8.webp",
+          "available": true
+        },
+        {
+          "id": "paquete-12",
+          "name": "Paquete de 12 piezas",
+          "description": "12 piezas de pollo con complementos",
+          "price": 349,
+          "image": "img/paquete-12.webp",
+          "available": false
+        }
+      ]
+    },
+    {
+      "id": "individuales",
+      "name": "Individuales y complementos",
+      "products": [
+        {
+          "id": "combo-2-piezas",
+          "name": "Combo de 2 piezas",
+          "description": "2 piezas de pollo con papas",
+          "price": 89,
+          "available": true
+        },
+        {
+          "id": "alitas-bbq",
+          "name": "Alitas BBQ (6 piezas)",
+          "description": "Bañadas en salsa BBQ",
+          "price": 79,
+          "available": true
+        },
+        {
+          "id": "papas",
+          "name": "Orden de papas",
+          "description": "Papas a la francesa",
+          "price": 45,
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": "bebidas",
+      "name": "Bebidas",
+      "products": [
+        {
+          "id": "refresco",
+          "name": "Refresco",
+          "description": "Lata de 355 ml",
+          "price": 25,
+          "available": true
+        },
+        {
+          "id": "agua-sabor",
+          "name": "Agua de sabor",
+          "description": "Vaso de 500 ml",
+          "price": 30,
+          "available": true
+        }
+      ]
+    }
+  ]
+}

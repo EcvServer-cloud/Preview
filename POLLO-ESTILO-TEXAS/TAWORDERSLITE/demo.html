@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo — TAW Orders Lite V1</title>
+
+  <!-- 1. Estilos del módulo -->
+  <link rel="stylesheet" href="taw-orders-lite.css">
+
+  <!-- Estilos del "sitio anfitrión" (simulado). Incluyen reglas globales a propósito
+       para comprobar que el módulo no depende de ellas ni se rompe por ellas. -->
+  <style>
+    body { margin: 0; font-family: Georgia, serif; background: #fff8ee; color: #3b2a1a; }
+    .site-header { padding: 20px 24px; background: #2b1a0e; color: #ffe9c7; }
+    .site-header h1 { margin: 0; font-size: 1.4rem; letter-spacing: 0.04em; }
+    .site-main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+    .site-intro { max-width: 60ch; margin: 0 0 24px; }
+    .site-footer { padding: 24px; text-align: center; font-size: 0.9rem; color: #7a6450; }
+
+    /* Reglas globales "agresivas" del sitio anfitrión */
+    h2, h3, h4 { text-transform: uppercase; letter-spacing: 0.15em; font-family: Georgia, serif; }
+    button { border-radius: 0; background: hotpink; color: #fff; text-transform: uppercase; }
+    input[type="text"], input[type="tel"] { width: 40%; padding: 2px; border: 3px dotted green; }
+    ul { padding-left: 40px; list-style: square; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Sitio de ejemplo del restaurante</h1>
+  </header>
+
+  <main class="site-main">
+    <p class="site-intro">
+      Esta página simula un sitio web existente. El módulo se monta dentro del contenedor
+      <code>#taw-orders</code>; todo lo demás es contenido del sitio anfitrión.
+    </p>
+
+    <!-- 2. Contenedor. Su contenido sirve de respaldo si el módulo no carga. -->
+    <section aria-label="Haz tu pedido">
+      <div id="taw-orders">
+        <p>Para hacer tu pedido, escríbenos por WhatsApp o llámanos.</p>
+      </div>
+      <noscript><p>Activa JavaScript para hacer tu pedido en línea.</p></noscript>
+    </section>
+  </main>
+
+  <footer class="site-footer">Pie de página del sitio anfitrión</footer>
+
+  <!-- 3. Scripts del módulo (este orden; taw-orders-lite.js va al final) -->
+  <script src="taw-orders-cart.js"></script>
+  <script src="taw-orders-order.js"></script>
+  <script src="taw-orders-whatsapp.js"></script>
+  <script src="taw-orders-lite.js"></script>
+
+  <!-- 4. Inicialización -->
+  <script>
+    TAWOrders.init({
+      menuUrl: "menu.json",
+      target: "#taw-orders",
+      theme: {
+        panelColor: "#08172B"
+      }
+    }).catch(function () {
+      /* El módulo ya mostró el aviso en pantalla y registró el detalle en la consola. */
+    });
+  </script>
+</body>
+</html>

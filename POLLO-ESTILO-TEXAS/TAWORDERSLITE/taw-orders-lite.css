@@ -1,0 +1,814 @@
+/*!
+ * TAW Orders Lite V1 — taw-orders-lite.css
+ *
+ * Aislamiento: todo vive bajo .taw-orders y las clases propias usan el prefijo
+ * "tawo-". Los selectores de componentes llevan dos clases (.taw-orders .tawo-x)
+ * para no perder contra reglas globales del sitio anfitrión como
+ * "button {}", "input[type=text] {}" o "h3 {}".
+ *
+ * Personalización: cambia las variables --taw-* (aquí, en tu CSS o con la opción
+ * "theme" de TAWOrders.init).
+ * (c) TAW Sitios Web
+ */
+
+/* ----------------------------- Raíz y variables ----------------------------- */
+
+.taw-orders {
+  all: initial; /* corta la herencia del sitio anfitrión */
+
+  /* Paneles */
+  --taw-panel: #08172b;
+  --taw-on-panel: #ffffff;
+  /* Acción principal (precio, continuar, realizar pedido, modalidad elegida) */
+  --taw-primary: #14b02a;
+  --taw-on-primary: #ffffff;
+  /* Acento (botón Agregar, contador del pedido) */
+  --taw-accent: #1bbfc4;
+  --taw-on-accent: #ffffff;
+  /* Secundario (selectores de cantidad) */
+  --taw-secondary: #ee9f1f;
+  --taw-on-secondary: #ffffff;
+  --taw-danger: #c1403d;
+  /* Superficies y texto */
+  --taw-surface: #ffffff;
+  --taw-text: #10151f;
+  --taw-muted: #596077;
+  --taw-border: #d9deea;
+  --taw-highlight: #fff9cc;
+  --taw-mint: #c8fbcc;
+  --taw-field: #fffff4;
+  --taw-focus: #0b57d0;
+  --taw-radius: 16px;
+  --taw-font: "Open Sans", "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  display: block;
+  box-sizing: border-box;
+  max-width: 100%;
+  color: var(--taw-text);
+  font: 16px/1.5 var(--taw-font);
+  -webkit-text-size-adjust: 100%;
+}
+
+.taw-orders *,
+.taw-orders *::before,
+.taw-orders *::after {
+  box-sizing: border-box;
+}
+
+/* Reset de bajo peso (especificidad 0,1,0) para neutralizar estilos globales. */
+.taw-orders :where(h2, h3, h4, p, ul, li, dl, dt, dd, figure, fieldset, legend, label, article, aside, header, nav, section, a, button, input, select) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+  text-decoration: none;
+  list-style: none;
+}
+
+.taw-orders :where(img) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+
+.taw-orders [hidden] {
+  display: none !important;
+}
+
+/* Anillo de foco de dos tonos: se ve sobre fondos claros y oscuros. */
+.taw-orders :focus-visible {
+  outline: 3px solid var(--taw-focus);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px #ffffff;
+}
+
+.taw-orders .tawo-sr {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --------------------------------- Layout ---------------------------------- */
+
+.taw-orders .tawo-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.taw-orders .tawo-panel {
+  padding: 16px;
+  border-radius: calc(var(--taw-radius) + 4px);
+  background: var(--taw-panel);
+  color: var(--taw-on-panel);
+}
+
+@media (min-width: 900px) {
+  .taw-orders .tawo-layout {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 28px;
+  }
+
+  .taw-orders .tawo-side {
+    position: sticky;
+    top: 16px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+  }
+
+  .taw-orders .tawo-bar {
+    display: none !important;
+  }
+}
+
+/* --------------------------- Panel del menú: cabecera ----------------------- */
+
+.taw-orders .tawo-menu-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-bottom: 12px;
+}
+
+.taw-orders .tawo-title {
+  font-size: 2.1em;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.taw-orders .tawo-nav {
+  display: flex;
+  flex: 1 1 260px;
+  flex-wrap: wrap; /* las secciones se acomodan en varias filas, sin scroll oculto */
+  gap: 10px;
+  padding: 3px;
+}
+
+.taw-orders .tawo-chip {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1 1 auto;
+  min-height: 48px;
+  padding: 6px 20px;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  background: var(--taw-surface);
+  color: var(--taw-text);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.taw-orders .tawo-chip--on {
+  border-color: #ffffff;
+  background: var(--taw-panel);
+  color: var(--taw-on-panel);
+}
+
+/* -------------------------------- Productos -------------------------------- */
+
+.taw-orders .tawo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.taw-orders .tawo-product {
+  padding: 12px;
+  border: 3px solid transparent;
+  border-radius: calc(var(--taw-radius) + 2px);
+  background: var(--taw-surface);
+  color: var(--taw-text);
+}
+
+.taw-orders .tawo-product--in-cart {
+  border-color: var(--taw-accent);
+}
+
+.taw-orders .tawo-product-top {
+  display: flex;
+  gap: 14px;
+}
+
+.taw-orders .tawo-product-media {
+  flex: 0 0 auto;
+  width: clamp(92px, 24%, 168px);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--taw-radius);
+  background: rgba(127, 127, 127, 0.14);
+}
+
+.taw-orders .tawo-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.taw-orders .tawo-product-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.taw-orders .tawo-product-name {
+  font-size: 1.15em;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.taw-orders .tawo-product-desc {
+  color: var(--taw-text);
+  overflow-wrap: anywhere;
+}
+
+.taw-orders .tawo-in-cart {
+  margin-top: auto;
+  color: var(--taw-muted);
+  font-size: 0.85em;
+  font-weight: 700;
+}
+
+.taw-orders .tawo-product-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.taw-orders .tawo-price {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: var(--taw-primary);
+  color: var(--taw-on-primary);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.taw-orders .tawo-add {
+  flex: 1 1 140px;
+}
+
+.taw-orders .tawo-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: rgba(127, 127, 127, 0.18);
+  color: var(--taw-muted);
+  font-weight: 700;
+}
+
+.taw-orders .tawo-product--off .tawo-product-media {
+  opacity: 0.55;
+  filter: grayscale(1);
+}
+
+.taw-orders .tawo-product--off .tawo-product-name,
+.taw-orders .tawo-product--off .tawo-product-desc {
+  color: var(--taw-muted);
+}
+
+.taw-orders .tawo-product--off .tawo-price {
+  background: #8a90a0;
+}
+
+/* -------------------------------- Botones ---------------------------------- */
+
+.taw-orders .tawo-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--taw-surface);
+  color: var(--taw-text);
+  font: inherit;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.taw-orders .tawo-btn:hover {
+  filter: brightness(0.93);
+}
+
+.taw-orders .tawo-btn--primary {
+  background: var(--taw-primary);
+  color: var(--taw-on-primary);
+}
+
+.taw-orders .tawo-btn--accent {
+  background: var(--taw-accent);
+  color: var(--taw-on-accent);
+}
+
+.taw-orders .tawo-btn--block {
+  width: 100%;
+}
+
+.taw-orders .tawo-btn--lg {
+  min-height: 56px;
+  border-radius: var(--taw-radius);
+  font-size: 1.25em;
+}
+
+.taw-orders .tawo-btn--xl {
+  min-height: 62px;
+  padding: 10px 28px;
+  border-radius: var(--taw-radius);
+  font-size: 1.4em;
+}
+
+.taw-orders .tawo-btn:disabled,
+.taw-orders .tawo-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+}
+
+/* Selector de cantidad */
+.taw-orders .tawo-stepper {
+  display: inline-flex;
+  align-items: stretch;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--taw-secondary);
+}
+
+.taw-orders .tawo-step {
+  min-width: 42px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--taw-on-secondary);
+  font-size: 1.35em;
+  line-height: 1;
+}
+
+.taw-orders .tawo-qty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  margin: 5px 0;
+  border-radius: 10px;
+  background: var(--taw-surface);
+  color: var(--taw-secondary);
+  font-weight: 800;
+  font-size: 1.15em;
+}
+
+/* El texto naranja sobre blanco no cumple contraste: en lectura usa el color de texto. */
+.taw-orders .tawo-stepper--sm .tawo-qty {
+  color: var(--taw-text);
+}
+
+.taw-orders .tawo-stepper--sm {
+  border-radius: 9px;
+}
+
+.taw-orders .tawo-stepper--sm .tawo-step {
+  min-width: 34px;
+  min-height: 34px;
+  font-size: 1.15em;
+}
+
+.taw-orders .tawo-stepper--sm .tawo-qty {
+  min-width: 34px;
+  margin: 4px 0;
+  border-radius: 7px;
+  font-size: 0.95em;
+}
+
+/* --------------------------- Panel «Tu pedido» ----------------------------- */
+
+.taw-orders .tawo-cart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--taw-surface);
+  color: var(--taw-text);
+}
+
+.taw-orders .tawo-cart-title {
+  font-size: 1.8em;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.taw-orders .tawo-cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 12px;
+  background: var(--taw-accent);
+  color: var(--taw-on-accent);
+  font-size: 1.25em;
+  font-weight: 800;
+}
+
+.taw-orders .tawo-cart-body {
+  min-height: 110px;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 14px;
+  background: var(--taw-surface);
+  color: var(--taw-text);
+}
+
+.taw-orders .tawo-empty {
+  padding: 14px 8px;
+  color: var(--taw-muted);
+  text-align: center;
+}
+
+.taw-orders .tawo-line {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border: 2px solid var(--taw-secondary);
+  border-radius: 10px;
+  background: var(--taw-highlight);
+}
+
+.taw-orders .tawo-line + .tawo-line {
+  margin-top: 8px;
+}
+
+.taw-orders .tawo-line-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 10px;
+}
+
+.taw-orders .tawo-line-name {
+  flex: 1 1 110px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.taw-orders .tawo-line-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.taw-orders .tawo-line-sub {
+  color: var(--taw-muted);
+  font-size: 0.85em;
+}
+
+.taw-orders .tawo-remove {
+  min-width: 34px;
+  min-height: 34px;
+  padding: 0;
+  border-radius: 8px;
+  background: var(--taw-danger);
+  color: #ffffff;
+  font-size: 1.25em;
+  line-height: 1;
+}
+
+.taw-orders .tawo-totals {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--taw-mint);
+  color: var(--taw-text);
+}
+
+.taw-orders .tawo-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 3px 0;
+  font-size: 1.15em;
+}
+
+.taw-orders .tawo-row--total {
+  margin-top: 4px;
+  font-size: 1.3em;
+  font-weight: 800;
+}
+
+.taw-orders .tawo-hint {
+  margin-top: 10px;
+  color: var(--taw-on-panel);
+  font-size: 0.9em;
+  opacity: 0.88;
+}
+
+.taw-orders .tawo-side > .tawo-btn {
+  margin-top: 12px;
+}
+
+/* ------------------------- Panel «Tus datos» (formulario) ------------------- */
+
+.taw-orders .tawo-checkout {
+  max-width: 560px;
+  margin: 0 auto;
+  padding-bottom: 4px;
+}
+
+.taw-orders .tawo-back {
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 40px;
+  padding: 4px 6px;
+  background: none;
+  color: var(--taw-on-panel);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.taw-orders .tawo-checkout-title {
+  margin: 4px 0 16px;
+  font-size: 2.1em;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.taw-orders .tawo-form,
+.taw-orders .tawo-address,
+.taw-orders .tawo-fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.taw-orders .tawo-input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 54px;
+  padding: 10px 14px;
+  border: 3px solid #555b66;
+  border-radius: 14px;
+  background: var(--taw-field);
+  color: var(--taw-text);
+  font: inherit;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.taw-orders .tawo-input::placeholder {
+  color: #4b5160;
+  opacity: 1;
+}
+
+.taw-orders .tawo-select {
+  text-align-last: center;
+  cursor: pointer;
+}
+
+.taw-orders .tawo-input[aria-invalid="true"] {
+  border-color: #ff8a80;
+}
+
+.taw-orders .tawo-field-error {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 12px;
+  border-radius: 8px;
+  background: #fdecea;
+  color: #9c1c14;
+  font-size: 0.9em;
+  font-weight: 700;
+}
+
+.taw-orders .tawo-segments {
+  display: flex;
+  gap: 14px;
+}
+
+.taw-orders .tawo-seg {
+  position: relative;
+  display: flex;
+  flex: 1;
+  cursor: pointer;
+}
+
+.taw-orders .tawo-seg-input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.taw-orders .tawo-seg-text {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  background: var(--taw-surface);
+  color: var(--taw-text);
+  font-weight: 800;
+  text-align: center;
+}
+
+.taw-orders .tawo-seg-input:checked + .tawo-seg-text {
+  background: var(--taw-primary);
+  color: var(--taw-on-primary);
+}
+
+.taw-orders .tawo-seg-input:focus-visible + .tawo-seg-text {
+  outline: 3px solid var(--taw-focus);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px #ffffff;
+}
+
+.taw-orders .tawo-fixed {
+  font-weight: 800;
+  text-align: center;
+}
+
+.taw-orders .tawo-submit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.taw-orders .tawo-note {
+  max-width: 44ch;
+  font-size: 0.85em;
+  text-align: center;
+  opacity: 0.88;
+}
+
+.taw-orders .tawo-status {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--taw-surface);
+  color: var(--taw-text);
+  font-size: 0.95em;
+}
+
+.taw-orders .tawo-status--error {
+  background: #fdecea;
+  color: #9c1c14;
+  font-weight: 700;
+}
+
+.taw-orders .tawo-fallback-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: #0b45b8;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.taw-orders .tawo-brand {
+  margin-top: 14px;
+  font-size: 0.7em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: right;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* ------------------------------ Avisos y barra ----------------------------- */
+
+.taw-orders .tawo-notice {
+  padding: 16px;
+  border: 1px solid var(--taw-border);
+  border-radius: var(--taw-radius);
+  background: var(--taw-surface);
+  color: var(--taw-muted);
+}
+
+.taw-orders .tawo-notice--error {
+  border-color: var(--taw-danger);
+  background: #fdecea;
+  color: #9c1c14;
+}
+
+.taw-orders .tawo-notice-title {
+  margin-bottom: 4px;
+  font-weight: 800;
+}
+
+.taw-orders .tawo-notice-hint {
+  margin-top: 8px;
+  font-size: 0.85em;
+}
+
+.taw-orders .tawo-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  position: sticky;
+  bottom: 12px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 54px;
+  margin-top: 16px;
+  padding: 10px 20px calc(10px + env(safe-area-inset-bottom, 0px));
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: var(--taw-primary);
+  color: var(--taw-on-primary);
+  font: inherit;
+  font-weight: 800;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+/* --------------------------- Pantallas pequeñas ---------------------------- */
+
+@media (max-width: 520px) {
+  .taw-orders .tawo-panel {
+    padding: 12px;
+  }
+
+  .taw-orders .tawo-product-top {
+    gap: 10px;
+  }
+
+  .taw-orders .tawo-segments {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .taw-orders .tawo-title,
+  .taw-orders .tawo-checkout-title {
+    font-size: 1.8em;
+  }
+}
+
+/* Pantallas táctiles: objetivos de toque de 44 px en las líneas del pedido. */
+@media (pointer: coarse) {
+  .taw-orders .tawo-stepper--sm .tawo-step,
+  .taw-orders .tawo-remove {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .taw-orders .tawo-stepper--sm .tawo-qty {
+    min-width: 38px;
+  }
+}
+
+/* ------------------------------ Preferencias ------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .taw-orders *,
+  .taw-orders *::before,
+  .taw-orders *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
