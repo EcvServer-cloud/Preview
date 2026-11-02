@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chila &amp; Go — Pide en línea</title>
+  <link rel="stylesheet" href="taw-orders-lite.css">
+  <style>body { margin: 0; background: #f4f4f6; }</style>
+</head>
+<body>
+  <!-- El módulo dibuja aquí la portada, el menú, el pedido y el mapa. El contenido interno es el respaldo. -->
+  <div id="taw-orders">
+    <p style="padding:24px;font-family:sans-serif">Cargando…</p>
+  </div>
+  <noscript><p>Activa JavaScript para hacer tu pedido en línea.</p></noscript>
+
+  <script src="taw-orders-cart.js"></script>
+  <script src="taw-orders-order.js"></script>
+  <script src="taw-orders-whatsapp.js"></script>
+  <script src="taw-orders-map.js"></script>
+  <script src="taw-orders-lite.js"></script>
+  <script>
+    TAWOrders.init({ menuUrl: "menu-chila-and-go.json", target: "#taw-orders", theme: { primaryColor: "#c8201a" } }).catch(function () {});
+  </script>
+</body>
+</html>

@@ -1,0 +1,406 @@
+{
+    "business": {
+        "id": "chila-and-go",
+        "name": "Chila & Go",
+        "category": "Chilaquiles",
+        "logo": "img/uploads/4bc5b9c4358e2774.jpg",
+        "cover": "img/uploads/3bb2d658376cb4e3.jpg",
+        "currency": "MXN",
+        "whatsapp": "528999628839",
+        "greeting": "Hola",
+        "taxRate": 0,
+        "branches": []
+    },
+    "orderSettings": {
+        "pickup": true,
+        "delivery": true,
+        "dineIn": false,
+        "deliveryFee": 0,
+        "minimumOrder": 0
+    },
+    "promotions": [],
+    "categories": [
+        {
+            "id": "chilaquiles",
+            "name": "Chilaquiles",
+            "products": [
+                {
+                    "id": "chilaquiles-sencillos",
+                    "name": "Chilaquiles sencillos",
+                    "description": "Arma los tuyos: elige tu salsa, agrega tus complementos y súmale tu proteína favorita.",
+                    "price": 89,
+                    "image": "img/uploads/0e971b05285cc3b8.jpg",
+                    "groups": [
+                        {
+                            "id": "salsa",
+                            "name": "Salsa",
+                            "min": 1,
+                            "max": 1,
+                            "options": [
+                                {
+                                    "id": "verde",
+                                    "name": "La verde",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "roja",
+                                    "name": "La roja",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "sin-picante",
+                                    "name": "La que no pica (con tomate)",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "morita",
+                                    "name": "La morita",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "habanera",
+                                    "name": "Habanera",
+                                    "price": 0,
+                                    "default": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": "complementos",
+                            "name": "Complementos",
+                            "min": 0,
+                            "max": 0,
+                            "options": [
+                                {
+                                    "id": "queso-fresco",
+                                    "name": "Queso fresco",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "crema",
+                                    "name": "Crema",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "frijoles",
+                                    "name": "Frijoles",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "cilantro",
+                                    "name": "Cilantro",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "cebolla",
+                                    "name": "Cebolla",
+                                    "price": 0,
+                                    "default": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": "proteina",
+                            "name": "Proteína",
+                            "min": 0,
+                            "max": 0,
+                            "options": [
+                                {
+                                    "id": "2-huevos",
+                                    "name": "2 huevos",
+                                    "price": 45,
+                                    "default": false
+                                },
+                                {
+                                    "id": "pechuga",
+                                    "name": "Pechuga a la plancha",
+                                    "price": 45,
+                                    "default": false
+                                },
+                                {
+                                    "id": "cochinita",
+                                    "name": "Cochinita",
+                                    "price": 45,
+                                    "default": false
+                                },
+                                {
+                                    "id": "chicharron-prensado",
+                                    "name": "Chicharrón prensado",
+                                    "price": 45,
+                                    "default": false
+                                },
+                                {
+                                    "id": "chicharron-crujiente",
+                                    "name": "Chicharrón crujiente",
+                                    "price": 45,
+                                    "default": false
+                                },
+                                {
+                                    "id": "chilorio",
+                                    "name": "Chilorio de puerco",
+                                    "price": 45,
+                                    "default": false
+                                },
+                                {
+                                    "id": "arrachera",
+                                    "name": "Arrachera",
+                                    "price": 65,
+                                    "default": false
+                                },
+                                {
+                                    "id": "birria",
+                                    "name": "Birria de res",
+                                    "price": 65,
+                                    "default": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": "extras",
+                            "name": "Extras",
+                            "min": 0,
+                            "max": 0,
+                            "options": [
+                                {
+                                    "id": "gratinados",
+                                    "name": "Gratinados",
+                                    "price": 15,
+                                    "default": false
+                                },
+                                {
+                                    "id": "aguacate",
+                                    "name": "Aguacate",
+                                    "price": 15,
+                                    "default": false
+                                }
+                            ]
+                        }
+                    ],
+                    "available": true
+                },
+                {
+                    "id": "combo-de-10-piezas-de-pollo",
+                    "name": "Combo de 10 piezas de pollo",
+                    "description": "5 piernas, 5 muslos, 5 biscuits, 1 complemento familiar a elegir",
+                    "price": 250,
+                    "groups": [
+                        {
+                            "id": "tipo-de-pollo",
+                            "name": "Tipo de Pollo",
+                            "min": 1,
+                            "max": 1,
+                            "options": [
+                                {
+                                    "id": "normal",
+                                    "name": "Normal",
+                                    "price": 0,
+                                    "default": true
+                                },
+                                {
+                                    "id": "spicy",
+                                    "name": "Spicy",
+                                    "price": 0,
+                                    "default": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": "complementos",
+                            "name": "complementos",
+                            "min": 0,
+                            "max": 0,
+                            "options": [
+                                {
+                                    "id": "pure-de-papa",
+                                    "name": "pure de papa",
+                                    "price": 0,
+                                    "default": true
+                                },
+                                {
+                                    "id": "ensalada-de-repollo",
+                                    "name": "ensalada de repollo",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "biscuit",
+                                    "name": "biscuit",
+                                    "price": 15,
+                                    "default": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": "aderezos",
+                            "name": "aderezos",
+                            "min": 0,
+                            "max": 0,
+                            "options": [
+                                {
+                                    "id": "aderezo-ranch",
+                                    "name": "aderezo ranch",
+                                    "price": 15,
+                                    "default": true
+                                },
+                                {
+                                    "id": "aderezo-cheddar",
+                                    "name": "aderezo cheddar",
+                                    "price": 15,
+                                    "default": false
+                                },
+                                {
+                                    "id": "aderezo-jalapeno",
+                                    "name": "aderezo jalapeño",
+                                    "price": 0,
+                                    "default": false
+                                }
+                            ]
+                        }
+                    ],
+                    "available": true
+                }
+            ]
+        },
+        {
+            "id": "huevos",
+            "name": "Huevos al gusto",
+            "products": [
+                {
+                    "id": "huevos-al-gusto",
+                    "name": "Huevos al gusto",
+                    "description": "Incluyen frijolitos, chilaquiles con queso, crema, cebolla, cilantro y tortillas de maíz.",
+                    "price": 99,
+                    "groups": [
+                        {
+                            "id": "huevos-con",
+                            "name": "Huevos con",
+                            "min": 1,
+                            "max": 1,
+                            "options": [
+                                {
+                                    "id": "jamon",
+                                    "name": "Jamón",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "salchicha",
+                                    "name": "Salchicha",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "chorizo",
+                                    "name": "Chorizo",
+                                    "price": 0,
+                                    "default": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": "salsa",
+                            "name": "Salsa",
+                            "min": 1,
+                            "max": 1,
+                            "options": [
+                                {
+                                    "id": "verde",
+                                    "name": "La verde",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "roja",
+                                    "name": "La roja",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "sin-picante",
+                                    "name": "La que no pica (con tomate)",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "morita",
+                                    "name": "La morita",
+                                    "price": 0,
+                                    "default": false
+                                },
+                                {
+                                    "id": "habanera",
+                                    "name": "Habanera",
+                                    "price": 0,
+                                    "default": false
+                                }
+                            ]
+                        }
+                    ],
+                    "available": true
+                }
+            ]
+        },
+        {
+            "id": "postres",
+            "name": "Pan de elote",
+            "products": [
+                {
+                    "id": "pan-de-elote",
+                    "name": "Pan de elote",
+                    "description": "",
+                    "price": 59,
+                    "available": true
+                },
+                {
+                    "id": "pan-de-elote-preparado",
+                    "name": "Pan de elote preparado",
+                    "description": "Preparado con cajeta, nuez y nieve de vainilla.",
+                    "price": 89,
+                    "available": true
+                }
+            ]
+        },
+        {
+            "id": "bebidas",
+            "name": "Bebidas",
+            "products": [
+                {
+                    "id": "refrescos",
+                    "name": "Refrescos",
+                    "description": "",
+                    "price": 25,
+                    "available": true
+                },
+                {
+                    "id": "aguas-frescas",
+                    "name": "Aguas frescas",
+                    "description": "",
+                    "price": 35,
+                    "available": true
+                },
+                {
+                    "id": "licuados",
+                    "name": "Licuados",
+                    "description": "",
+                    "price": 55,
+                    "available": true
+                },
+                {
+                    "id": "cafe",
+                    "name": "Café",
+                    "description": "",
+                    "price": 35,
+                    "available": true
+                }
+            ]
+        }
+    ]
+}

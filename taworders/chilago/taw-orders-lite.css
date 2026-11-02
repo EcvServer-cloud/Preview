@@ -1,0 +1,364 @@
+/*!
+ * TAW Orders Lite — taw-orders-lite.css  (interfaz estilo app de delivery)
+ *
+ * Aislamiento: todo vive bajo .taw-orders, las clases propias llevan el prefijo "tawo-"
+ * y los selectores de componentes usan dos clases (.taw-orders .tawo-x) para no perder
+ * contra reglas globales del sitio ("button {}", "input[type=text] {}", "h2 {}").
+ * Personalización: variables --taw-* (aquí, en tu CSS o con la opción "theme" de init).
+ * (c) TAW Sitios Web
+ */
+
+/* ----------------------------- Raíz y variables ----------------------------- */
+
+.taw-orders {
+  all: initial; /* corta la herencia del sitio anfitrión */
+
+  --taw-primary: #d1411c;      /* color de marca: botones, precios, pestañas activas */
+  --taw-on-primary: #ffffff;
+  --taw-accent: #0e7f36;       /* confirmar (WhatsApp) y «Cómo llegar» */
+  --taw-on-accent: #ffffff;
+  --taw-bg: #f4f4f6;
+  --taw-surface: #ffffff;
+  --taw-text: #151922;
+  --taw-muted: #5c6373;
+  --taw-border: #e3e5ea;
+  --taw-danger: #b3261e;
+  --taw-radius: 16px;
+  --taw-sticky-top: 0px;       /* sube este valor si tu sitio tiene un encabezado fijo */
+  --taw-font: "Inter", "Open Sans", "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  display: block;
+  box-sizing: border-box;
+  min-height: 100%;
+  background: var(--taw-bg);
+  color: var(--taw-text);
+  font: 16px/1.45 var(--taw-font);
+  -webkit-text-size-adjust: 100%;
+}
+
+.taw-orders *, .taw-orders *::before, .taw-orders *::after { box-sizing: border-box; }
+
+/* Reset de bajo peso (especificidad 0,1,0) para neutralizar estilos globales. */
+.taw-orders :where(h1, h2, h3, h4, p, ul, li, dl, dt, dd, figure, fieldset, legend, label, article, aside, header, nav, section, a, button, input, select) {
+  margin: 0; padding: 0; border: 0; font: inherit; color: inherit;
+  text-transform: none; letter-spacing: normal; text-decoration: none; list-style: none;
+}
+.taw-orders :where(img) { display: block; max-width: 100%; height: auto; border: 0; }
+.taw-orders [hidden] { display: none !important; }
+
+/* Anillo de foco de dos tonos: visible sobre fondos claros y oscuros. */
+.taw-orders :focus-visible { outline: 3px solid #0b57d0; outline-offset: 3px; box-shadow: 0 0 0 3px #fff; }
+
+.taw-orders .tawo-sr {
+  position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.taw-orders .tawo-wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+
+/* --------------------------------- Portada --------------------------------- */
+
+.taw-orders .tawo-cover {
+  height: 150px; overflow: hidden;
+  background: linear-gradient(135deg, var(--taw-primary), #1b1f2a);
+}
+.taw-orders .tawo-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+.taw-orders .tawo-hero-body {
+  position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px 16px;
+  margin-top: -40px; padding-bottom: 14px;
+}
+.taw-orders .tawo-logo {
+  flex: 0 0 auto; width: 84px; height: 84px; border: 4px solid var(--taw-surface); border-radius: 22px;
+  background: var(--taw-surface); object-fit: cover; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+.taw-orders .tawo-logo--text {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--taw-primary); color: var(--taw-on-primary); font-size: 2em; font-weight: 800;
+}
+.taw-orders .tawo-hero-text { flex: 1 1 200px; min-width: 0; padding-top: 44px; }
+.taw-orders .tawo-kicker { color: var(--taw-primary); font-size: 0.8em; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.taw-orders .tawo-name { font-size: 1.75em; font-weight: 800; line-height: 1.15; }
+.taw-orders .tawo-meta { display: flex; flex-wrap: wrap; gap: 4px 20px; flex: 1 1 100%; color: var(--taw-muted); font-size: 0.9em; }
+.taw-orders .tawo-meta li { display: flex; flex-direction: column; }
+.taw-orders .tawo-meta strong { color: var(--taw-text); font-weight: 700; }
+
+/* --------------------------- Pestañas (solo móvil) -------------------------- */
+
+.taw-orders .tawo-tabs { display: flex; gap: 8px; padding-bottom: 12px; }
+.taw-orders .tawo-tab {
+  -webkit-appearance: none; appearance: none; flex: 1; min-height: 46px; border: 0; border-radius: 999px;
+  background: #dfe2e8; color: var(--taw-text); font: inherit; font-weight: 700; cursor: pointer;
+}
+.taw-orders .tawo-tab[aria-pressed="true"] { background: var(--taw-primary); color: var(--taw-on-primary); }
+
+/* --------------------------------- Layout ---------------------------------- */
+
+.taw-orders .tawo-layout { display: block; padding-bottom: 96px; }
+.taw-orders .tawo-col-side { display: block; }
+
+@media (max-width: 899px) {
+  .taw-orders[data-tab="menu"] .tawo-map-card { display: none; }
+  .taw-orders[data-tab="map"] .tawo-col-menu { display: none; }
+  .taw-orders[data-tab="map"] .tawo-map { height: 52vh; min-height: 300px; }
+}
+
+@media (min-width: 900px) {
+  .taw-orders .tawo-cover { height: 210px; }
+  .taw-orders .tawo-hero-body { margin-top: -48px; flex-wrap: nowrap; }
+  .taw-orders .tawo-logo { width: 104px; height: 104px; }
+  .taw-orders .tawo-hero-text { padding-top: 56px; }
+  .taw-orders .tawo-name { font-size: 2.2em; }
+  .taw-orders .tawo-meta { flex: 0 1 auto; flex-direction: column; gap: 6px; padding-top: 56px; text-align: right; }
+  .taw-orders .tawo-tabs, .taw-orders .tawo-bottom, .taw-orders .tawo-close { display: none !important; }
+  .taw-orders .tawo-layout { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 24px; align-items: start; padding-bottom: 40px; }
+  .taw-orders .tawo-col-side {
+    position: sticky; top: calc(var(--taw-sticky-top) + 16px); display: flex; flex-direction: column; gap: 16px;
+    max-height: calc(100vh - 32px - var(--taw-sticky-top)); overflow-y: auto;
+  }
+}
+
+/* ------------------------------- Promociones -------------------------------- */
+
+.taw-orders .tawo-promos { margin-bottom: 12px; }
+.taw-orders .tawo-promo-list { display: flex; gap: 12px; overflow-x: auto; padding: 2px 2px 8px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.taw-orders .tawo-promo {
+  position: relative; display: flex; flex: 0 0 min(320px, 84%); min-height: 118px; overflow: hidden; scroll-snap-align: start;
+  border-radius: calc(var(--taw-radius) + 2px); background: linear-gradient(135deg, var(--taw-primary), #8f2a10); color: var(--taw-on-primary);
+}
+.taw-orders .tawo-promo-body { display: flex; flex: 1; flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px; }
+.taw-orders .tawo-promo-title { font-size: 1.15em; font-weight: 800; line-height: 1.2; }
+.taw-orders .tawo-promo-text { font-size: 0.9em; opacity: 0.95; }
+.taw-orders .tawo-promo-img { flex: 0 0 38%; width: 38%; height: 100%; object-fit: cover; }
+
+/* ------------------------------- Categorías --------------------------------- */
+
+.taw-orders .tawo-cats {
+  position: sticky; top: var(--taw-sticky-top); z-index: 4; display: flex; gap: 8px; margin: 0 -16px 8px; padding: 8px 16px;
+  overflow-x: auto; background: var(--taw-bg); scrollbar-width: none;
+}
+.taw-orders .tawo-chip {
+  -webkit-appearance: none; appearance: none; flex: 0 0 auto; min-height: 40px; padding: 6px 16px; border: 1px solid var(--taw-border);
+  border-radius: 999px; background: var(--taw-surface); color: var(--taw-text); font: inherit; font-weight: 700; white-space: nowrap; cursor: pointer;
+}
+.taw-orders .tawo-chip--on { border-color: var(--taw-primary); background: var(--taw-primary); color: var(--taw-on-primary); }
+
+/* --------------------------------- Platillos -------------------------------- */
+
+.taw-orders .tawo-category { scroll-margin-top: calc(var(--taw-sticky-top) + 64px); }
+.taw-orders .tawo-category + .tawo-category { margin-top: 20px; }
+.taw-orders .tawo-category-title { margin: 6px 0 10px; font-size: 1.25em; font-weight: 800; }
+.taw-orders .tawo-items { display: flex; flex-direction: column; gap: 10px; }
+
+.taw-orders .tawo-item {
+  display: flex; gap: 12px; padding: 12px; border: 2px solid transparent; border-radius: var(--taw-radius);
+  background: var(--taw-surface); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+.taw-orders .tawo-item--in-cart { border-color: var(--taw-primary); }
+.taw-orders .tawo-item-text { display: flex; flex: 1; flex-direction: column; gap: 4px; min-width: 0; }
+.taw-orders .tawo-item-name { font-weight: 800; line-height: 1.3; }
+.taw-orders .tawo-item-desc {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: var(--taw-muted); font-size: 0.9em;
+}
+.taw-orders .tawo-price { margin-top: auto; font-weight: 800; }
+
+.taw-orders .tawo-item-side { position: relative; flex: 0 0 auto; width: 104px; min-height: 44px; }
+.taw-orders .tawo-item-side--bare { display: flex; align-items: center; justify-content: flex-end; width: auto; }
+.taw-orders .tawo-item-media { width: 104px; height: 104px; overflow: hidden; border-radius: 14px; background: rgba(127, 127, 127, 0.14); }
+.taw-orders .tawo-item-media img { width: 100%; height: 100%; object-fit: cover; }
+.taw-orders .tawo-item--off .tawo-item-media { opacity: 0.5; filter: grayscale(1); }
+.taw-orders .tawo-item--off .tawo-item-name, .taw-orders .tawo-item--off .tawo-price { color: var(--taw-muted); }
+
+.taw-orders .tawo-ctl { position: absolute; right: 6px; bottom: 6px; display: flex; }
+.taw-orders .tawo-item-side--bare .tawo-ctl { position: static; }
+.taw-orders .tawo-item-side > .tawo-badge { position: absolute; right: 6px; bottom: 6px; }
+.taw-orders .tawo-item-side--bare > .tawo-badge { position: static; }
+.taw-orders .tawo-badge { padding: 5px 12px; border-radius: 999px; background: #e9eaee; color: var(--taw-muted); font-size: 0.8em; font-weight: 800; }
+
+.taw-orders .tawo-add {
+  -webkit-appearance: none; appearance: none; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0;
+  border: 0; border-radius: 50%; background: var(--taw-surface); color: var(--taw-primary); font: inherit; font-size: 1.7em; font-weight: 700; line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28); cursor: pointer;
+}
+.taw-orders .tawo-stepper {
+  display: inline-flex; align-items: center; border-radius: 999px; background: var(--taw-surface); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+}
+.taw-orders .tawo-step {
+  -webkit-appearance: none; appearance: none; width: 40px; height: 44px; padding: 0; border: 0; background: none; color: var(--taw-primary);
+  font: inherit; font-size: 1.4em; font-weight: 700; line-height: 1; cursor: pointer;
+}
+.taw-orders .tawo-qty { min-width: 24px; text-align: center; font-weight: 800; }
+.taw-orders .tawo-step[aria-disabled="true"] { opacity: 0.35; cursor: not-allowed; }
+
+/* -------------------------------- Botones ---------------------------------- */
+
+.taw-orders .tawo-btn {
+  -webkit-appearance: none; appearance: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px;
+  padding: 8px 18px; border: 0; border-radius: 999px; background: var(--taw-surface); color: var(--taw-text); font: inherit; font-weight: 800;
+  line-height: 1.2; text-align: center; cursor: pointer; transition: filter 0.15s ease;
+}
+.taw-orders .tawo-btn:hover { filter: brightness(0.94); }
+.taw-orders .tawo-btn--primary { background: var(--taw-primary); color: var(--taw-on-primary); }
+.taw-orders .tawo-btn--accent { background: var(--taw-accent); color: var(--taw-on-accent); }
+.taw-orders .tawo-btn--light { background: #ffffff; color: #151922; }
+.taw-orders .tawo-btn--sm { min-height: 38px; padding: 6px 16px; font-size: 0.9em; }
+.taw-orders .tawo-btn--block { width: 100%; }
+.taw-orders .tawo-btn--lg { min-height: 54px; font-size: 1.1em; }
+.taw-orders .tawo-btn:disabled, .taw-orders .tawo-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; filter: none; }
+
+/* ----------------------------- Panel «Tu pedido» ---------------------------- */
+
+.taw-orders .tawo-orders { padding: 16px; border-radius: calc(var(--taw-radius) + 4px); background: var(--taw-surface); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); }
+.taw-orders .tawo-panel-head { display: flex; align-items: center; gap: 10px; }
+.taw-orders .tawo-panel-title { flex: 1; font-size: 1.4em; font-weight: 800; }
+.taw-orders .tawo-count {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 34px; padding: 0 10px; border-radius: 999px;
+  background: var(--taw-primary); color: var(--taw-on-primary); font-weight: 800;
+}
+.taw-orders .tawo-close {
+  -webkit-appearance: none; appearance: none; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%;
+  background: #eceef2; color: var(--taw-text); font: inherit; font-size: 1.5em; line-height: 1; cursor: pointer;
+}
+.taw-orders .tawo-empty { margin-top: 12px; padding: 18px 8px; color: var(--taw-muted); text-align: center; }
+.taw-orders .tawo-lines { margin-top: 8px; }
+.taw-orders .tawo-line { display: flex; flex-direction: column; gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--taw-border); }
+.taw-orders .tawo-line-main { display: flex; justify-content: space-between; gap: 12px; }
+.taw-orders .tawo-line-name { font-weight: 700; }
+.taw-orders .tawo-line-total { font-weight: 800; white-space: nowrap; }
+.taw-orders .tawo-line-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.taw-orders .tawo-line .tawo-stepper { box-shadow: none; border: 1px solid var(--taw-border); }
+.taw-orders .tawo-remove {
+  -webkit-appearance: none; appearance: none; min-height: 40px; padding: 4px 8px; border: 0; background: none; color: var(--taw-danger);
+  font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer;
+}
+.taw-orders .tawo-note-input, .taw-orders .tawo-input {
+  -webkit-appearance: none; appearance: none; display: block; width: 100%; padding: 10px 12px; border: 1px solid var(--taw-border);
+  border-radius: 12px; background: #fafafb; color: var(--taw-text); font: inherit; line-height: 1.3;
+}
+.taw-orders .tawo-note-input { min-height: 40px; font-size: 0.92em; }
+.taw-orders .tawo-note-input::placeholder, .taw-orders .tawo-input::placeholder { color: #7b8294; opacity: 1; }
+
+.taw-orders .tawo-totals { margin-top: 12px; padding: 12px 14px; border-radius: 14px; background: #f3f4f7; }
+.taw-orders .tawo-row { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; }
+.taw-orders .tawo-row--total { margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--taw-border); font-size: 1.2em; font-weight: 800; }
+.taw-orders .tawo-hint { margin-top: 10px; color: var(--taw-muted); font-size: 0.9em; }
+.taw-orders .tawo-orders > .tawo-btn { margin-top: 12px; }
+
+/* ------------------------------ Formulario ---------------------------------- */
+
+.taw-orders .tawo-checkout { margin-top: 14px; padding-top: 12px; border-top: 2px solid var(--taw-border); }
+.taw-orders .tawo-back {
+  -webkit-appearance: none; appearance: none; min-height: 40px; padding: 4px 4px; border: 0; background: none; color: var(--taw-primary);
+  font: inherit; font-weight: 700; cursor: pointer;
+}
+.taw-orders .tawo-checkout-title { margin: 2px 0 12px; font-size: 1.3em; font-weight: 800; }
+.taw-orders .tawo-form, .taw-orders .tawo-stack, .taw-orders .tawo-fieldset { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.taw-orders .tawo-label { display: block; margin-bottom: 4px; font-size: 0.85em; font-weight: 700; }
+.taw-orders .tawo-input { min-height: 48px; background: #fff; }
+.taw-orders .tawo-select { cursor: pointer; }
+.taw-orders .tawo-input[aria-invalid="true"] { border-color: var(--taw-danger); box-shadow: inset 0 0 0 1px var(--taw-danger); }
+.taw-orders .tawo-field-error {
+  display: inline-block; margin-top: 6px; padding: 4px 10px; border-radius: 8px; background: #fdecea; color: #9c1c14; font-size: 0.875em; font-weight: 700;
+}
+.taw-orders .tawo-segments { display: flex; gap: 8px; }
+.taw-orders .tawo-seg { position: relative; display: flex; flex: 1; cursor: pointer; }
+.taw-orders .tawo-seg-input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.taw-orders .tawo-seg-text {
+  display: flex; flex: 1; align-items: center; justify-content: center; min-height: 46px; padding: 6px 8px; border: 1px solid var(--taw-border);
+  border-radius: 999px; background: #fff; font-size: 0.95em; font-weight: 700; text-align: center;
+}
+.taw-orders .tawo-seg-input:checked + .tawo-seg-text { border-color: var(--taw-primary); background: var(--taw-primary); color: var(--taw-on-primary); }
+.taw-orders .tawo-seg-input:focus-visible + .tawo-seg-text { outline: 3px solid #0b57d0; outline-offset: 3px; box-shadow: 0 0 0 3px #fff; }
+.taw-orders .tawo-fixed { font-weight: 700; }
+.taw-orders .tawo-submit { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 2px; }
+.taw-orders .tawo-note { font-size: 0.82em; color: var(--taw-muted); text-align: center; }
+.taw-orders .tawo-status { padding: 12px 14px; border-radius: 12px; background: #eaf6ee; font-size: 0.92em; }
+.taw-orders .tawo-status--error { background: #fdecea; color: #9c1c14; font-weight: 700; }
+.taw-orders .tawo-fallback-link { display: inline-block; margin-top: 6px; color: #0b45b8; font-weight: 700; text-decoration: underline; }
+.taw-orders .tawo-brand { margin-top: 12px; color: var(--taw-muted); font-size: 0.68em; font-weight: 700; letter-spacing: 0.08em; text-align: right; text-transform: uppercase; }
+
+/* ---------------------------------- Mapa ------------------------------------ */
+
+.taw-orders .tawo-map-card { padding: 16px; border-radius: calc(var(--taw-radius) + 4px); background: var(--taw-surface); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); }
+.taw-orders .tawo-card-title { margin-bottom: 10px; font-size: 1.25em; font-weight: 800; }
+.taw-orders .tawo-map { position: relative; height: 240px; overflow: hidden; border-radius: 14px; background: #e6e3da; }
+.taw-orders .tawo-map-tiles, .taw-orders .tawo-map-pins { position: absolute; inset: 0; }
+.taw-orders .tawo-tile { position: absolute; width: 256px; height: 256px; max-width: none; user-select: none; }
+.taw-orders .tawo-pin { position: absolute; width: 0; height: 0; }
+.taw-orders .tawo-pin-face {
+  position: absolute; left: -23px; top: -60px; display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; border: 3px solid var(--taw-primary);
+  border-radius: 50%; background: #fff; object-fit: cover; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+.taw-orders .tawo-pin-face--text { background: var(--taw-primary); color: var(--taw-on-primary); font-weight: 800; }
+.taw-orders .tawo-pin::after {
+  content: ""; position: absolute; left: -9px; top: -15px; border: 9px solid transparent; border-top: 12px solid var(--taw-primary); border-bottom: 0;
+}
+.taw-orders .tawo-map-attr { position: absolute; right: 0; bottom: 0; padding: 1px 6px; background: rgba(255, 255, 255, 0.85); color: #333; font-size: 0.68em; text-decoration: underline; }
+.taw-orders .tawo-places { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.taw-orders .tawo-place { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.taw-orders .tawo-place .tawo-btn { flex: 0 0 auto; white-space: nowrap; }
+.taw-orders .tawo-place-text { display: flex; flex-direction: column; min-width: 0; font-size: 0.92em; }
+.taw-orders .tawo-place-text span { color: var(--taw-muted); }
+
+/* ------------------------ Barra inferior y hoja (móvil) ---------------------- */
+
+.taw-orders .tawo-bottom { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 900; display: flex; }
+.taw-orders .tawo-pill {
+  -webkit-appearance: none; appearance: none; display: flex; flex: 1; align-items: center; justify-content: center; min-height: 54px; padding: 10px 20px;
+  border: 0; border-radius: 999px; font: inherit; font-weight: 800; text-align: center; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); cursor: pointer;
+}
+.taw-orders .tawo-pill--primary { background: var(--taw-primary); color: var(--taw-on-primary); }
+.taw-orders .tawo-pill--accent { background: var(--taw-accent); color: var(--taw-on-accent); }
+.taw-orders .tawo-backdrop { position: fixed; inset: 0; z-index: 998; background: rgba(0, 0, 0, 0.45); }
+
+@media (max-width: 899px) {
+  .taw-orders .tawo-orders {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 999; max-height: 90vh; overflow-y: auto; visibility: hidden;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); border-radius: 24px 24px 0 0; transform: translateY(100%);
+    transition: transform 0.25s ease, visibility 0.25s;
+  }
+  .taw-orders.tawo-sheet-open .tawo-orders { visibility: visible; transform: none; }
+}
+@media (min-width: 900px) { .taw-orders .tawo-backdrop { display: none !important; } }
+
+/* ------------------------- Platillos personalizables ------------------------ */
+
+.taw-orders .tawo-custom { display: inline-block; align-self: flex-start; padding: 2px 10px; border-radius: 999px; background: #eef1f6; color: var(--taw-muted); font-size: 0.75em; font-weight: 800; }
+.taw-orders .tawo-incart { color: var(--taw-primary); font-size: 0.85em; font-weight: 800; }
+.taw-orders .tawo-line-ings { color: var(--taw-muted); font-size: 0.85em; }
+.taw-orders .tawo-dialog {
+  width: min(520px, calc(100% - 24px)); max-height: calc(100% - 24px); padding: 0; border: 0; border-radius: 22px;
+  background: var(--taw-surface); color: var(--taw-text); font: inherit; overflow-y: auto;
+}
+.taw-orders .tawo-dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
+.taw-orders .tawo-dialog-box { display: flex; flex-direction: column; gap: 12px; padding: 18px; }
+.taw-orders .tawo-dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.taw-orders .tawo-dialog-title { font-size: 1.3em; font-weight: 800; line-height: 1.2; }
+.taw-orders .tawo-dialog-close {
+  -webkit-appearance: none; appearance: none; width: 40px; height: 40px; flex: none; padding: 0; border: 0; border-radius: 50%;
+  background: #eceef2; color: var(--taw-text); font: inherit; font-size: 1.5em; line-height: 1; cursor: pointer;
+}
+.taw-orders .tawo-dialog-sub { font-size: 1.02em; font-weight: 800; }
+.taw-orders .tawo-group { display: flex; flex-direction: column; gap: 8px; padding-top: 6px; }
+.taw-orders .tawo-group-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; }
+.taw-orders .tawo-group-hint { color: var(--taw-muted); font-size: 0.82em; font-weight: 700; }
+.taw-orders .tawo-ing input:disabled + .tawo-ing-name { opacity: 0.45; }
+.taw-orders .tawo-ings { display: flex; flex-direction: column; gap: 6px; }
+.taw-orders .tawo-ing { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 8px 12px; border: 1px solid var(--taw-border); border-radius: 12px; cursor: pointer; }
+.taw-orders .tawo-ing input { flex: none; width: 22px; height: 22px; margin: 0; accent-color: var(--taw-primary); }
+.taw-orders .tawo-ing:has(input:checked) { border-color: var(--taw-primary); background: #fff6f3; }
+.taw-orders .tawo-ing-name { flex: 1; font-weight: 600; }
+.taw-orders .tawo-ing-price { color: var(--taw-muted); font-size: 0.9em; font-weight: 700; white-space: nowrap; }
+.taw-orders .tawo-dialog-foot { position: sticky; bottom: 0; display: flex; align-items: center; gap: 12px; padding-top: 8px; background: var(--taw-surface); }
+.taw-orders .tawo-dialog-foot .tawo-stepper { border: 1px solid var(--taw-border); box-shadow: none; }
+.taw-orders .tawo-grow { flex: 1; }
+
+/* --------------------------------- Avisos ----------------------------------- */
+
+.taw-orders .tawo-notice { margin: 16px; padding: 16px; border: 1px solid var(--taw-border); border-radius: var(--taw-radius); background: var(--taw-surface); color: var(--taw-muted); }
+.taw-orders .tawo-notice--error { border-color: var(--taw-danger); background: #fdecea; color: #9c1c14; }
+.taw-orders .tawo-notice-title { margin-bottom: 4px; font-weight: 800; }
+.taw-orders .tawo-notice-hint { margin-top: 8px; font-size: 0.85em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .taw-orders *, .taw-orders *::before, .taw-orders *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
